@@ -31,9 +31,11 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# System files
+# System & knowledge graphs
 .DS_Store
 Thumbs.db
+/graphify-out/
+*.json.bak
 
 # TypeScript
 *.tsbuildinfo
