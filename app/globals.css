@@ -3,33 +3,53 @@
 @tailwind utilities;
 
 :root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
-}
-
-.dark {
-  --background: #090d16;
-  --foreground: #f1f5f9;
+  --sap-primary: #0057d2;
+  --sap-primary-deep: #0040b0;
+  --sap-navy: #022879;
+  --sap-sky: #6bc0ff;
+  --sap-canvas: #ffffff;
+  --sap-chrome: #f5f6f7;
+  --sap-band: #eaecee;
+  --sap-band-blue: #ebf8ff;
+  --sap-band-lavender: #f7f4ff;
+  --sap-ink: #000000;
+  --sap-ink-lead: #3c3c3c;
+  --sap-ink-body: #223548;
+  --sap-ink-list: #354a5f;
+  --sap-ink-meta: #475e75;
+  --sap-ink-nav: #545454;
+  --sap-hairline: #d5dce2;
 }
 
 body {
-  color: var(--foreground);
-  background-color: var(--background);
+  color: var(--sap-ink-body);
+  background-color: var(--sap-canvas);
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
 }
 
-/* Custom scrollbar */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: var(--sap-chrome);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.3);
-  border-radius: 9999px;
+  background: #c1cbd4;
+  border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(148, 163, 184, 0.5);
+  background: var(--sap-ink-meta);
 }

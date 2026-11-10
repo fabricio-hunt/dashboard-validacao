@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'MedStock Analytics | Inteligência e Gestão de Estoque Hospitalar',
+  title: 'MedStock BI | Gestão Executiva de Estoque, Vendas e Capital',
   description:
-    'Dashboard analítico executivo para gestão de materiais médico-hospitalares, controle de rupturas, curva ABC, validades ANVISA e reposição de estoque.',
+    'Dashboard analítico corporativo integrado ao SmartPOS para gestão de estoque médico-hospitalar, rentabilidade, ruptura, excesso e validades ANVISA.',
 }
 
 export default function RootLayout({
@@ -13,7 +13,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="pt-BR" className="dark">
+    <html lang="pt-BR">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
@@ -22,11 +22,11 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
           rel="stylesheet"
         />
       </head>
-      <body className="font-['Plus_Jakarta_Sans',sans-serif] antialiased selection:bg-teal-500/20 selection:text-teal-300 min-h-screen">
+      <body className="font-['Inter',system-ui,-apple-system,sans-serif] bg-sap-canvas text-sap-ink-body antialiased selection:bg-sap-band-blue selection:text-sap-primary-deep min-h-screen">
         {children}
       </body>
     </html>

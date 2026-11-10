@@ -8,8 +8,6 @@ import {
   Calendar,
   ShieldAlert,
   Search,
-  Filter,
-  Package,
   Layers,
 } from 'lucide-react'
 import {
@@ -30,15 +28,11 @@ interface ExpirationsViewProps {
   onSelectProduct: (p: ProductItem) => void
 }
 
-export function ExpirationsView({
-  products,
-  onSelectProduct,
-}: ExpirationsViewProps) {
+export function ExpirationsView({ products, onSelectProduct }: ExpirationsViewProps) {
   const [filterStatus, setFilterStatus] = useState<string>('RISCO')
   const [searchQuery, setSearchQuery] = useState<string>('')
 
-  // Agrupamento por ano de validade
-  const yearCounts: { [year: string]: { year: string; count: number; valor: number } } = {}
+  const yearCounts: Record<string, { year: string; count: number; valor: number }> = {}
   products.forEach((p) => {
     if (p.validade_iso) {
       const year = p.validade_iso.slice(0, 4)
@@ -50,13 +44,9 @@ export function ExpirationsView({
     }
   })
 
-  const yearChartData = Object.values(yearCounts).sort((a, b) =>
-    a.year.localeCompare(b.year)
-  )
+  const yearChartData = Object.values(yearCounts).sort((a, b) => a.year.localeCompare(b.year))
 
-  // Filtragem dos produtos
   const filteredProducts = products.filter((p) => {
-    // Busca
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase().trim()
       const match =
@@ -67,7 +57,6 @@ export function ExpirationsView({
       if (!match) return false
     }
 
-    // Status
     if (filterStatus === 'RISCO') {
       return (
         p.status_validade === 'VENCIDO' ||
@@ -75,15 +64,12 @@ export function ExpirationsView({
         p.status_validade === 'ATENCAO_180D'
       )
     }
-    if (filterStatus === 'VENCIDO') return p.status_validade === 'VENCIDO'
-    if (filterStatus === 'CRITICO_90D') return p.status_validade === 'CRITICO_90D'
-    if (filterStatus === 'ATENCAO_180D') return p.status_validade === 'ATENCAO_180D'
     if (filterStatus === 'COM_DATA') return p.validade_iso !== null
     return true
   })
 
-  // KPIs
   const totalComData = products.filter((p) => p.validade_iso !== null).length
+  const pctComData = products.length > 0 ? ((totalComData / products.length) * 100).toFixed(1) : '0.0'
   const totalVencidos = products.filter((p) => p.status_validade === 'VENCIDO').length
   const total90d = products.filter((p) => p.status_validade === 'CRITICO_90D').length
   const total180d = products.filter((p) => p.status_validade === 'ATENCAO_180D').length
@@ -99,127 +85,97 @@ export function ExpirationsView({
 
   return (
     <div className="space-y-6">
-      {/* Banner de Risco Sanitário e Alerta ANVISA */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {/* Card 1: Capital em Risco */}
-        <div className="rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 p-5 shadow-sm">
-          <div className="flex items-center justify-between text-rose-600 dark:text-rose-400">
-            <span className="text-xs font-semibold uppercase tracking-wider text-rose-700 dark:text-rose-300">
-              Valor em Risco Sanitário
-            </span>
-            <span className="p-2.5 rounded-xl bg-rose-500/10 text-rose-600 dark:text-rose-400">
-              <ShieldAlert className="h-5 w-5" />
-            </span>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+        <div className="rounded-sap bg-sap-canvas border border-sap-hairline border-t-2 border-t-rose-700 p-4">
+          <div className="flex items-center justify-between text-rose-700">
+            <span className="text-xs font-medium uppercase">Valor em Risco Sanitário</span>
+            <ShieldAlert className="h-4 w-4" />
           </div>
-          <div className="mt-2 text-2xl sm:text-3xl font-extrabold text-rose-600 dark:text-rose-400">
+          <div className="mt-2 text-2xl font-bold text-rose-700 tabular-nums">
             {formatCurrency(capitalRisco)}
           </div>
-          <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-            Mercadoria com prazo crítico ou vencida sujeita a descarte compulsório.
+          <p className="mt-1 text-xs text-sap-ink-meta">
+            Mercadoria vencida ou com prazo crítico.
           </p>
         </div>
 
-        {/* Card 2: Vencidos / Imediatos */}
-        <div className="rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 p-5 shadow-sm">
-          <div className="flex items-center justify-between text-amber-600 dark:text-amber-400">
-            <span className="text-xs font-semibold uppercase tracking-wider text-amber-700 dark:text-amber-300">
-              Vencendo em até 90 dias
-            </span>
-            <span className="p-2.5 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400">
-              <Clock className="h-5 w-5" />
-            </span>
+        <div className="rounded-sap bg-sap-canvas border border-sap-hairline border-t-2 border-t-amber-600 p-4">
+          <div className="flex items-center justify-between text-amber-700">
+            <span className="text-xs font-medium uppercase">Vencendo em até 90 dias</span>
+            <Clock className="h-4 w-4" />
           </div>
-          <div className="mt-2 text-2xl sm:text-3xl font-extrabold text-amber-600 dark:text-amber-400">
-            {total90d} <span className="text-sm font-medium">SKUs</span>
+          <div className="mt-2 text-2xl font-bold text-amber-700 tabular-nums">
+            {total90d} <span className="text-sm font-normal text-sap-ink-meta">SKUs</span>
           </div>
-          <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-            Campanha prioritária de giro rápido ou troca junto ao fornecedor.
+          <p className="mt-1 text-xs text-sap-ink-meta">
+            Prioridade para giro rápido ou negociação de troca.
           </p>
         </div>
 
-        {/* Card 3: Janela de 180 dias */}
-        <div className="rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 p-5 shadow-sm">
-          <div className="flex items-center justify-between text-blue-600 dark:text-blue-400">
-            <span className="text-xs font-semibold uppercase tracking-wider text-blue-700 dark:text-blue-300">
-              Janela de 91 a 180 dias
-            </span>
-            <span className="p-2.5 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400">
-              <Calendar className="h-5 w-5" />
-            </span>
+        <div className="rounded-sap bg-sap-canvas border border-sap-hairline border-t-2 border-t-sap-primary p-4">
+          <div className="flex items-center justify-between text-sap-primary">
+            <span className="text-xs font-medium uppercase">Janela de 91 a 180 dias</span>
+            <Calendar className="h-4 w-4" />
           </div>
-          <div className="mt-2 text-2xl sm:text-3xl font-extrabold text-blue-600 dark:text-blue-400">
-            {total180d} <span className="text-sm font-medium">SKUs</span>
+          <div className="mt-2 text-2xl font-bold text-sap-primary tabular-nums">
+            {total180d} <span className="text-sm font-normal text-sap-ink-meta">SKUs</span>
           </div>
-          <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-            Atenção para não estocar novos lotes antes de desovar o lote atual.
+          <p className="mt-1 text-xs text-sap-ink-meta">
+            Evitar recompra antes de escoar lote atual.
           </p>
         </div>
 
-        {/* Card 4: Cobertura de Rastreabilidade */}
-        <div className="rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 p-5 shadow-sm">
-          <div className="flex items-center justify-between text-teal-600 dark:text-teal-400">
-            <span className="text-xs font-semibold uppercase tracking-wider text-teal-700 dark:text-teal-300">
-              Cobertura de Rastreabilidade
-            </span>
-            <span className="p-2.5 rounded-xl bg-teal-500/10 text-teal-600 dark:text-teal-400">
-              <Layers className="h-5 w-5" />
-            </span>
+        <div className="rounded-sap bg-sap-canvas border border-sap-hairline border-t-2 border-t-sap-navy p-4">
+          <div className="flex items-center justify-between text-sap-primary-deep">
+            <span className="text-xs font-medium uppercase">Rastreabilidade de Lote</span>
+            <Layers className="h-4 w-4" />
           </div>
-          <div className="mt-2 text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">
+          <div className="mt-2 text-2xl font-bold text-sap-ink tabular-nums">
             {totalComData}{' '}
-            <span className="text-sm font-medium text-slate-500">
-              / {products.length} SKUs
-            </span>
+            <span className="text-sm font-normal text-sap-ink-meta">/ {products.length} SKUs</span>
           </div>
-          <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-            72,5% do catálogo possui Lote e Validade estritos na descrição.
+          <p className="mt-1 text-xs text-sap-ink-meta">
+            {pctComData.replace('.', ',')}% do catálogo possui validade identificada.
           </p>
         </div>
       </div>
 
-      {/* Gráfico de Validades por Ano */}
-      <div className="rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 p-5 shadow-sm">
-        <div className="pb-3 border-b border-slate-100 dark:border-slate-800">
-          <h3 className="font-bold text-base text-slate-900 dark:text-white">
-            Cronograma Temporal de Vencimentos de Lotes
+      <div className="rounded-sap-lg bg-sap-canvas border border-sap-hairline p-5">
+        <div className="pb-3 border-b border-sap-hairline">
+          <h3 className="font-semibold text-sm text-sap-ink">
+            Cronograma de Vencimentos por Ano
           </h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-            Distribuição do número de produtos e lotes por ano de expiração
+          <p className="text-xs text-sap-ink-meta mt-0.5">
+            Distribuição dos lotes rastreados por ano de expiração
           </p>
         </div>
 
-        <div className="h-56 mt-4">
+        <div className="h-52 mt-4">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart
-              data={yearChartData}
-              margin={{ top: 10, right: 20, left: 0, bottom: 5 }}
-            >
-              <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
-              <XAxis dataKey="year" stroke="#94a3b8" fontSize={12} />
-              <YAxis stroke="#94a3b8" fontSize={11} />
+            <BarChart data={yearChartData} margin={{ top: 10, right: 20, left: 0, bottom: 5 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#eaecee" vertical={false} />
+              <XAxis dataKey="year" stroke="#475e75" fontSize={12} />
+              <YAxis stroke="#475e75" fontSize={11} />
               <Tooltip
-                formatter={(val: any, name: string) => [
-                  `${val} SKUs`,
-                  'Quantidade de Lotes',
-                ]}
+                formatter={(val: unknown) => [`${val} SKUs`, 'Quantidade de Lotes']}
                 contentStyle={{
-                  backgroundColor: '#0f172a',
-                  borderColor: '#334155',
-                  borderRadius: '0.75rem',
-                  color: '#f8fafc',
+                  backgroundColor: '#ffffff',
+                  borderColor: '#475e75',
+                  borderRadius: '8px',
+                  color: '#223548',
                   fontSize: '12px',
                 }}
               />
-              <Bar dataKey="count" fill="#14b8a6" radius={[6, 6, 0, 0]}>
+              <Bar dataKey="count" radius={[4, 4, 0, 0]}>
                 {yearChartData.map((entry, index) => (
                   <Cell
                     key={`cell-${index}`}
                     fill={
                       entry.year <= '2026'
-                        ? '#f43f5e'
+                        ? '#b91c1c'
                         : entry.year === '2027'
-                        ? '#f59e0b'
-                        : '#0d9488'
+                        ? '#d97706'
+                        : '#0057d2'
                     }
                   />
                 ))}
@@ -229,47 +185,46 @@ export function ExpirationsView({
         </div>
       </div>
 
-      {/* Tabela de Rastreabilidade de Lotes */}
-      <div className="rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 p-5 shadow-sm">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-slate-800">
+      <div className="rounded-sap-lg bg-sap-canvas border border-sap-hairline overflow-hidden">
+        <div className="px-5 py-4 bg-sap-chrome border-b border-sap-hairline flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h3 className="font-bold text-base text-slate-900 dark:text-white">
-              Tabela de Rastreabilidade e Auditoria de Lotes
+            <h3 className="font-semibold text-sm text-sap-ink">
+              Auditoria de Lotes e Validade ANVISA
             </h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-              Monitore lotes para atendimento às RDC ANVISA e recolhimento sanitário
+            <p className="text-xs text-sap-ink-meta mt-0.5">
+              Controle sanitário e rastreabilidade por lote
             </p>
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
             <div className="relative">
-              <Search className="h-4 w-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+              <Search className="h-3.5 w-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-sap-ink-meta" />
               <input
                 type="text"
-                placeholder="Filtrar por lote, fabricante ou produto..."
+                placeholder="Filtrar lote, fabricante ou produto..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-9 pr-3 py-1.5 rounded-xl text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
+                className="pl-8 pr-3 py-1.5 rounded-sap text-xs bg-sap-canvas border border-sap-hairline text-sap-ink-body focus:outline-none focus:border-sap-primary"
               />
             </div>
 
-            <div className="flex items-center gap-1 p-1 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs">
+            <div className="flex items-center gap-1 p-0.5 rounded-sap bg-sap-canvas border border-sap-hairline text-xs">
               <button
                 onClick={() => setFilterStatus('RISCO')}
-                className={`px-2.5 py-1 rounded-lg font-medium transition-colors ${
+                className={`px-2.5 py-1 rounded-[6px] font-medium transition-colors ${
                   filterStatus === 'RISCO'
-                    ? 'bg-rose-500 text-white shadow-sm'
-                    : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
+                    ? 'bg-sap-primary text-sap-on-primary'
+                    : 'text-sap-ink-nav hover:bg-sap-chrome'
                 }`}
               >
                 Em Risco ({totalVencidos + total90d + total180d})
               </button>
               <button
                 onClick={() => setFilterStatus('COM_DATA')}
-                className={`px-2.5 py-1 rounded-lg font-medium transition-colors ${
+                className={`px-2.5 py-1 rounded-[6px] font-medium transition-colors ${
                   filterStatus === 'COM_DATA'
-                    ? 'bg-teal-600 text-white shadow-sm'
-                    : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
+                    ? 'bg-sap-primary text-sap-on-primary'
+                    : 'text-sap-ink-nav hover:bg-sap-chrome'
                 }`}
               >
                 Todos com Data ({totalComData})
@@ -278,42 +233,42 @@ export function ExpirationsView({
           </div>
         </div>
 
-        <div className="overflow-x-auto mt-4">
-          <table className="w-full text-left text-xs">
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-xs border-collapse">
             <thead>
-              <tr className="border-b border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 font-semibold uppercase tracking-wider">
-                <th className="py-2.5 px-3">Status Validade</th>
+              <tr className="border-b border-sap-hairline-strong text-sap-ink-meta font-semibold uppercase tracking-wider bg-sap-canvas">
+                <th className="py-2.5 px-3">Status</th>
                 <th className="py-2.5 px-3">Código</th>
                 <th className="py-2.5 px-3">Produto</th>
                 <th className="py-2.5 px-3">Lote</th>
                 <th className="py-2.5 px-3">Validade</th>
                 <th className="py-2.5 px-3">Fabricante</th>
-                <th className="py-2.5 px-3 text-right">Saldo em Estoque</th>
+                <th className="py-2.5 px-3 text-right">Saldo</th>
                 <th className="py-2.5 px-3 text-right">Valor em Risco</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
+            <tbody className="divide-y divide-sap-hairline">
               {filteredProducts.map((p) => {
                 let badge = (
-                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+                  <span className="inline-flex items-center px-2 py-0.5 rounded-[4px] text-[10px] font-medium bg-sap-chrome text-sap-ink-list border border-sap-hairline">
                     Regular
                   </span>
                 )
                 if (p.status_validade === 'VENCIDO') {
                   badge = (
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/30">
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-[4px] text-[10px] font-semibold bg-rose-50 text-rose-800 border border-rose-200">
                       <AlertOctagon className="h-3 w-3" /> VENCIDO
                     </span>
                   )
                 } else if (p.status_validade === 'CRITICO_90D') {
                   badge = (
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30">
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-[4px] text-[10px] font-semibold bg-amber-50 text-amber-800 border border-amber-200">
                       <AlertTriangle className="h-3 w-3" /> &lt; 90 DIAS
                     </span>
                   )
                 } else if (p.status_validade === 'ATENCAO_180D') {
                   badge = (
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/30">
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-[4px] text-[10px] font-semibold bg-sap-band-blue text-sap-primary-deep border border-sap-primary/25">
                       <Clock className="h-3 w-3" /> &lt; 180 DIAS
                     </span>
                   )
@@ -323,28 +278,26 @@ export function ExpirationsView({
                   <tr
                     key={p.id}
                     onClick={() => onSelectProduct(p)}
-                    className="hover:bg-slate-50 dark:hover:bg-slate-800/40 cursor-pointer transition-colors"
+                    className="hover:bg-sap-band-blue/50 cursor-pointer transition-colors"
                   >
-                    <td className="py-3 px-3">{badge}</td>
-                    <td className="py-3 px-3 font-mono font-bold text-teal-600 dark:text-teal-400">
+                    <td className="py-2.5 px-3">{badge}</td>
+                    <td className="py-2.5 px-3 font-semibold text-sap-primary tabular-nums">
                       {p.codigo}
                     </td>
-                    <td className="py-3 px-3 max-w-sm truncate font-medium text-slate-900 dark:text-slate-100">
+                    <td className="py-2.5 px-3 max-w-sm truncate font-medium text-sap-ink-body">
                       {p.produto}
                     </td>
-                    <td className="py-3 px-3 font-mono text-slate-700 dark:text-slate-300 font-semibold">
+                    <td className="py-2.5 px-3 text-sap-ink-body font-medium tabular-nums">
                       {p.lote}
                     </td>
-                    <td className="py-3 px-3 font-bold text-slate-900 dark:text-white">
+                    <td className="py-2.5 px-3 font-semibold text-sap-ink tabular-nums">
                       {p.validade}
                     </td>
-                    <td className="py-3 px-3 text-slate-600 dark:text-slate-400">
-                      {p.fabricante}
-                    </td>
-                    <td className="py-3 px-3 text-right font-bold text-slate-900 dark:text-white">
+                    <td className="py-2.5 px-3 text-sap-ink-list">{p.fabricante}</td>
+                    <td className="py-2.5 px-3 text-right font-bold text-sap-ink tabular-nums">
                       {formatNumber(p.estoque)} un
                     </td>
-                    <td className="py-3 px-3 text-right font-extrabold text-slate-900 dark:text-white">
+                    <td className="py-2.5 px-3 text-right font-bold text-sap-ink tabular-nums">
                       {formatCurrency(p.valor_total_venda)}
                     </td>
                   </tr>

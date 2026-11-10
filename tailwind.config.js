@@ -1,6 +1,5 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: 'class',
   content: [
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -10,18 +9,30 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        brand: {
-          50: '#f0fdfa',
-          100: '#ccfbf1',
-          200: '#99f6e4',
-          300: '#5eead4',
-          400: '#2dd4bf',
-          500: '#14b8a6',
-          600: '#0d9488',
-          700: '#0f766e',
-          800: '#115e59',
-          900: '#134e4a',
+        sap: {
+          primary: '#0057d2',
+          'primary-deep': '#0040b0',
+          'on-primary': '#ffffff',
+          navy: '#022879',
+          sky: '#6bc0ff',
+          canvas: '#ffffff',
+          chrome: '#f5f6f7',
+          band: '#eaecee',
+          'band-blue': '#ebf8ff',
+          'band-lavender': '#f7f4ff',
+          ink: '#000000',
+          'ink-lead': '#3c3c3c',
+          'ink-body': '#223548',
+          'ink-list': '#354a5f',
+          'ink-meta': '#475e75',
+          'ink-nav': '#545454',
+          hairline: '#d5dce2',
+          'hairline-strong': '#475e75',
         },
+      },
+      borderRadius: {
+        sap: '8px',
+        'sap-lg': '12px',
       },
     },
   },

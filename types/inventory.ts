@@ -1,4 +1,4 @@
-export type StockStatus = 'NORMAL' | 'ALERTA' | 'CRITICO' | 'ZERADO' | 'NEGATIVO'
+export type StockStatus = 'NORMAL' | 'ALERTA' | 'CRITICO' | 'ZERADO' | 'NEGATIVO' | 'EXCESSO'
 
 export type ExpirationStatus = 'VENCIDO' | 'CRITICO_90D' | 'ATENCAO_180D' | 'REGULAR' | 'SEM_DATA'
 
@@ -31,6 +31,7 @@ export interface ProductItem {
   lucro_potencial: number
   curva_abc_acumulada_pct: number
   curva_abc: AbcClass
+  em_excesso?: boolean
 }
 
 export interface CategorySummary {
@@ -42,6 +43,7 @@ export interface CategorySummary {
   lucro_potencial: number
   itens_zerados: number
   itens_criticos: number
+  itens_excesso: number
   participacao_venda_pct: number
 }
 
@@ -50,6 +52,46 @@ export interface AbcClassSummary {
   skus: number
   valor_venda: number
   descricao: string
+}
+
+export interface StockFamilyRow {
+  rank: number | null
+  produto: string
+  pctCusto: number
+  precoCusto: number
+  pctVenda: number
+  precoVenda: number
+  skus: number
+}
+
+export interface StockFamilyReport {
+  top11: StockFamilyRow[]
+  demais: StockFamilyRow
+  total: StockFamilyRow
+  top11ShareCustoPct: number
+  top11ShareVendaPct: number
+}
+
+export interface SalesFamilyRow {
+  rank: number | null
+  produto: string
+  participacaoPct: number
+  vendas: number
+  vendLucPct: number
+  lucroBruto: number
+}
+
+export interface SalesRankingReport {
+  startDate: string
+  endDate: string
+  totalSalesCount: number
+  top11: SalesFamilyRow[]
+  demais: SalesFamilyRow
+  total: SalesFamilyRow
+  top11ShareVendasPct: number
+  top11ShareLucroPct: number
+  origem: 'smartpos_api' | 'snapshot'
+  notice?: string
 }
 
 export interface DashboardSummary {
@@ -64,17 +106,21 @@ export interface DashboardSummary {
   total_criticos: number
   total_negativos: number
   total_alertas: number
+  total_excesso: number
+  excess_multiplier: number
   total_vencidos: number
   total_vence_90d: number
   total_vence_180d: number
   total_sugestao_compra_qtd: number
   total_sugestao_compra_custo: number
+  contas_a_receber: number
   curva_abc: {
     A: AbcClassSummary
     B: AbcClassSummary
     C: AbcClassSummary
   }
   categorias: CategorySummary[]
+  estoque_top11: StockFamilyReport
   data_base: string
   origem: string
 }
@@ -82,10 +128,11 @@ export interface DashboardSummary {
 export interface InventoryFilterOptions {
   searchQuery?: string
   categoria?: string
-  statusEstoque?: StockStatus | 'ALL' | 'RUPTURA_CRITICO'
+  statusEstoque?: StockStatus | 'ALL' | 'RUPTURA_CRITICO' | 'EXCESSO'
   statusValidade?: ExpirationStatus | 'ALL' | 'RISCO_VALIDADE'
   curvaAbc?: AbcClass | 'ALL'
   fabricante?: string
+  excessMultiplier?: number
   sortBy?: 'valor_total_venda' | 'estoque' | 'margem_percentual' | 'produto' | 'sugestao_compra_custo'
   sortDirection?: 'asc' | 'desc'
 }
@@ -106,9 +153,16 @@ export interface RestockItem {
   prioridade: 'URGENTE' | 'ALTA' | 'MEDIA'
 }
 
-export interface ApiEndpointSpec {
-  method: 'GET' | 'POST' | 'PUT'
-  path: string
-  description: string
-  responseSample: any
+export interface ExcessItem {
+  id: string
+  codigo: string
+  produto: string
+  categoria: string
+  fabricante: string
+  estoque: number
+  estoque_minimo: number
+  excedente: number
+  fator_cobertura: number
+  capital_excedente_custo: number
+  valor_venda_excedente: number
 }

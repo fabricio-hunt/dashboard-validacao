@@ -2,27 +2,19 @@
 
 import React from 'react'
 import {
-  DollarSign,
-  TrendingUp,
-  Package,
-  Layers,
-  PieChart as PieIcon,
-  BarChart3,
-  CheckCircle2,
-  AlertTriangle,
   ArrowUpRight,
-  Info,
+  BarChart3,
+  DollarSign,
+  SlidersHorizontal,
+  Wallet,
 } from 'lucide-react'
 import {
   ResponsiveContainer,
-  ComposedChart,
   BarChart,
   Bar,
-  Line,
   XAxis,
   YAxis,
   Tooltip,
-  Legend,
   CartesianGrid,
   Cell,
 } from 'recharts'
@@ -32,40 +24,98 @@ import { formatCurrency, formatNumber, formatPercent } from '@/lib/utils'
 interface ExecutiveViewProps {
   summary: DashboardSummary
   topProducts: ProductItem[]
+  excessMultiplier: number
+  onChangeExcessMultiplier: (value: number) => void
+  contasAReceber: number
+  onChangeContasAReceber: (value: number) => void
   onSelectProduct: (p: ProductItem) => void
   onNavigateTab: (tab: string) => void
+  onFilterCategory: (categoria: string) => void
 }
 
 const ABC_COLORS = {
-  A: '#10b981', // emerald-500
-  B: '#3b82f6', // blue-500
-  C: '#8b5cf6', // purple-500
+  A: '#0057d2',
+  B: '#0040b0',
+  C: '#475e75',
 }
-
-const CATEGORY_COLORS = [
-  '#0d9488',
-  '#0284c7',
-  '#6366f1',
-  '#8b5cf6',
-  '#ec4899',
-  '#f59e0b',
-  '#10b981',
-  '#64748b',
-]
 
 export function ExecutiveView({
   summary,
   topProducts,
+  excessMultiplier,
+  onChangeExcessMultiplier,
+  contasAReceber,
+  onChangeContasAReceber,
   onSelectProduct,
   onNavigateTab,
+  onFilterCategory,
 }: ExecutiveViewProps) {
-  // Prepara dados para Curva ABC Chart
+  const kpiRows = [
+    {
+      label: 'SKUs',
+      value: formatNumber(summary.total_skus),
+      detail: `${summary.categorias.length} categorias ativas`,
+      bandClass: 'border-t-2 border-t-sap-navy',
+    },
+    {
+      label: 'Unidades em estoque',
+      value: formatNumber(summary.total_unidades),
+      detail: 'Saldo físico consolidado',
+      bandClass: 'border-t-2 border-t-sap-primary',
+    },
+    {
+      label: 'Estoque a custo',
+      value: formatCurrency(summary.valor_total_custo),
+      detail: 'Capital imobilizado de compra',
+      bandClass: 'border-t-2 border-t-emerald-700',
+    },
+    {
+      label: 'Potencial de venda',
+      value: formatCurrency(summary.valor_total_venda),
+      detail: `Lucro bruto proj.: ${formatCurrency(summary.lucro_potencial_total)}`,
+      bandClass: 'border-t-2 border-t-sap-primary-deep',
+    },
+    {
+      label: 'Margem média',
+      value: formatPercent(summary.margem_media),
+      detail: `Markup médio: ${formatPercent(summary.markup_medio)}`,
+      bandClass: 'border-t-2 border-t-sap-ink-meta',
+    },
+    {
+      label: 'Sem estoque',
+      value: formatNumber(summary.total_zerados),
+      detail: `${summary.total_negativos} com saldo negativo`,
+      bandClass: 'border-t-2 border-t-rose-700',
+      valueClass: 'text-rose-700',
+    },
+    {
+      label: 'Abaixo do mínimo',
+      value: formatNumber(summary.total_criticos),
+      detail: `Repor ${formatNumber(summary.total_sugestao_compra_qtd)} un.`,
+      bandClass: 'border-t-2 border-t-amber-600',
+      valueClass: 'text-amber-700',
+    },
+    {
+      label: 'Estoque em excesso',
+      value: formatNumber(summary.total_excesso),
+      detail: `Acima de ${excessMultiplier}x estoque mínimo`,
+      bandClass: 'border-t-2 border-t-sap-primary',
+      valueClass: 'text-sap-primary-deep',
+    },
+  ]
+
+  const categoryChartData = summary.categorias.slice(0, 12).map((c) => ({
+    name: c.categoria.length > 16 ? `${c.categoria.slice(0, 15)}…` : c.categoria,
+    fullName: c.categoria,
+    valor_custo: c.valor_custo,
+    valor_venda: c.valor_venda,
+  }))
+
   const abcData = [
     {
       classe: 'Classe A',
       skus: summary.curva_abc.A.skus,
       valor: summary.curva_abc.A.valor_venda,
-      percentual: 80,
       descricao: '80% do Faturamento',
       color: ABC_COLORS.A,
     },
@@ -73,7 +123,6 @@ export function ExecutiveView({
       classe: 'Classe B',
       skus: summary.curva_abc.B.skus,
       valor: summary.curva_abc.B.valor_venda,
-      percentual: 15,
       descricao: '15% do Faturamento',
       color: ABC_COLORS.B,
     },
@@ -81,364 +130,382 @@ export function ExecutiveView({
       classe: 'Classe C',
       skus: summary.curva_abc.C.skus,
       valor: summary.curva_abc.C.valor_venda,
-      percentual: 5,
       descricao: '5% do Faturamento',
       color: ABC_COLORS.C,
     },
   ]
 
-  // Top 8 Categorias
-  const topCategories = summary.categorias.slice(0, 8).map((c, i) => ({
-    name: c.categoria.length > 18 ? c.categoria.substring(0, 16) + '...' : c.categoria,
-    fullName: c.categoria,
-    valor_venda: c.valor_venda,
-    valor_custo: c.valor_custo,
-    skus: c.skus,
-    color: CATEGORY_COLORS[i % CATEGORY_COLORS.length],
-  }))
-
   return (
     <div className="space-y-6">
-      {/* 4 KPI Cards de Impacto */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {/* Card 1: Valor de Venda do Estoque */}
-        <div className="rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 p-5 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
-          <div className="absolute top-0 right-0 w-28 h-28 bg-emerald-500/5 rounded-full -mr-8 -mt-8 pointer-events-none group-hover:bg-emerald-500/10 transition-colors" />
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-              Patrimônio em Estoque
-            </span>
-            <span className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
-              <DollarSign className="h-5 w-5" />
-            </span>
-          </div>
-          <div className="mt-3">
-            <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-              {formatCurrency(summary.valor_total_venda)}
-            </div>
-            <div className="mt-1.5 flex items-center gap-1.5 text-xs text-emerald-600 dark:text-emerald-400 font-semibold">
-              <TrendingUp className="h-3.5 w-3.5" />
-              <span>Lucro Bruto: {formatCurrency(summary.lucro_potencial_total)}</span>
-            </div>
-          </div>
-          <p className="mt-3 text-[11px] text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800/80 pt-2">
-            Valor bruto se 100% dos lotes forem comercializados a preço de tabela.
+      {/* Faixa Executiva SAP */}
+      <section className="bg-sap-band-blue border border-sap-primary/15 px-5 py-4 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+        <div>
+          <h2 className="text-xl sm:text-2xl font-medium text-sap-ink tracking-tight">
+            BI Executivo | Estoque, Margem e Capital
+          </h2>
+          <p className="text-sm text-sap-ink-body mt-0.5">
+            Visão gerencial para reposição, excesso, rentabilidade e priorização de capital
           </p>
         </div>
 
-        {/* Card 2: Custo Total Investido */}
-        <div className="rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 p-5 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
-          <div className="absolute top-0 right-0 w-28 h-28 bg-blue-500/5 rounded-full -mr-8 -mt-8 pointer-events-none group-hover:bg-blue-500/10 transition-colors" />
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-              Capital Imobilizado (Custo)
-            </span>
-            <span className="p-2.5 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400">
-              <Layers className="h-5 w-5" />
-            </span>
+        <div className="flex flex-wrap items-center gap-3">
+          <div className="flex items-center gap-2 bg-sap-canvas border border-sap-hairline rounded-sap px-3 py-1.5 text-xs">
+            <SlidersHorizontal className="h-3.5 w-3.5 text-sap-primary" />
+            <span className="text-sap-ink-meta font-medium">Limiar de excesso:</span>
+            {[2, 3, 4].map((mult) => (
+              <button
+                key={mult}
+                onClick={() => onChangeExcessMultiplier(mult)}
+                className={`px-2 py-0.5 rounded-[4px] font-medium tabular-nums transition-colors ${
+                  excessMultiplier === mult
+                    ? 'bg-sap-primary text-sap-on-primary'
+                    : 'text-sap-ink-nav hover:bg-sap-chrome'
+                }`}
+              >
+                {mult}x mín.
+              </button>
+            ))}
           </div>
-          <div className="mt-3">
-            <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-              {formatCurrency(summary.valor_total_custo)}
+
+          <button
+            onClick={() => onNavigateTab('rankings')}
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-sap bg-sap-primary hover:bg-sap-primary-deep text-sap-on-primary text-xs font-medium transition-colors"
+          >
+            Rankings Top 11 & Vendas <ArrowUpRight className="h-3.5 w-3.5" />
+          </button>
+        </div>
+      </section>
+
+      {/* Grade 2x4 dos 8 KPIs Executivos */}
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+        {kpiRows.map((kpi) => (
+          <div
+            key={kpi.label}
+            className={`rounded-sap bg-sap-canvas border border-sap-hairline ${kpi.bandClass} p-4`}
+          >
+            <div className="text-xs font-medium text-sap-ink-meta uppercase tracking-wide">
+              {kpi.label}
             </div>
-            <div className="mt-1.5 flex items-center gap-1.5 text-xs text-slate-600 dark:text-slate-400 font-medium">
-              <span>Investimento líquido realizado nas compras</span>
+            <div
+              className={`mt-2 text-2xl sm:text-[26px] font-bold tracking-tight tabular-nums ${
+                kpi.valueClass || 'text-sap-ink'
+              }`}
+            >
+              {kpi.value}
+            </div>
+            <div className="mt-1.5 text-xs text-sap-ink-list tabular-nums">
+              {kpi.detail}
             </div>
           </div>
-          <p className="mt-3 text-[11px] text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800/80 pt-2">
-            Representa o capital de giro atualmente comprometido no almoxarifado.
-          </p>
+        ))}
+      </section>
+
+      {/* Faixa Financeira Secundária: Contas a Receber + Pareto Top 11 */}
+      <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="rounded-sap bg-sap-band-lavender border border-sap-hairline p-4 flex items-center justify-between gap-4">
+          <div className="space-y-1">
+            <div className="flex items-center gap-1.5 text-xs font-medium text-sap-ink-meta uppercase">
+              <Wallet className="h-3.5 w-3.5 text-sap-primary" />
+              <span>Contas a Receber</span>
+            </div>
+            <div className="text-2xl font-bold text-sap-ink tabular-nums">
+              {formatCurrency(contasAReceber)}
+            </div>
+            <p className="text-[11px] text-sap-ink-meta">
+              Parâmetro financeiro ERP/manual (sem endpoint de títulos na SmartPOS).
+            </p>
+          </div>
+          <div className="shrink-0">
+            <label className="block text-[10px] font-medium text-sap-ink-meta mb-1">
+              Ajustar (R$)
+            </label>
+            <input
+              type="number"
+              step="0.01"
+              value={contasAReceber}
+              onChange={(e) => onChangeContasAReceber(Number(e.target.value) || 0)}
+              className="w-28 px-2 py-1 text-xs rounded-[4px] border border-sap-hairline bg-sap-canvas text-sap-ink-body tabular-nums focus:outline-none focus:border-sap-primary"
+            />
+          </div>
         </div>
 
-        {/* Card 3: Margem Média & Markup */}
-        <div className="rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 p-5 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
-          <div className="absolute top-0 right-0 w-28 h-28 bg-purple-500/5 rounded-full -mr-8 -mt-8 pointer-events-none group-hover:bg-purple-500/10 transition-colors" />
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-              Rentabilidade Média
+        <div className="md:col-span-2 rounded-sap bg-sap-chrome border border-sap-hairline p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="space-y-1">
+            <span className="text-xs font-medium text-sap-ink-meta uppercase">
+              Concentração de Capital no Estoque (Top 11 Famílias)
             </span>
-            <span className="p-2.5 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400">
-              <TrendingUp className="h-5 w-5" />
-            </span>
-          </div>
-          <div className="mt-3">
-            <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-              {formatPercent(summary.margem_media)}
-            </div>
-            <div className="mt-1.5 flex items-center gap-2 text-xs font-semibold text-purple-600 dark:text-purple-400">
-              <span>Markup Médio: {formatPercent(summary.markup_medio)}</span>
-            </div>
-          </div>
-          <p className="mt-3 text-[11px] text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800/80 pt-2">
-            Excelente indicador de precificação para negociação com convênios e hospitais.
-          </p>
-        </div>
-
-        {/* Card 4: Volume e SKUs */}
-        <div className="rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 p-5 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
-          <div className="absolute top-0 right-0 w-28 h-28 bg-teal-500/5 rounded-full -mr-8 -mt-8 pointer-events-none group-hover:bg-teal-500/10 transition-colors" />
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-              Volume Físico Total
-            </span>
-            <span className="p-2.5 rounded-xl bg-teal-500/10 text-teal-600 dark:text-teal-400">
-              <Package className="h-5 w-5" />
-            </span>
-          </div>
-          <div className="mt-3">
-            <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-              {formatNumber(summary.total_unidades)}{' '}
-              <span className="text-sm font-medium text-slate-500">un.</span>
-            </div>
-            <div className="mt-1.5 flex items-center gap-1.5 text-xs text-slate-600 dark:text-slate-400 font-medium">
-              <span>{summary.total_skus} produtos cadastrados em 23 categorias</span>
-            </div>
-          </div>
-          <p className="mt-3 text-[11px] text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800/80 pt-2">
-            Estoque distribuído em sondas, descartáveis, agulhas, soros e coletores.
-          </p>
-        </div>
-      </div>
-
-      {/* Seção 2: Curva ABC de Pareto + Faturamento por Categoria */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Gráfico 1: Curva ABC de Pareto */}
-        <div className="rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 p-5 shadow-sm">
-          <div className="flex items-start justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
-            <div>
-              <div className="flex items-center gap-2">
-                <BarChart3 className="h-5 w-5 text-teal-600 dark:text-teal-400" />
-                <h3 className="font-bold text-base text-slate-900 dark:text-white">
-                  Curva ABC de Estoque (Princípio de Pareto)
-                </h3>
+            <div className="flex flex-wrap items-baseline gap-4 pt-1">
+              <div>
+                <span className="text-xl font-bold text-sap-primary tabular-nums">
+                  {summary.estoque_top11.top11ShareCustoPct}%
+                </span>{' '}
+                <span className="text-xs text-sap-ink-body">do Custo Total</span>
               </div>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                Concentração de capital: onde 80% do valor imobilizado está alocado
+              <div>
+                <span className="text-xl font-bold text-sap-primary-deep tabular-nums">
+                  {summary.estoque_top11.top11ShareVendaPct}%
+                </span>{' '}
+                <span className="text-xs text-sap-ink-body">do Potencial de Venda</span>
+              </div>
+            </div>
+            <p className="text-xs text-sap-ink-meta">
+              Demais itens compõem {100 - summary.estoque_top11.top11ShareCustoPct}% do custo imobilizado.
+            </p>
+          </div>
+          <button
+            onClick={() => onNavigateTab('rankings')}
+            className="shrink-0 px-3.5 py-2 rounded-sap border border-sap-hairline-strong bg-sap-canvas text-sap-primary-deep text-xs font-medium hover:bg-sap-band-blue transition-colors"
+          >
+            Abrir Tabela Completa
+          </button>
+        </div>
+      </section>
+
+      {/* Tabela Analítica por Categoria + Gráfico Valor de Estoque por Categoria */}
+      <section className="grid grid-cols-1 xl:grid-cols-12 gap-5">
+        <div className="xl:col-span-7 rounded-sap-lg bg-sap-canvas border border-sap-hairline overflow-hidden">
+          <div className="px-5 py-3.5 bg-sap-chrome border-b border-sap-hairline flex items-center justify-between">
+            <div>
+              <h3 className="text-sm font-semibold text-sap-ink">
+                Consolidado por Categoria
+              </h3>
+              <p className="text-xs text-sap-ink-meta">
+                Ordenado por Estoque a Custo — clique na categoria para filtrar o catálogo
               </p>
             </div>
-            <button
-              onClick={() => onNavigateTab('datagrid')}
-              className="text-xs font-semibold text-teal-600 dark:text-teal-400 hover:underline flex items-center gap-1"
-            >
-              Ver itens <ArrowUpRight className="h-3.5 w-3.5" />
-            </button>
+            <span className="text-xs font-medium text-sap-ink-meta tabular-nums">
+              {summary.categorias.length} categorias
+            </span>
           </div>
 
-          <div className="h-64 mt-4">
+          <div className="overflow-x-auto max-h-[420px]">
+            <table className="w-full text-left text-xs border-collapse">
+              <thead className="sticky top-0 bg-sap-canvas border-b border-sap-hairline-strong text-sap-ink-meta">
+                <tr>
+                  <th className="py-2.5 px-3 font-semibold">Categoria</th>
+                  <th className="py-2.5 px-2.5 text-right font-semibold">SKUs</th>
+                  <th className="py-2.5 px-2.5 text-right font-semibold">Unidades</th>
+                  <th className="py-2.5 px-3 text-right font-semibold">Estoque a Custo</th>
+                  <th className="py-2.5 px-3 text-right font-semibold">Potencial Venda</th>
+                  <th className="py-2.5 px-2 text-right font-semibold">Sem Est.</th>
+                  <th className="py-2.5 px-2 text-right font-semibold">Repor</th>
+                  <th className="py-2.5 px-2.5 text-right font-semibold">Excesso</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-sap-hairline">
+                {summary.categorias.map((cat) => (
+                  <tr
+                    key={cat.categoria}
+                    onClick={() => onFilterCategory(cat.categoria)}
+                    className="hover:bg-sap-band-blue/60 cursor-pointer transition-colors"
+                  >
+                    <td className="py-2.5 px-3 font-medium text-sap-ink-body">
+                      {cat.categoria}
+                    </td>
+                    <td className="py-2.5 px-2.5 text-right tabular-nums text-sap-ink-list">
+                      {formatNumber(cat.skus)}
+                    </td>
+                    <td className="py-2.5 px-2.5 text-right tabular-nums text-sap-ink-list">
+                      {formatNumber(cat.unidades)}
+                    </td>
+                    <td className="py-2.5 px-3 text-right tabular-nums font-medium text-sap-ink">
+                      {formatCurrency(cat.valor_custo)}
+                    </td>
+                    <td className="py-2.5 px-3 text-right tabular-nums text-sap-ink-body">
+                      {formatCurrency(cat.valor_venda)}
+                    </td>
+                    <td className="py-2.5 px-2 text-right tabular-nums text-rose-700 font-medium">
+                      {cat.itens_zerados}
+                    </td>
+                    <td className="py-2.5 px-2 text-right tabular-nums text-amber-700 font-medium">
+                      {cat.itens_criticos}
+                    </td>
+                    <td className="py-2.5 px-2.5 text-right tabular-nums text-sap-primary-deep font-semibold">
+                      {cat.itens_excesso}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div className="xl:col-span-5 rounded-sap-lg bg-sap-canvas border border-sap-hairline p-5 flex flex-col">
+          <div className="pb-3 border-b border-sap-hairline flex items-center justify-between">
+            <div>
+              <h3 className="text-sm font-semibold text-sap-ink">
+                Valor de Estoque por Categoria
+              </h3>
+              <p className="text-xs text-sap-ink-meta mt-0.5">
+                Top 12 categorias por Estoque a Custo (R$)
+              </p>
+            </div>
+            <BarChart3 className="h-4 w-4 text-sap-primary" />
+          </div>
+
+          <div className="h-[340px] mt-4">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
-                data={abcData}
-                margin={{ top: 10, right: 20, left: 0, bottom: 5 }}
+                data={categoryChartData}
+                margin={{ top: 10, right: 12, left: 0, bottom: 52 }}
               >
-                <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
-                <XAxis dataKey="classe" stroke="#94a3b8" fontSize={12} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#eaecee" vertical={false} />
+                <XAxis
+                  dataKey="name"
+                  stroke="#475e75"
+                  fontSize={10}
+                  angle={-35}
+                  textAnchor="end"
+                  interval={0}
+                  height={65}
+                />
                 <YAxis
-                  stroke="#94a3b8"
+                  stroke="#475e75"
                   fontSize={11}
                   tickFormatter={(val) => `R$ ${(val / 1000).toFixed(0)}k`}
                 />
                 <Tooltip
-                  formatter={(value: any) => [formatCurrency(Number(value)), 'Valor Total']}
-                  labelFormatter={(label) => `Categoria ${label}`}
+                  formatter={(value: unknown, name): [string, string] => [
+                    formatCurrency(Number(value)),
+                    name === 'valor_custo' ? 'Estoque a Custo' : 'Potencial Venda',
+                  ]}
+                  labelFormatter={(label, payload) =>
+                    String(payload?.[0]?.payload?.fullName ?? label ?? '')
+                  }
                   contentStyle={{
-                    backgroundColor: '#0f172a',
-                    borderColor: '#334155',
-                    borderRadius: '0.75rem',
-                    color: '#f8fafc',
+                    backgroundColor: '#ffffff',
+                    borderColor: '#475e75',
+                    borderRadius: '8px',
+                    color: '#223548',
                     fontSize: '12px',
                   }}
                 />
-                <Bar dataKey="valor" radius={[8, 8, 0, 0]}>
+                <Bar dataKey="valor_custo" fill="#0057d2" radius={[4, 4, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+      </section>
+
+      {/* Curva ABC + Itens Classe A */}
+      <section className="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        <div className="lg:col-span-5 rounded-sap-lg bg-sap-canvas border border-sap-hairline p-5">
+          <div className="pb-3 border-b border-sap-hairline flex items-center justify-between">
+            <div>
+              <h3 className="text-sm font-semibold text-sap-ink">
+                Curva ABC de Estoque (Pareto)
+              </h3>
+              <p className="text-xs text-sap-ink-meta mt-0.5">
+                Distribuição do valor de venda potencial por classe
+              </p>
+            </div>
+            <DollarSign className="h-4 w-4 text-sap-primary" />
+          </div>
+
+          <div className="h-52 mt-4">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={abcData} margin={{ top: 10, right: 16, left: 0, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#eaecee" vertical={false} />
+                <XAxis dataKey="classe" stroke="#475e75" fontSize={12} />
+                <YAxis
+                  stroke="#475e75"
+                  fontSize={11}
+                  tickFormatter={(val) => `R$ ${(val / 1000).toFixed(0)}k`}
+                />
+                <Tooltip
+                  formatter={(value: unknown) => [formatCurrency(Number(value)), 'Potencial Venda']}
+                  contentStyle={{
+                    backgroundColor: '#ffffff',
+                    borderColor: '#475e75',
+                    borderRadius: '8px',
+                    color: '#223548',
+                    fontSize: '12px',
+                  }}
+                />
+                <Bar dataKey="valor" radius={[4, 4, 0, 0]}>
                   {abcData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
+                    <Cell key={`abc-${index}`} fill={entry.color} />
                   ))}
                 </Bar>
               </BarChart>
             </ResponsiveContainer>
           </div>
 
-          {/* Cards explicativos ABC */}
-          <div className="grid grid-cols-3 gap-2 pt-3 border-t border-slate-100 dark:border-slate-800 text-center">
-            <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
-              <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400">
-                Classe A
-              </span>
-              <p className="text-lg font-extrabold text-slate-900 dark:text-white mt-0.5">
-                {summary.curva_abc.A.skus} <span className="text-xs font-normal text-slate-500">SKUs</span>
-              </p>
-              <p className="text-[10px] text-emerald-700 dark:text-emerald-300 font-medium mt-0.5">
-                {formatCurrency(summary.curva_abc.A.valor_venda)} (80%)
-              </p>
-            </div>
-            <div className="p-2.5 rounded-xl bg-blue-500/10 border border-blue-500/20">
-              <span className="text-xs font-bold text-blue-600 dark:text-blue-400">
-                Classe B
-              </span>
-              <p className="text-lg font-extrabold text-slate-900 dark:text-white mt-0.5">
-                {summary.curva_abc.B.skus} <span className="text-xs font-normal text-slate-500">SKUs</span>
-              </p>
-              <p className="text-[10px] text-blue-700 dark:text-blue-300 font-medium mt-0.5">
-                {formatCurrency(summary.curva_abc.B.valor_venda)} (15%)
-              </p>
-            </div>
-            <div className="p-2.5 rounded-xl bg-purple-500/10 border border-purple-500/20">
-              <span className="text-xs font-bold text-purple-600 dark:text-purple-400">
-                Classe C
-              </span>
-              <p className="text-lg font-extrabold text-slate-900 dark:text-white mt-0.5">
-                {summary.curva_abc.C.skus} <span className="text-xs font-normal text-slate-500">SKUs</span>
-              </p>
-              <p className="text-[10px] text-purple-700 dark:text-purple-300 font-medium mt-0.5">
-                {formatCurrency(summary.curva_abc.C.valor_venda)} (5%)
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Gráfico 2: Top Categorias por Valor de Venda */}
-        <div className="rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 p-5 shadow-sm">
-          <div className="flex items-start justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
-            <div>
-              <div className="flex items-center gap-2">
-                <PieIcon className="h-5 w-5 text-teal-600 dark:text-teal-400" />
-                <h3 className="font-bold text-base text-slate-900 dark:text-white">
-                  Top Categorias por Valor Imobilizado
-                </h3>
+          <div className="grid grid-cols-3 gap-2 pt-3 border-t border-sap-hairline text-center">
+            {abcData.map((c) => (
+              <div key={c.classe} className="p-2.5 rounded-sap bg-sap-chrome border border-sap-hairline">
+                <div className="text-xs font-semibold text-sap-ink-body">{c.classe}</div>
+                <div className="text-base font-bold text-sap-ink tabular-nums mt-0.5">
+                  {c.skus} SKUs
+                </div>
+                <div className="text-[11px] text-sap-ink-meta tabular-nums">
+                  {formatCurrency(c.valor)}
+                </div>
               </div>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                Comparativo entre Valor de Venda Potencial e Custo de Aquisição
+            ))}
+          </div>
+        </div>
+
+        <div className="lg:col-span-7 rounded-sap-lg bg-sap-canvas border border-sap-hairline overflow-hidden">
+          <div className="px-5 py-3.5 bg-sap-chrome border-b border-sap-hairline flex items-center justify-between">
+            <div>
+              <h3 className="text-sm font-semibold text-sap-ink">
+                Itens Estratégicos de Maior Capital (Classe A)
+              </h3>
+              <p className="text-xs text-sap-ink-meta">
+                Produtos com maior valor total de venda imobilizado
               </p>
             </div>
-            <span className="text-xs font-medium text-slate-500 bg-slate-100 dark:bg-slate-800 px-2.5 py-1 rounded-md">
-              Top 8 de 23
-            </span>
+            <button
+              onClick={() => onNavigateTab('datagrid')}
+              className="text-xs font-medium text-sap-primary hover:underline flex items-center gap-1"
+            >
+              Ver {summary.total_skus} SKUs <ArrowUpRight className="h-3.5 w-3.5" />
+            </button>
           </div>
 
-          <div className="h-64 mt-4">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart
-                layout="vertical"
-                data={topCategories}
-                margin={{ top: 5, right: 30, left: 35, bottom: 5 }}
-              >
-                <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
-                <XAxis
-                  type="number"
-                  stroke="#94a3b8"
-                  fontSize={11}
-                  tickFormatter={(val) => `R$ ${(val / 1000).toFixed(0)}k`}
-                />
-                <YAxis
-                  type="category"
-                  dataKey="name"
-                  stroke="#94a3b8"
-                  fontSize={11}
-                  tickLine={false}
-                />
-                <Tooltip
-                  formatter={(value: any, name: string) => [
-                    formatCurrency(Number(value)),
-                    name === 'valor_venda' ? 'Valor Venda' : 'Custo',
-                  ]}
-                  contentStyle={{
-                    backgroundColor: '#0f172a',
-                    borderColor: '#334155',
-                    borderRadius: '0.75rem',
-                    color: '#f8fafc',
-                    fontSize: '12px',
-                  }}
-                />
-                <Bar
-                  dataKey="valor_venda"
-                  name="valor_venda"
-                  fill="#0d9488"
-                  radius={[0, 6, 6, 0]}
-                />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-
-          <div className="mt-3 flex flex-wrap gap-2 text-[11px] text-slate-500 dark:text-slate-400">
-            <span className="flex items-center gap-1 font-semibold text-teal-600 dark:text-teal-400">
-              <span className="h-2 w-2 rounded-full bg-teal-600" />
-              Paramentação e Limpeza lideram com mais de R$ 116.000 em estoque.
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {/* Seção 3: Top 5 Produtos com Maior Valor Financeiro em Estoque */}
-      <div className="rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 p-5 shadow-sm">
-        <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
-          <div>
-            <h3 className="font-bold text-base text-slate-900 dark:text-white">
-              Itens Estratégicos de Maior Capital Imobilizado (Classe A)
-            </h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-              Estes produtos concentram a maior parte do patrimônio financeiro da empresa
-            </p>
-          </div>
-          <button
-            onClick={() => onNavigateTab('datagrid')}
-            className="text-xs font-semibold text-teal-600 dark:text-teal-400 hover:underline flex items-center gap-1"
-          >
-            Ver todos os 251 SKUs <ArrowUpRight className="h-3.5 w-3.5" />
-          </button>
-        </div>
-
-        <div className="overflow-x-auto mt-4">
-          <table className="w-full text-left text-xs">
-            <thead>
-              <tr className="border-b border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 font-semibold uppercase tracking-wider">
-                <th className="py-2.5 px-3">Código</th>
-                <th className="py-2.5 px-3">Produto / Descrição</th>
-                <th className="py-2.5 px-3">Categoria</th>
-                <th className="py-2.5 px-3 text-right">Saldo Físico</th>
-                <th className="py-2.5 px-3 text-right">Preço Venda</th>
-                <th className="py-2.5 px-3 text-right">Margem</th>
-                <th className="py-2.5 px-3 text-right">Total em Estoque</th>
-                <th className="py-2.5 px-3 text-center">Curva ABC</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
-              {topProducts.slice(0, 5).map((prod) => (
-                <tr
-                  key={prod.id}
-                  onClick={() => onSelectProduct(prod)}
-                  className="hover:bg-slate-50 dark:hover:bg-slate-800/40 cursor-pointer transition-colors"
-                >
-                  <td className="py-3 px-3 font-mono font-bold text-teal-600 dark:text-teal-400">
-                    {prod.codigo}
-                  </td>
-                  <td className="py-3 px-3 max-w-xs sm:max-w-md truncate font-medium text-slate-900 dark:text-slate-100">
-                    {prod.produto}
-                  </td>
-                  <td className="py-3 px-3 text-slate-600 dark:text-slate-400">
-                    {prod.categoria}
-                  </td>
-                  <td className="py-3 px-3 text-right font-bold text-slate-900 dark:text-white">
-                    {formatNumber(prod.estoque)} un
-                  </td>
-                  <td className="py-3 px-3 text-right text-slate-700 dark:text-slate-300">
-                    {formatCurrency(prod.valor_venda)}
-                  </td>
-                  <td className="py-3 px-3 text-right font-semibold text-emerald-600 dark:text-emerald-400">
-                    {formatPercent(prod.margem_percentual)}
-                  </td>
-                  <td className="py-3 px-3 text-right font-extrabold text-slate-900 dark:text-white">
-                    {formatCurrency(prod.valor_total_venda)}
-                  </td>
-                  <td className="py-3 px-3 text-center">
-                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
-                      Classe {prod.curva_abc}
-                    </span>
-                  </td>
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-xs border-collapse">
+              <thead className="border-b border-sap-hairline text-sap-ink-meta">
+                <tr>
+                  <th className="py-2.5 px-3 font-semibold">Código</th>
+                  <th className="py-2.5 px-3 font-semibold">Produto</th>
+                  <th className="py-2.5 px-3 font-semibold">Categoria</th>
+                  <th className="py-2.5 px-3 text-right font-semibold">Saldo</th>
+                  <th className="py-2.5 px-3 text-right font-semibold">Margem</th>
+                  <th className="py-2.5 px-3 text-right font-semibold">Total Venda</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="divide-y divide-sap-hairline">
+                {topProducts.slice(0, 6).map((prod) => (
+                  <tr
+                    key={prod.id}
+                    onClick={() => onSelectProduct(prod)}
+                    className="hover:bg-sap-band-blue/60 cursor-pointer transition-colors"
+                  >
+                    <td className="py-2.5 px-3 font-semibold text-sap-primary tabular-nums">
+                      {prod.codigo}
+                    </td>
+                    <td className="py-2.5 px-3 max-w-[240px] truncate text-sap-ink-body font-medium">
+                      {prod.produto}
+                    </td>
+                    <td className="py-2.5 px-3 text-sap-ink-list">{prod.categoria}</td>
+                    <td className="py-2.5 px-3 text-right tabular-nums text-sap-ink font-medium">
+                      {formatNumber(prod.estoque)} un
+                    </td>
+                    <td className="py-2.5 px-3 text-right tabular-nums text-emerald-700 font-semibold">
+                      {formatPercent(prod.margem_percentual)}
+                    </td>
+                    <td className="py-2.5 px-3 text-right tabular-nums text-sap-ink font-bold">
+                      {formatCurrency(prod.valor_total_venda)}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
+      </section>
     </div>
   )
 }

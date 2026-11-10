@@ -3,23 +3,18 @@
 import React, { useState, useMemo } from 'react'
 import {
   Search,
-  Filter,
   ArrowUpDown,
   Download,
   AlertOctagon,
   AlertTriangle,
   HelpCircle,
-  Clock,
-  Layers,
   ChevronLeft,
   ChevronRight,
   X,
-  ExternalLink,
   Tag,
-  DollarSign,
-  TrendingUp,
+  Layers,
 } from 'lucide-react'
-import { ProductItem, StockStatus, AbcClass } from '@/types/inventory'
+import { ProductItem } from '@/types/inventory'
 import { formatCurrency, formatNumber, formatPercent } from '@/lib/utils'
 
 interface DataGridProProps {
@@ -27,6 +22,7 @@ interface DataGridProProps {
   categories: string[]
   manufacturers: string[]
   initialFilter?: string
+  initialCategory?: string
   selectedProduct: ProductItem | null
   setSelectedProduct: (p: ProductItem | null) => void
 }
@@ -36,20 +32,22 @@ export function DataGridPro({
   categories,
   manufacturers,
   initialFilter,
+  initialCategory,
   selectedProduct,
   setSelectedProduct,
 }: DataGridProProps) {
   const [searchQuery, setSearchQuery] = useState('')
-  const [selectedCategory, setSelectedCategory] = useState('ALL')
+  const [selectedCategory, setSelectedCategory] = useState(initialCategory || 'ALL')
   const [selectedStatus, setSelectedStatus] = useState<string>(initialFilter || 'ALL')
   const [selectedAbc, setSelectedAbc] = useState<string>('ALL')
   const [selectedManufacturer, setSelectedManufacturer] = useState('ALL')
-  const [sortBy, setSortBy] = useState<'valor_total_venda' | 'estoque' | 'margem_percentual' | 'produto'>('valor_total_venda')
+  const [sortBy, setSortBy] = useState<
+    'valor_total_venda' | 'estoque' | 'margem_percentual' | 'produto'
+  >('valor_total_venda')
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc')
   const [currentPage, setCurrentPage] = useState(1)
   const pageSize = 15
 
-  // Sincroniza se initialFilter mudar
   React.useEffect(() => {
     if (initialFilter) {
       setSelectedStatus(initialFilter)
@@ -57,7 +55,27 @@ export function DataGridPro({
     }
   }, [initialFilter])
 
-  // Filtragem e ordenação
+  React.useEffect(() => {
+    if (initialCategory) {
+      setSelectedCategory(initialCategory)
+      setCurrentPage(1)
+    }
+  }, [initialCategory])
+
+  const counts = useMemo(() => {
+    let zerados = 0
+    let criticos = 0
+    let negativos = 0
+    let excesso = 0
+    for (const p of products) {
+      if (p.status_estoque === 'ZERADO') zerados += 1
+      else if (p.status_estoque === 'CRITICO') criticos += 1
+      else if (p.status_estoque === 'NEGATIVO') negativos += 1
+      if (p.em_excesso) excesso += 1
+    }
+    return { zerados, criticos, negativos, excesso }
+  }, [products])
+
   const filteredProducts = useMemo(() => {
     let result = [...products]
 
@@ -85,6 +103,8 @@ export function DataGridPro({
             p.status_validade === 'CRITICO_90D' ||
             p.status_validade === 'ATENCAO_180D'
         )
+      } else if (selectedStatus === 'EXCESSO') {
+        result = result.filter((p) => Boolean(p.em_excesso))
       } else {
         result = result.filter((p) => p.status_estoque === selectedStatus)
       }
@@ -98,20 +118,19 @@ export function DataGridPro({
       result = result.filter((p) => p.fabricante === selectedManufacturer)
     }
 
-    // Ordenação
     result.sort((a, b) => {
-      let valA = a[sortBy] as any
-      let valB = b[sortBy] as any
+      const valA = a[sortBy]
+      const valB = b[sortBy]
 
-      if (typeof valA === 'string') {
+      if (typeof valA === 'string' && typeof valB === 'string') {
         return sortDirection === 'asc'
           ? valA.localeCompare(valB)
           : valB.localeCompare(valA)
       }
 
-      valA = valA || 0
-      valB = valB || 0
-      return sortDirection === 'asc' ? valA - valB : valB - valA
+      const numA = Number(valA || 0)
+      const numB = Number(valB || 0)
+      return sortDirection === 'asc' ? numA - numB : numB - numA
     })
 
     return result
@@ -126,7 +145,6 @@ export function DataGridPro({
     sortDirection,
   ])
 
-  // Paginação
   const totalPages = Math.ceil(filteredProducts.length / pageSize) || 1
   const paginatedProducts = useMemo(() => {
     const start = (currentPage - 1) * pageSize
@@ -153,6 +171,7 @@ export function DataGridPro({
       'Estoque',
       'Mínimo',
       'Status Estoque',
+      'Excesso',
       'Custo Unitário',
       'Preço Venda',
       'Margem %',
@@ -173,6 +192,7 @@ export function DataGridPro({
       p.estoque,
       p.estoque_minimo !== null ? p.estoque_minimo : '',
       p.status_estoque,
+      p.em_excesso ? 'SIM' : 'NAO',
       p.custo.toFixed(2),
       p.valor_venda.toFixed(2),
       p.margem_percentual.toFixed(1),
@@ -187,12 +207,11 @@ export function DataGridPro({
       'data:text/csv;charset=utf-8,\uFEFF' +
       [headers.join(';'), ...rows.map((e) => e.join(';'))].join('\n')
 
-    const encodedUri = encodeURI(csvContent)
     const link = document.createElement('a')
-    link.setAttribute('href', encodedUri)
+    link.setAttribute('href', encodeURI(csvContent))
     link.setAttribute(
       'download',
-      `medstock-catalogo-filtrado-${new Date().toISOString().slice(0, 10)}.csv`
+      `medstock-catalogo-${new Date().toISOString().slice(0, 10)}.csv`
     )
     document.body.appendChild(link)
     link.click()
@@ -201,12 +220,10 @@ export function DataGridPro({
 
   return (
     <div className="space-y-4">
-      {/* Barra de Filtros e Busca Pro */}
-      <div className="rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 p-4 shadow-sm space-y-3">
+      <div className="rounded-sap bg-sap-canvas border border-sap-hairline p-4 space-y-3">
         <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
-          {/* Campo de Busca Livre */}
           <div className="relative flex-1">
-            <Search className="h-4 w-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search className="h-4 w-4 absolute left-3 top-1/2 -translate-y-1/2 text-sap-ink-meta" />
             <input
               type="text"
               placeholder="Buscar por código, produto, lote, fabricante ou categoria..."
@@ -215,24 +232,22 @@ export function DataGridPro({
                 setSearchQuery(e.target.value)
                 setCurrentPage(1)
               }}
-              className="w-full pl-9 pr-4 py-2 rounded-xl text-xs bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500"
+              className="w-full pl-9 pr-8 py-2 rounded-sap text-xs bg-sap-chrome border border-sap-hairline text-sap-ink-body placeholder:text-sap-ink-meta focus:outline-none focus:border-sap-primary"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-sap-ink-meta hover:text-sap-ink"
               >
                 <X className="h-3.5 w-3.5" />
               </button>
             )}
           </div>
 
-          {/* Exportar e Reset */}
           <div className="flex items-center gap-2">
             <button
               onClick={handleExportFilteredCsv}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold border border-slate-200 dark:border-slate-700 transition-colors"
-              title="Exportar itens visíveis para CSV"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-sap bg-sap-canvas hover:bg-sap-band-blue text-sap-primary-deep text-xs font-medium border border-sap-hairline-strong transition-colors"
             >
               <Download className="h-3.5 w-3.5" />
               <span>Exportar ({filteredProducts.length})</span>
@@ -252,20 +267,18 @@ export function DataGridPro({
                   setSelectedManufacturer('ALL')
                   setCurrentPage(1)
                 }}
-                className="text-xs text-rose-500 hover:underline font-semibold px-2 py-1"
+                className="text-xs text-sap-primary hover:underline font-medium px-2 py-1"
               >
-                Limpar Filtros
+                Limpar filtros
               </button>
             )}
           </div>
         </div>
 
-        {/* Dropdowns de Filtro */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 border-t border-slate-100 dark:border-slate-800/60">
-          {/* Categoria */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-sap-hairline">
           <div>
-            <label className="block text-[10px] font-semibold text-slate-400 mb-1">
-              CATEGORIA
+            <label className="block text-[10px] font-semibold text-sap-ink-meta mb-1 uppercase">
+              Categoria
             </label>
             <select
               value={selectedCategory}
@@ -273,9 +286,9 @@ export function DataGridPro({
                 setSelectedCategory(e.target.value)
                 setCurrentPage(1)
               }}
-              className="w-full py-1.5 px-2.5 rounded-lg text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-teal-500"
+              className="w-full py-1.5 px-2.5 rounded-sap text-xs bg-sap-canvas border border-sap-hairline text-sap-ink-body focus:outline-none focus:border-sap-primary"
             >
-              <option value="ALL">Todas as Categorias (23)</option>
+              <option value="ALL">Todas ({categories.length})</option>
               {categories.map((c) => (
                 <option key={c} value={c}>
                   {c}
@@ -284,10 +297,9 @@ export function DataGridPro({
             </select>
           </div>
 
-          {/* Status de Estoque */}
           <div>
-            <label className="block text-[10px] font-semibold text-slate-400 mb-1">
-              STATUS DE ESTOQUE
+            <label className="block text-[10px] font-semibold text-sap-ink-meta mb-1 uppercase">
+              Status de Estoque
             </label>
             <select
               value={selectedStatus}
@@ -295,21 +307,21 @@ export function DataGridPro({
                 setSelectedStatus(e.target.value)
                 setCurrentPage(1)
               }}
-              className="w-full py-1.5 px-2.5 rounded-lg text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-teal-500"
+              className="w-full py-1.5 px-2.5 rounded-sap text-xs bg-sap-canvas border border-sap-hairline text-sap-ink-body focus:outline-none focus:border-sap-primary"
             >
               <option value="ALL">Todos os Status</option>
-              <option value="ZERADO">🚨 Ruptura (Zerado - 47)</option>
-              <option value="CRITICO">⚠️ Crítico (&lt; Mínimo - 21)</option>
-              <option value="NEGATIVO">🔍 Saldo Negativo (4)</option>
-              <option value="NORMAL">✅ Regular</option>
-              <option value="RISCO_VALIDADE">⏳ Risco Validade ANVISA</option>
+              <option value="ZERADO">Sem estoque ({counts.zerados})</option>
+              <option value="CRITICO">Abaixo do mínimo ({counts.criticos})</option>
+              <option value="EXCESSO">Em excesso ({counts.excesso})</option>
+              <option value="NEGATIVO">Saldo negativo ({counts.negativos})</option>
+              <option value="NORMAL">Regular</option>
+              <option value="RISCO_VALIDADE">Risco Validade ANVISA</option>
             </select>
           </div>
 
-          {/* Curva ABC */}
           <div>
-            <label className="block text-[10px] font-semibold text-slate-400 mb-1">
-              CURVA ABC (PARETO)
+            <label className="block text-[10px] font-semibold text-sap-ink-meta mb-1 uppercase">
+              Curva ABC
             </label>
             <select
               value={selectedAbc}
@@ -317,19 +329,18 @@ export function DataGridPro({
                 setSelectedAbc(e.target.value)
                 setCurrentPage(1)
               }}
-              className="w-full py-1.5 px-2.5 rounded-lg text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-teal-500"
+              className="w-full py-1.5 px-2.5 rounded-sap text-xs bg-sap-canvas border border-sap-hairline text-sap-ink-body focus:outline-none focus:border-sap-primary"
             >
               <option value="ALL">Todas as Classes</option>
-              <option value="A">Classe A (80% do valor)</option>
-              <option value="B">Classe B (15% do valor)</option>
-              <option value="C">Classe C (5% do valor)</option>
+              <option value="A">Classe A (80%)</option>
+              <option value="B">Classe B (15%)</option>
+              <option value="C">Classe C (5%)</option>
             </select>
           </div>
 
-          {/* Fabricante */}
           <div>
-            <label className="block text-[10px] font-semibold text-slate-400 mb-1">
-              FABRICANTE / MARCA
+            <label className="block text-[10px] font-semibold text-sap-ink-meta mb-1 uppercase">
+              Fabricante
             </label>
             <select
               value={selectedManufacturer}
@@ -337,9 +348,9 @@ export function DataGridPro({
                 setSelectedManufacturer(e.target.value)
                 setCurrentPage(1)
               }}
-              className="w-full py-1.5 px-2.5 rounded-lg text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-teal-500"
+              className="w-full py-1.5 px-2.5 rounded-sap text-xs bg-sap-canvas border border-sap-hairline text-sap-ink-body focus:outline-none focus:border-sap-primary"
             >
-              <option value="ALL">Todos os Fabricantes</option>
+              <option value="ALL">Todos ({manufacturers.length})</option>
               {manufacturers.map((m) => (
                 <option key={m} value={m}>
                   {m}
@@ -350,19 +361,18 @@ export function DataGridPro({
         </div>
       </div>
 
-      {/* Tabela de Produtos */}
-      <div className="rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+      <div className="rounded-sap-lg bg-sap-canvas border border-sap-hairline overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+          <table className="w-full text-left text-xs border-collapse">
             <thead>
-              <tr className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 font-semibold uppercase tracking-wider">
+              <tr className="bg-sap-chrome border-b border-sap-hairline-strong text-sap-ink-meta font-semibold uppercase tracking-wider">
                 <th className="py-3 px-3">Status</th>
                 <th
                   onClick={() => handleSortToggle('produto')}
-                  className="py-3 px-3 cursor-pointer hover:text-teal-600 transition-colors"
+                  className="py-3 px-3 cursor-pointer hover:text-sap-primary"
                 >
                   <div className="flex items-center gap-1">
-                    <span>Código & Produto</span>
+                    <span>Código &amp; Produto</span>
                     <ArrowUpDown className="h-3 w-3" />
                   </div>
                 </th>
@@ -370,7 +380,7 @@ export function DataGridPro({
                 <th className="py-3 px-3">Lote / Validade</th>
                 <th
                   onClick={() => handleSortToggle('estoque')}
-                  className="py-3 px-3 text-right cursor-pointer hover:text-teal-600 transition-colors"
+                  className="py-3 px-3 text-right cursor-pointer hover:text-sap-primary"
                 >
                   <div className="flex items-center justify-end gap-1">
                     <span>Saldo</span>
@@ -382,7 +392,7 @@ export function DataGridPro({
                 <th className="py-3 px-3 text-right">Venda Un.</th>
                 <th
                   onClick={() => handleSortToggle('margem_percentual')}
-                  className="py-3 px-3 text-right cursor-pointer hover:text-teal-600 transition-colors"
+                  className="py-3 px-3 text-right cursor-pointer hover:text-sap-primary"
                 >
                   <div className="flex items-center justify-end gap-1">
                     <span>Margem</span>
@@ -391,7 +401,7 @@ export function DataGridPro({
                 </th>
                 <th
                   onClick={() => handleSortToggle('valor_total_venda')}
-                  className="py-3 px-3 text-right cursor-pointer hover:text-teal-600 transition-colors"
+                  className="py-3 px-3 text-right cursor-pointer hover:text-sap-primary"
                 >
                   <div className="flex items-center justify-end gap-1">
                     <span>Valor Total</span>
@@ -401,36 +411,42 @@ export function DataGridPro({
                 <th className="py-3 px-3 text-center">ABC</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
+            <tbody className="divide-y divide-sap-hairline">
               {paginatedProducts.length === 0 ? (
                 <tr>
-                  <td colSpan={11} className="py-12 text-center text-slate-400 text-xs">
+                  <td colSpan={11} className="py-12 text-center text-sap-ink-meta text-xs">
                     Nenhum produto encontrado com os filtros selecionados.
                   </td>
                 </tr>
               ) : (
                 paginatedProducts.map((p) => {
                   let statusBadge = (
-                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
-                      Normal
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-[4px] text-[10px] font-medium bg-sap-chrome text-sap-ink-list border border-sap-hairline">
+                      Regular
                     </span>
                   )
                   if (p.status_estoque === 'ZERADO') {
                     statusBadge = (
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/30">
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-[4px] text-[10px] font-semibold bg-rose-50 text-rose-800 border border-rose-200">
                         <AlertOctagon className="h-3 w-3" /> Zerado
                       </span>
                     )
                   } else if (p.status_estoque === 'CRITICO') {
                     statusBadge = (
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30">
-                        <AlertTriangle className="h-3 w-3" /> Crítico
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-[4px] text-[10px] font-semibold bg-amber-50 text-amber-800 border border-amber-200">
+                        <AlertTriangle className="h-3 w-3" /> Repor
                       </span>
                     )
                   } else if (p.status_estoque === 'NEGATIVO') {
                     statusBadge = (
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-purple-500/15 text-purple-600 dark:text-purple-400 border border-purple-500/30">
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-[4px] text-[10px] font-semibold bg-sap-band-lavender text-sap-navy border border-sap-hairline">
                         <HelpCircle className="h-3 w-3" /> Negativo
+                      </span>
+                    )
+                  } else if (p.em_excesso) {
+                    statusBadge = (
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-[4px] text-[10px] font-semibold bg-sap-band-blue text-sap-primary-deep border border-sap-primary/25">
+                        <Layers className="h-3 w-3" /> Excesso
                       </span>
                     )
                   }
@@ -441,64 +457,50 @@ export function DataGridPro({
                     <tr
                       key={p.id}
                       onClick={() => setSelectedProduct(p)}
-                      className={`hover:bg-slate-50 dark:hover:bg-slate-800/40 cursor-pointer transition-colors ${
-                        isSelected ? 'bg-teal-500/10 dark:bg-teal-900/20' : ''
+                      className={`hover:bg-sap-band-blue/50 cursor-pointer transition-colors ${
+                        isSelected ? 'bg-sap-band-blue' : ''
                       }`}
                     >
-                      <td className="py-3 px-3">{statusBadge}</td>
-                      <td className="py-3 px-3 max-w-xs">
-                        <div className="font-mono font-bold text-teal-600 dark:text-teal-400 text-xs">
+                      <td className="py-2.5 px-3">{statusBadge}</td>
+                      <td className="py-2.5 px-3 max-w-xs">
+                        <div className="font-semibold text-sap-primary tabular-nums text-xs">
                           {p.codigo}
                         </div>
-                        <div className="font-medium text-slate-900 dark:text-slate-100 truncate text-[11px] mt-0.5">
+                        <div className="font-medium text-sap-ink-body truncate text-[11px] mt-0.5">
                           {p.produto}
                         </div>
                       </td>
-                      <td className="py-3 px-3 text-slate-600 dark:text-slate-400 text-[11px]">
+                      <td className="py-2.5 px-3 text-sap-ink-list text-[11px]">
                         {p.categoria}
                       </td>
-                      <td className="py-3 px-3 text-[11px]">
-                        <div className="font-mono text-slate-700 dark:text-slate-300 font-medium">
-                          LT: {p.lote}
-                        </div>
-                        <div className="text-slate-500 dark:text-slate-400 text-[10px]">
-                          VAL: {p.validade}
-                        </div>
+                      <td className="py-2.5 px-3 text-[11px] tabular-nums">
+                        <div className="text-sap-ink-body font-medium">LT: {p.lote}</div>
+                        <div className="text-sap-ink-meta text-[10px]">VAL: {p.validade}</div>
                       </td>
-                      <td className="py-3 px-3 text-right font-extrabold text-slate-900 dark:text-white">
-                        {p.estoque < 0 ? (
-                          <span className="text-rose-500">{p.estoque} un</span>
-                        ) : p.estoque === 0 ? (
-                          <span className="text-rose-600 dark:text-rose-400">0 un</span>
+                      <td className="py-2.5 px-3 text-right font-bold tabular-nums text-sap-ink">
+                        {p.estoque <= 0 ? (
+                          <span className="text-rose-700">{p.estoque} un</span>
                         ) : (
                           `${formatNumber(p.estoque)} un`
                         )}
                       </td>
-                      <td className="py-3 px-3 text-right text-slate-500">
+                      <td className="py-2.5 px-3 text-right tabular-nums text-sap-ink-meta">
                         {p.estoque_minimo !== null ? `${p.estoque_minimo} un` : '-'}
                       </td>
-                      <td className="py-3 px-3 text-right text-slate-600 dark:text-slate-400">
+                      <td className="py-2.5 px-3 text-right tabular-nums text-sap-ink-list">
                         {formatCurrency(p.custo)}
                       </td>
-                      <td className="py-3 px-3 text-right font-semibold text-slate-800 dark:text-slate-200">
+                      <td className="py-2.5 px-3 text-right tabular-nums font-medium text-sap-ink-body">
                         {formatCurrency(p.valor_venda)}
                       </td>
-                      <td className="py-3 px-3 text-right font-bold text-emerald-600 dark:text-emerald-400">
+                      <td className="py-2.5 px-3 text-right tabular-nums font-semibold text-emerald-700">
                         {formatPercent(p.margem_percentual)}
                       </td>
-                      <td className="py-3 px-3 text-right font-black text-slate-900 dark:text-white">
+                      <td className="py-2.5 px-3 text-right tabular-nums font-bold text-sap-ink">
                         {formatCurrency(p.valor_total_venda)}
                       </td>
-                      <td className="py-3 px-3 text-center">
-                        <span
-                          className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-extrabold border ${
-                            p.curva_abc === 'A'
-                              ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30'
-                              : p.curva_abc === 'B'
-                              ? 'bg-blue-500/15 text-blue-600 dark:text-blue-400 border-blue-500/30'
-                              : 'bg-purple-500/15 text-purple-600 dark:text-purple-400 border-purple-500/30'
-                          }`}
-                        >
+                      <td className="py-2.5 px-3 text-center">
+                        <span className="inline-flex items-center px-2 py-0.5 rounded-[4px] text-[10px] font-semibold bg-sap-chrome text-sap-ink-body border border-sap-hairline">
                           {p.curva_abc}
                         </span>
                       </td>
@@ -510,21 +512,17 @@ export function DataGridPro({
           </table>
         </div>
 
-        {/* Rodapé e Paginação */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-3 bg-slate-50 dark:bg-slate-800/40 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400">
-          <div>
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-3 bg-sap-chrome border-t border-sap-hairline text-xs text-sap-ink-meta">
+          <div className="tabular-nums">
             Exibindo{' '}
-            <span className="font-bold text-slate-800 dark:text-slate-200">
+            <span className="font-semibold text-sap-ink">
               {filteredProducts.length > 0 ? (currentPage - 1) * pageSize + 1 : 0}
             </span>{' '}
             a{' '}
-            <span className="font-bold text-slate-800 dark:text-slate-200">
+            <span className="font-semibold text-sap-ink">
               {Math.min(currentPage * pageSize, filteredProducts.length)}
             </span>{' '}
-            de{' '}
-            <span className="font-bold text-slate-800 dark:text-slate-200">
-              {filteredProducts.length}
-            </span>{' '}
+            de <span className="font-semibold text-sap-ink">{filteredProducts.length}</span>{' '}
             produtos ({products.length} no catálogo)
           </div>
 
@@ -532,17 +530,17 @@ export function DataGridPro({
             <button
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
               disabled={currentPage === 1}
-              className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+              className="p-1.5 rounded-sap border border-sap-hairline bg-sap-canvas disabled:opacity-40 disabled:cursor-not-allowed hover:bg-sap-band-blue"
             >
               <ChevronLeft className="h-4 w-4" />
             </button>
-            <span className="font-medium text-slate-700 dark:text-slate-300">
+            <span className="font-medium text-sap-ink-body tabular-nums">
               Página {currentPage} de {totalPages}
             </span>
             <button
               onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
               disabled={currentPage === totalPages}
-              className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+              className="p-1.5 rounded-sap border border-sap-hairline bg-sap-canvas disabled:opacity-40 disabled:cursor-not-allowed hover:bg-sap-band-blue"
             >
               <ChevronRight className="h-4 w-4" />
             </button>
@@ -550,65 +548,60 @@ export function DataGridPro({
         </div>
       </div>
 
-      {/* Drawer Lateral / Modal com Ficha 360° do SKU */}
       {selectedProduct && (
-        <div className="fixed inset-0 z-50 flex justify-end bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="w-full max-w-lg bg-white dark:bg-slate-900 h-full shadow-2xl p-6 overflow-y-auto border-l border-slate-200 dark:border-slate-800 space-y-6">
-            <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800">
-              <div className="flex items-center gap-2">
-                <span className="p-2 rounded-xl bg-teal-500/10 text-teal-600 dark:text-teal-400">
+        <div className="fixed inset-0 z-50 flex justify-end bg-black/35">
+          <div className="w-full max-w-lg bg-sap-canvas h-full shadow-xl p-6 overflow-y-auto border-l border-sap-hairline space-y-5">
+            <div className="flex items-center justify-between pb-4 border-b border-sap-hairline">
+              <div className="flex items-center gap-2.5">
+                <span className="p-2 rounded-sap bg-sap-band-blue text-sap-primary">
                   <Tag className="h-5 w-5" />
                 </span>
                 <div>
-                  <h3 className="font-extrabold text-base text-slate-900 dark:text-white">
-                    Ficha Técnica do SKU
-                  </h3>
-                  <span className="font-mono text-xs text-teal-600 dark:text-teal-400 font-bold">
+                  <h3 className="font-bold text-base text-sap-ink">Ficha Técnica do SKU</h3>
+                  <span className="text-xs text-sap-primary font-semibold tabular-nums">
                     {selectedProduct.codigo}
                   </span>
                 </div>
               </div>
               <button
                 onClick={() => setSelectedProduct(null)}
-                className="p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+                className="p-2 rounded-sap hover:bg-sap-chrome text-sap-ink-meta hover:text-sap-ink"
               >
                 <X className="h-5 w-5" />
               </button>
             </div>
 
-            {/* Descrição e Categoria */}
             <div>
-              <h4 className="text-sm font-bold text-slate-900 dark:text-white leading-snug">
+              <h4 className="text-sm font-semibold text-sap-ink leading-snug">
                 {selectedProduct.produto}
               </h4>
               <div className="flex flex-wrap items-center gap-2 mt-2">
-                <span className="px-2 py-0.5 rounded-md text-xs bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium">
+                <span className="px-2 py-0.5 rounded-[4px] text-xs bg-sap-chrome border border-sap-hairline text-sap-ink-body font-medium">
                   {selectedProduct.categoria}
                 </span>
-                <span className="px-2 py-0.5 rounded-md text-xs bg-teal-500/10 text-teal-600 dark:text-teal-400 font-semibold">
+                <span className="px-2 py-0.5 rounded-[4px] text-xs bg-sap-band-blue text-sap-primary-deep font-medium">
                   Marca: {selectedProduct.fabricante}
                 </span>
-                <span className="px-2 py-0.5 rounded-md text-xs bg-purple-500/10 text-purple-600 dark:text-purple-400 font-extrabold">
-                  Curva ABC: Classe {selectedProduct.curva_abc}
+                <span className="px-2 py-0.5 rounded-[4px] text-xs bg-sap-chrome border border-sap-hairline text-sap-ink font-semibold">
+                  Curva ABC: {selectedProduct.curva_abc}
                 </span>
               </div>
             </div>
 
-            {/* Saldo de Estoque & Status */}
-            <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-3">
-              <div className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                Posição Fisiológica de Estoque
+            <div className="p-4 rounded-sap bg-sap-chrome border border-sap-hairline space-y-3">
+              <div className="text-xs font-semibold uppercase tracking-wider text-sap-ink-meta">
+                Posição de Estoque
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <div className="text-xs text-slate-500">Saldo Atual</div>
-                  <div className="text-2xl font-black text-slate-900 dark:text-white">
+                  <div className="text-xs text-sap-ink-meta">Saldo Atual</div>
+                  <div className="text-2xl font-bold text-sap-ink tabular-nums">
                     {formatNumber(selectedProduct.estoque)} un
                   </div>
                 </div>
                 <div>
-                  <div className="text-xs text-slate-500">Estoque Mínimo</div>
-                  <div className="text-2xl font-black text-slate-900 dark:text-white">
+                  <div className="text-xs text-sap-ink-meta">Estoque Mínimo</div>
+                  <div className="text-2xl font-bold text-sap-ink tabular-nums">
                     {selectedProduct.estoque_minimo !== null
                       ? `${selectedProduct.estoque_minimo} un`
                       : 'Não definido'}
@@ -616,76 +609,72 @@ export function DataGridPro({
                 </div>
               </div>
               {selectedProduct.sugestao_compra_qtd > 0 && (
-                <div className="pt-2 border-t border-slate-200 dark:border-slate-700/60 text-xs text-rose-600 dark:text-rose-400 font-semibold flex items-center gap-1.5">
+                <div className="pt-2 border-t border-sap-hairline text-xs text-rose-700 font-semibold flex items-center gap-1.5">
                   <AlertTriangle className="h-4 w-4" />
-                  Necessidade de Reposição: +{selectedProduct.sugestao_compra_qtd} unidades ({formatCurrency(selectedProduct.sugestao_compra_custo)})
+                  Necessidade de Reposição: +{selectedProduct.sugestao_compra_qtd} un (
+                  {formatCurrency(selectedProduct.sugestao_compra_custo)})
                 </div>
               )}
             </div>
 
-            {/* Rentabilidade & Precificação */}
-            <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-3">
-              <div className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                Análise Financeira & Margens
+            <div className="p-4 rounded-sap bg-sap-chrome border border-sap-hairline space-y-3">
+              <div className="text-xs font-semibold uppercase tracking-wider text-sap-ink-meta">
+                Análise Financeira
               </div>
               <div className="grid grid-cols-2 gap-3 text-xs">
                 <div>
-                  <span className="text-slate-500">Custo de Aquisição:</span>
-                  <div className="text-base font-bold text-slate-900 dark:text-white">
+                  <span className="text-sap-ink-meta">Custo Unitário:</span>
+                  <div className="text-base font-bold text-sap-ink tabular-nums">
                     {formatCurrency(selectedProduct.custo)}
                   </div>
                 </div>
                 <div>
-                  <span className="text-slate-500">Preço de Venda:</span>
-                  <div className="text-base font-bold text-slate-900 dark:text-white">
+                  <span className="text-sap-ink-meta">Preço de Venda:</span>
+                  <div className="text-base font-bold text-sap-ink tabular-nums">
                     {formatCurrency(selectedProduct.valor_venda)}
                   </div>
                 </div>
                 <div>
-                  <span className="text-slate-500">Lucro Unitário:</span>
-                  <div className="text-base font-bold text-emerald-600 dark:text-emerald-400">
+                  <span className="text-sap-ink-meta">Lucro Unitário:</span>
+                  <div className="text-base font-bold text-emerald-700 tabular-nums">
                     {formatCurrency(selectedProduct.lucro_unitario)}
                   </div>
                 </div>
                 <div>
-                  <span className="text-slate-500">Margem Bruta:</span>
-                  <div className="text-base font-bold text-emerald-600 dark:text-emerald-400">
-                    {formatPercent(selectedProduct.margem_percentual)} (Markup: {formatPercent(selectedProduct.markup_percentual)})
+                  <span className="text-sap-ink-meta">Margem / Markup:</span>
+                  <div className="text-base font-bold text-emerald-700 tabular-nums">
+                    {formatPercent(selectedProduct.margem_percentual)} /{' '}
+                    {formatPercent(selectedProduct.markup_percentual)}
                   </div>
                 </div>
               </div>
-              <div className="pt-2 border-t border-slate-200 dark:border-slate-700/60 flex justify-between text-xs font-semibold">
-                <span className="text-slate-500">Patrimônio Total em Estoque:</span>
-                <span className="text-slate-900 dark:text-white font-extrabold text-sm">
+              <div className="pt-2 border-t border-sap-hairline flex justify-between text-xs font-semibold">
+                <span className="text-sap-ink-meta">Valor Total em Estoque:</span>
+                <span className="text-sap-ink font-bold text-sm tabular-nums">
                   {formatCurrency(selectedProduct.valor_total_venda)}
                 </span>
               </div>
             </div>
 
-            {/* Rastreabilidade ANVISA */}
-            <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-2">
-              <div className="text-xs font-bold uppercase tracking-wider text-slate-400">
+            <div className="p-4 rounded-sap bg-sap-chrome border border-sap-hairline space-y-2">
+              <div className="text-xs font-semibold uppercase tracking-wider text-sap-ink-meta">
                 Rastreabilidade de Lote e ANVISA
               </div>
               <div className="grid grid-cols-2 gap-2 text-xs">
                 <div>
-                  <span className="text-slate-500">Número de Lote:</span>
-                  <div className="font-mono font-bold text-slate-800 dark:text-slate-200">
-                    {selectedProduct.lote}
-                  </div>
+                  <span className="text-sap-ink-meta">Lote:</span>
+                  <div className="font-semibold text-sap-ink-body">{selectedProduct.lote}</div>
                 </div>
                 <div>
-                  <span className="text-slate-500">Data de Validade:</span>
-                  <div className="font-bold text-slate-800 dark:text-slate-200">
-                    {selectedProduct.validade}
-                  </div>
+                  <span className="text-sap-ink-meta">Validade:</span>
+                  <div className="font-semibold text-sap-ink-body">{selectedProduct.validade}</div>
                 </div>
               </div>
             </div>
 
             <button
               onClick={() => setSelectedProduct(null)}
-              className="w-full py-2.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-xs hover:opacity-90 transition-opacity"
+              className="w-full py-2.5 rounded-sap bg-sap-primary hover:bg-sap-primary-deep text-sap-on-primary font-medium text-xs transition-colors"
             >
               Fechar Ficha
             </button>

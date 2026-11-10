@@ -7,25 +7,26 @@ import {
   AlertOctagon,
   DollarSign,
   Download,
-  Filter,
-  CheckCircle,
   PackagePlus,
-  SendHorizontal,
+  Layers,
 } from 'lucide-react'
-import { RestockItem, ProductItem } from '@/types/inventory'
+import { ExcessItem, RestockItem } from '@/types/inventory'
 import { formatCurrency, formatNumber } from '@/lib/utils'
 
 interface RestockViewProps {
   items: RestockItem[]
+  excessItems: ExcessItem[]
+  excessMultiplier: number
   onSelectProductById: (code: string) => void
-  onNavigateTab: (tab: string) => void
 }
 
 export function RestockView({
   items,
+  excessItems,
+  excessMultiplier,
   onSelectProductById,
-  onNavigateTab,
 }: RestockViewProps) {
+  const [sectionMode, setSectionMode] = useState<'REPOSICAO' | 'EXCESSO'>('REPOSICAO')
   const [filterPriority, setFilterPriority] = useState<string>('ALL')
 
   const filteredItems = items.filter((item) => {
@@ -33,16 +34,14 @@ export function RestockView({
     return item.prioridade === filterPriority
   })
 
-  const totalInvestimento = items.reduce(
-    (acc, item) => acc + item.investimento_necessario,
-    0
-  )
-  const totalUnidadesFalta = items.reduce(
-    (acc, item) => acc + item.sugestao_compra_qtd,
-    0
-  )
+  const totalInvestimento = items.reduce((acc, item) => acc + item.investimento_necessario, 0)
+  const totalUnidadesFalta = items.reduce((acc, item) => acc + item.sugestao_compra_qtd, 0)
   const totalUrgentes = items.filter((i) => i.prioridade === 'URGENTE').length
   const totalAltas = items.filter((i) => i.prioridade === 'ALTA').length
+  const totalCapitalExcesso = excessItems.reduce(
+    (acc, item) => acc + item.capital_excedente_custo,
+    0
+  )
 
   const handleExportCsv = () => {
     const headers = [
@@ -75,10 +74,12 @@ export function RestockView({
       'data:text/csv;charset=utf-8,\uFEFF' +
       [headers.join(';'), ...rows.map((e) => e.join(';'))].join('\n')
 
-    const encodedUri = encodeURI(csvContent)
     const link = document.createElement('a')
-    link.setAttribute('href', encodedUri)
-    link.setAttribute('download', `ordem-reposicao-sugerida-${new Date().toISOString().slice(0, 10)}.csv`)
+    link.setAttribute('href', encodeURI(csvContent))
+    link.setAttribute(
+      'download',
+      `plano-acao-reposicao-${new Date().toISOString().slice(0, 10)}.csv`
+    )
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)
@@ -86,223 +87,256 @@ export function RestockView({
 
   return (
     <div className="space-y-6">
-      {/* Banner de Compras & KPIs de Reposição */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {/* Card 1: Investimento Total */}
-        <div className="rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 p-5 shadow-sm">
-          <div className="flex items-center justify-between text-slate-500 dark:text-slate-400">
-            <span className="text-xs font-semibold uppercase tracking-wider">
-              Investimento para Nivelamento
-            </span>
-            <span className="p-2.5 rounded-xl bg-teal-500/10 text-teal-600 dark:text-teal-400">
-              <DollarSign className="h-5 w-5" />
-            </span>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+        <div className="rounded-sap bg-sap-canvas border border-sap-hairline border-t-2 border-t-sap-primary p-4">
+          <div className="flex items-center justify-between text-sap-ink-meta">
+            <span className="text-xs font-medium uppercase">Investimento Nivelamento</span>
+            <DollarSign className="h-4 w-4 text-sap-primary" />
           </div>
-          <div className="mt-2 text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">
+          <div className="mt-2 text-2xl font-bold text-sap-ink tabular-nums">
             {formatCurrency(totalInvestimento)}
           </div>
-          <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-            Custo total para suprir todo o déficit em relação ao estoque mínimo.
+          <p className="mt-1 text-xs text-sap-ink-meta">
+            Custo para cobrir o déficit em relação ao mínimo.
           </p>
         </div>
 
-        {/* Card 2: Unidades em Falta */}
-        <div className="rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 p-5 shadow-sm">
-          <div className="flex items-center justify-between text-slate-500 dark:text-slate-400">
-            <span className="text-xs font-semibold uppercase tracking-wider">
-              Déficit Físico de Compras
-            </span>
-            <span className="p-2.5 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400">
-              <PackagePlus className="h-5 w-5" />
-            </span>
+        <div className="rounded-sap bg-sap-canvas border border-sap-hairline border-t-2 border-t-sap-primary-deep p-4">
+          <div className="flex items-center justify-between text-sap-ink-meta">
+            <span className="text-xs font-medium uppercase">Déficit Físico</span>
+            <PackagePlus className="h-4 w-4 text-sap-primary-deep" />
           </div>
-          <div className="mt-2 text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">
+          <div className="mt-2 text-2xl font-bold text-sap-ink tabular-nums">
             {formatNumber(totalUnidadesFalta)}{' '}
-            <span className="text-sm font-medium text-slate-500">un.</span>
+            <span className="text-sm font-normal text-sap-ink-meta">un.</span>
           </div>
-          <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-            Quantidade total a faturar junto a fornecedores e distribuidores.
+          <p className="mt-1 text-xs text-sap-ink-meta">
+            {totalUrgentes} urgentes (zerados) e {totalAltas} prioridade alta.
           </p>
         </div>
 
-        {/* Card 3: SKUs em Ruptura Imediata */}
-        <div className="rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 p-5 shadow-sm">
-          <div className="flex items-center justify-between text-rose-600 dark:text-rose-400">
-            <span className="text-xs font-semibold uppercase tracking-wider text-rose-700 dark:text-rose-300">
-              Urgência Máxima (Estoque &lt;= 0)
-            </span>
-            <span className="p-2.5 rounded-xl bg-rose-500/10 text-rose-600 dark:text-rose-400">
-              <AlertOctagon className="h-5 w-5" />
-            </span>
+        <div className="rounded-sap bg-sap-canvas border border-sap-hairline border-t-2 border-t-rose-700 p-4">
+          <div className="flex items-center justify-between text-rose-700">
+            <span className="text-xs font-medium uppercase">Ruptura Imediata</span>
+            <AlertOctagon className="h-4 w-4" />
           </div>
-          <div className="mt-2 text-2xl sm:text-3xl font-extrabold text-rose-600 dark:text-rose-400">
+          <div className="mt-2 text-2xl font-bold text-rose-700 tabular-nums">
             {totalUrgentes}{' '}
-            <span className="text-sm font-medium text-rose-500/80">SKUs</span>
+            <span className="text-sm font-normal text-sap-ink-meta">SKUs</span>
           </div>
-          <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-            Itens com estoque zerado ou negativo que possuem parâmetro mínimo.
+          <p className="mt-1 text-xs text-sap-ink-meta">
+            Itens com saldo &le; 0 que possuem mínimo definido.
           </p>
         </div>
 
-        {/* Card 4: SKUs em Alerta */}
-        <div className="rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 p-5 shadow-sm">
-          <div className="flex items-center justify-between text-amber-600 dark:text-amber-400">
-            <span className="text-xs font-semibold uppercase tracking-wider text-amber-700 dark:text-amber-300">
-              Alta Prioridade (&lt; 50% Mín.)
-            </span>
-            <span className="p-2.5 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400">
-              <AlertTriangle className="h-5 w-5" />
-            </span>
+        <div className="rounded-sap bg-sap-canvas border border-sap-hairline border-t-2 border-t-sap-navy p-4">
+          <div className="flex items-center justify-between text-sap-primary-deep">
+            <span className="text-xs font-medium uppercase">Capital em Excesso</span>
+            <Layers className="h-4 w-4" />
           </div>
-          <div className="mt-2 text-2xl sm:text-3xl font-extrabold text-amber-600 dark:text-amber-400">
-            {totalAltas}{' '}
-            <span className="text-sm font-medium text-amber-500/80">SKUs</span>
+          <div className="mt-2 text-2xl font-bold text-sap-primary-deep tabular-nums">
+            {formatCurrency(totalCapitalExcesso)}
           </div>
-          <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-            Itens que esgotarão nos próximos dias se não emitido pedido.
+          <p className="mt-1 text-xs text-sap-ink-meta">
+            {excessItems.length} SKUs acima de {excessMultiplier}x o estoque mínimo.
           </p>
         </div>
       </div>
 
-      {/* Caixa de Sugestão de Reposição & Tabela */}
-      <div className="rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 p-5 shadow-sm">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-slate-800">
-          <div>
-            <div className="flex items-center gap-2">
-              <ShoppingCart className="h-5 w-5 text-teal-600 dark:text-teal-400" />
-              <h3 className="font-bold text-base text-slate-900 dark:text-white">
-                Grade de Reposição & Ordem de Compra Sugerida
-              </h3>
-            </div>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-              Calculada dinamicamente: <code>Déficit = Estoque Mínimo - Saldo Atual</code>
-            </p>
-          </div>
-
+      <div className="rounded-sap-lg bg-sap-canvas border border-sap-hairline overflow-hidden">
+        <div className="px-5 py-4 bg-sap-chrome border-b border-sap-hairline flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            {/* Filtro por prioridade */}
-            <div className="flex items-center gap-1.5 p-1 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs">
+            <ShoppingCart className="h-4 w-4 text-sap-primary" />
+            <div>
+              <h3 className="font-semibold text-sm text-sap-ink">
+                Plano de Ação — Reposição &amp; Desmobilização de Excesso
+              </h3>
+              <p className="text-xs text-sap-ink-meta">
+                Alternância entre compras urgentes e itens com cobertura excedente
+              </p>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="flex items-center p-0.5 rounded-sap bg-sap-canvas border border-sap-hairline text-xs">
               <button
-                onClick={() => setFilterPriority('ALL')}
-                className={`px-2.5 py-1 rounded-lg font-medium transition-colors ${
-                  filterPriority === 'ALL'
-                    ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm'
-                    : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
+                onClick={() => setSectionMode('REPOSICAO')}
+                className={`px-3 py-1.5 rounded-[6px] font-medium transition-colors ${
+                  sectionMode === 'REPOSICAO'
+                    ? 'bg-sap-primary text-sap-on-primary'
+                    : 'text-sap-ink-nav hover:bg-sap-chrome'
                 }`}
               >
-                Todos ({items.length})
+                Ordem de Reposição ({items.length})
               </button>
               <button
-                onClick={() => setFilterPriority('URGENTE')}
-                className={`px-2.5 py-1 rounded-lg font-medium transition-colors ${
-                  filterPriority === 'URGENTE'
-                    ? 'bg-rose-500 text-white shadow-sm'
-                    : 'text-slate-500 hover:text-rose-500'
+                onClick={() => setSectionMode('EXCESSO')}
+                className={`px-3 py-1.5 rounded-[6px] font-medium transition-colors ${
+                  sectionMode === 'EXCESSO'
+                    ? 'bg-sap-primary text-sap-on-primary'
+                    : 'text-sap-ink-nav hover:bg-sap-chrome'
                 }`}
               >
-                Urgentes ({totalUrgentes})
-              </button>
-              <button
-                onClick={() => setFilterPriority('ALTA')}
-                className={`px-2.5 py-1 rounded-lg font-medium transition-colors ${
-                  filterPriority === 'ALTA'
-                    ? 'bg-amber-500 text-white shadow-sm'
-                    : 'text-slate-500 hover:text-amber-500'
-                }`}
-              >
-                Alta ({totalAltas})
+                Estoque em Excesso ({excessItems.length})
               </button>
             </div>
 
-            <button
-              onClick={handleExportCsv}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-xs font-semibold shadow-sm transition-colors"
-            >
-              <Download className="h-3.5 w-3.5" />
-              <span>Exportar Pedido</span>
-            </button>
-          </div>
-        </div>
+            {sectionMode === 'REPOSICAO' && (
+              <>
+                <div className="flex items-center gap-1 p-0.5 rounded-sap bg-sap-canvas border border-sap-hairline text-xs">
+                  {(['ALL', 'URGENTE', 'ALTA'] as const).map((prio) => (
+                    <button
+                      key={prio}
+                      onClick={() => setFilterPriority(prio)}
+                      className={`px-2.5 py-1 rounded-[6px] font-medium transition-colors ${
+                        filterPriority === prio
+                          ? 'bg-sap-band-blue text-sap-primary-deep'
+                          : 'text-sap-ink-nav hover:bg-sap-chrome'
+                      }`}
+                    >
+                      {prio === 'ALL'
+                        ? `Todos (${items.length})`
+                        : prio === 'URGENTE'
+                        ? `Urgentes (${totalUrgentes})`
+                        : `Alta (${totalAltas})`}
+                    </button>
+                  ))}
+                </div>
 
-        {/* Notificação de API para o Cliente */}
-        <div className="my-4 p-3.5 rounded-xl bg-teal-500/10 border border-teal-500/20 flex items-start gap-3">
-          <SendHorizontal className="h-4 w-4 text-teal-600 dark:text-teal-400 mt-0.5 shrink-0" />
-          <div className="text-xs">
-            <span className="font-bold text-teal-700 dark:text-teal-300">
-              Integração Automática com ERP (Fase 2 - API):
-            </span>{' '}
-            <span className="text-slate-600 dark:text-slate-300">
-              Ao conectar com a API do cliente, o botão de compra pode disparar diretamente o endpoint{' '}
-              <code className="px-1 py-0.5 rounded bg-teal-500/20 text-teal-800 dark:text-teal-200 font-mono font-semibold">
-                POST /pedidos-compra/sugestoes
-              </code>{' '}
-              no ERP hospitalar, eliminando digitação manual do almoxarife.
-            </span>
-          </div>
-        </div>
-
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
-            <thead>
-              <tr className="border-b border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 font-semibold uppercase tracking-wider">
-                <th className="py-2.5 px-3">Prioridade</th>
-                <th className="py-2.5 px-3">Código</th>
-                <th className="py-2.5 px-3">Produto</th>
-                <th className="py-2.5 px-3">Categoria / Marca</th>
-                <th className="py-2.5 px-3 text-right">Saldo Atual</th>
-                <th className="py-2.5 px-3 text-right">Estoque Mínimo</th>
-                <th className="py-2.5 px-3 text-right">Qtd Sugerida</th>
-                <th className="py-2.5 px-3 text-right">Custo Unitário</th>
-                <th className="py-2.5 px-3 text-right">Investimento Estimado</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
-              {filteredItems.map((item) => (
-                <tr
-                  key={item.id}
-                  onClick={() => onSelectProductById(item.codigo)}
-                  className="hover:bg-slate-50 dark:hover:bg-slate-800/40 cursor-pointer transition-colors"
+                <button
+                  onClick={handleExportCsv}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-sap bg-sap-primary hover:bg-sap-primary-deep text-sap-on-primary text-xs font-medium transition-colors"
                 >
-                  <td className="py-3 px-3">
-                    {item.prioridade === 'URGENTE' ? (
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/30">
-                        <AlertOctagon className="h-3 w-3" /> URGENTE
-                      </span>
-                    ) : (
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30">
-                        <AlertTriangle className="h-3 w-3" /> ALTA
-                      </span>
-                    )}
-                  </td>
-                  <td className="py-3 px-3 font-mono font-bold text-teal-600 dark:text-teal-400">
-                    {item.codigo}
-                  </td>
-                  <td className="py-3 px-3 max-w-sm truncate font-medium text-slate-900 dark:text-slate-100">
-                    {item.produto}
-                  </td>
-                  <td className="py-3 px-3 text-slate-600 dark:text-slate-400">
-                    {item.categoria} <span className="text-[10px] text-slate-400 font-mono">({item.fabricante})</span>
-                  </td>
-                  <td className="py-3 px-3 text-right font-bold text-rose-600 dark:text-rose-400">
-                    {item.estoque} un
-                  </td>
-                  <td className="py-3 px-3 text-right font-semibold text-slate-700 dark:text-slate-300">
-                    {item.estoque_minimo} un
-                  </td>
-                  <td className="py-3 px-3 text-right font-black text-teal-600 dark:text-teal-400 text-sm">
-                    +{formatNumber(item.sugestao_compra_qtd)}
-                  </td>
-                  <td className="py-3 px-3 text-right text-slate-600 dark:text-slate-400">
-                    {formatCurrency(item.custo_unitario)}
-                  </td>
-                  <td className="py-3 px-3 text-right font-extrabold text-slate-900 dark:text-white">
-                    {formatCurrency(item.investimento_necessario)}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                  <Download className="h-3.5 w-3.5" />
+                  <span>Exportar Pedido</span>
+                </button>
+              </>
+            )}
+          </div>
         </div>
+
+        {sectionMode === 'REPOSICAO' ? (
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr className="border-b border-sap-hairline-strong text-sap-ink-meta font-semibold uppercase tracking-wider bg-sap-canvas">
+                  <th className="py-2.5 px-3">Prioridade</th>
+                  <th className="py-2.5 px-3">Código</th>
+                  <th className="py-2.5 px-3">Produto</th>
+                  <th className="py-2.5 px-3">Categoria / Marca</th>
+                  <th className="py-2.5 px-3 text-right">Saldo</th>
+                  <th className="py-2.5 px-3 text-right">Mínimo</th>
+                  <th className="py-2.5 px-3 text-right">Repor</th>
+                  <th className="py-2.5 px-3 text-right">Custo Un.</th>
+                  <th className="py-2.5 px-3 text-right">Investimento</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-sap-hairline">
+                {filteredItems.map((item) => (
+                  <tr
+                    key={item.id}
+                    onClick={() => onSelectProductById(item.codigo)}
+                    className="hover:bg-sap-band-blue/50 cursor-pointer transition-colors"
+                  >
+                    <td className="py-2.5 px-3">
+                      {item.prioridade === 'URGENTE' ? (
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-[4px] text-[10px] font-semibold bg-rose-50 text-rose-800 border border-rose-200">
+                          <AlertOctagon className="h-3 w-3" /> URGENTE
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-[4px] text-[10px] font-semibold bg-amber-50 text-amber-800 border border-amber-200">
+                          <AlertTriangle className="h-3 w-3" /> ALTA
+                        </span>
+                      )}
+                    </td>
+                    <td className="py-2.5 px-3 font-semibold text-sap-primary tabular-nums">
+                      {item.codigo}
+                    </td>
+                    <td className="py-2.5 px-3 max-w-sm truncate font-medium text-sap-ink-body">
+                      {item.produto}
+                    </td>
+                    <td className="py-2.5 px-3 text-sap-ink-list">
+                      {item.categoria}{' '}
+                      <span className="text-[10px] text-sap-ink-meta">({item.fabricante})</span>
+                    </td>
+                    <td className="py-2.5 px-3 text-right font-bold tabular-nums text-rose-700">
+                      {item.estoque} un
+                    </td>
+                    <td className="py-2.5 px-3 text-right tabular-nums text-sap-ink-list">
+                      {item.estoque_minimo} un
+                    </td>
+                    <td className="py-2.5 px-3 text-right font-bold tabular-nums text-sap-primary">
+                      +{formatNumber(item.sugestao_compra_qtd)}
+                    </td>
+                    <td className="py-2.5 px-3 text-right tabular-nums text-sap-ink-list">
+                      {formatCurrency(item.custo_unitario)}
+                    </td>
+                    <td className="py-2.5 px-3 text-right font-bold tabular-nums text-sap-ink">
+                      {formatCurrency(item.investimento_necessario)}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr className="border-b border-sap-hairline-strong text-sap-ink-meta font-semibold uppercase tracking-wider bg-sap-canvas">
+                  <th className="py-2.5 px-3">Código</th>
+                  <th className="py-2.5 px-3">Produto</th>
+                  <th className="py-2.5 px-3">Categoria</th>
+                  <th className="py-2.5 px-3 text-right">Saldo Atual</th>
+                  <th className="py-2.5 px-3 text-right">Mínimo</th>
+                  <th className="py-2.5 px-3 text-right">Cobertura</th>
+                  <th className="py-2.5 px-3 text-right">Excedente (&gt;{excessMultiplier}x)</th>
+                  <th className="py-2.5 px-3 text-right">Capital Excedente (Custo)</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-sap-hairline">
+                {excessItems.length === 0 ? (
+                  <tr>
+                    <td colSpan={8} className="py-10 text-center text-sap-ink-meta">
+                      Nenhum item excede {excessMultiplier}x do estoque mínimo definido.
+                    </td>
+                  </tr>
+                ) : (
+                  excessItems.map((item) => (
+                    <tr
+                      key={item.id}
+                      onClick={() => onSelectProductById(item.codigo)}
+                      className="hover:bg-sap-band-blue/50 cursor-pointer transition-colors"
+                    >
+                      <td className="py-2.5 px-3 font-semibold text-sap-primary tabular-nums">
+                        {item.codigo}
+                      </td>
+                      <td className="py-2.5 px-3 max-w-sm truncate font-medium text-sap-ink-body">
+                        {item.produto}
+                      </td>
+                      <td className="py-2.5 px-3 text-sap-ink-list">{item.categoria}</td>
+                      <td className="py-2.5 px-3 text-right font-bold tabular-nums text-sap-ink">
+                        {formatNumber(item.estoque)} un
+                      </td>
+                      <td className="py-2.5 px-3 text-right tabular-nums text-sap-ink-meta">
+                        {formatNumber(item.estoque_minimo)} un
+                      </td>
+                      <td className="py-2.5 px-3 text-right font-semibold tabular-nums text-sap-primary-deep">
+                        {item.fator_cobertura}x
+                      </td>
+                      <td className="py-2.5 px-3 text-right font-bold tabular-nums text-amber-700">
+                        +{formatNumber(item.excedente)} un
+                      </td>
+                      <td className="py-2.5 px-3 text-right font-bold tabular-nums text-sap-ink">
+                        {formatCurrency(item.capital_excedente_custo)}
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     </div>
   )

@@ -1,0 +1,63 @@
+name: Daily SmartPOS Data Sync
+
+on:
+  schedule:
+    # Todos os dias às 06:00 BRT (05:00 Manaus / 09:00 UTC)
+    - cron: '0 9 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync-smartpos:
+    name: Sincronizar catálogo e preços SmartPOS
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Validate required secrets
+        env:
+          SMARTPOS_KEY_ID: ${{ secrets.SMARTPOS_KEY_ID }}
+          SMARTPOS_KEY_SECRET: ${{ secrets.SMARTPOS_KEY_SECRET }}
+        run: |
+          if [ -z "$SMARTPOS_KEY_ID" ] || [ -z "$SMARTPOS_KEY_SECRET" ]; then
+            echo "Erro: cadastre SMARTPOS_KEY_ID e SMARTPOS_KEY_SECRET em Settings > Secrets and variables > Actions."
+            exit 1
+          fi
+
+      - name: Run SmartPOS daily sync
+        env:
+          SMARTPOS_BASE_URL: https://api.smartpos.app/v1
+          SMARTPOS_KEY_ID: ${{ secrets.SMARTPOS_KEY_ID }}
+          SMARTPOS_KEY_SECRET: ${{ secrets.SMARTPOS_KEY_SECRET }}
+        run: python scripts/sync-smartpos.py
+
+      - name: Commit and push updated data
+        id: git_sync
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet lib/data/inventoryData.json; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "Nenhuma alteração detectada em lib/data/inventoryData.json."
+          else
+            git add lib/data/inventoryData.json
+            git commit -m "chore(sync): daily morning SmartPOS data update"
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Trigger Vercel Deploy Hook (optional)
+        if: steps.git_sync.outputs.changed == 'true' && env.VERCEL_DEPLOY_HOOK_URL != ''
+        env:
+          VERCEL_DEPLOY_HOOK_URL: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
+        run: curl -sSf -X POST "$VERCEL_DEPLOY_HOOK_URL"
+
