@@ -15,6 +15,7 @@ import {
   normalizeExcessMultiplier,
   TOP_PRODUCT_FAMILIES,
 } from '@/lib/domain/familyClassifier'
+import { parseBrazilianExpirationDate } from '@/lib/domain/expirationDate'
 
 const DEFAULT_CONTAS_A_RECEBER = 51489.41
 
@@ -30,10 +31,15 @@ export class InventoryService {
 
   public static getAllProducts(excessMultiplier = 3): ProductItem[] {
     const mult = normalizeExcessMultiplier(excessMultiplier)
-    return this.data.products.map((p) => ({
-      ...p,
-      em_excesso: isExcessStock(p, mult),
-    }))
+    return this.data.products.map((p) => {
+      const parsedExp = parseBrazilianExpirationDate(p.validade_iso || p.validade)
+      return {
+        ...p,
+        validade_iso: parsedExp.valid ? parsedExp.iso : null,
+        validade: parsedExp.valid ? parsedExp.formatted : 'N/I',
+        em_excesso: isExcessStock(p, mult),
+      }
+    })
   }
 
   public static getStockTop11Report(products: ProductItem[]): StockFamilyReport {

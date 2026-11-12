@@ -1,7 +1,8 @@
 import pandas as pd
 import re
 import json
-from datetime import datetime
+from datetime import date, datetime
+from date_utils import compute_expiration_status, extract_expiration_from_text
 
 excel_file = 'Produtos-dbcac7df-7eee-448d-91d9-a0c5f2a05281.xlsx'
 df = pd.read_excel(excel_file)
@@ -43,25 +44,9 @@ def extract_metadata(prod_str):
     p = str(prod_str)
     
     # Validade
-    val_match = re.search(r'(?:VAL(?:IDADE)?|VENC(?:IMENTO)?)\.?:?\s*([0-9]{2}[\/\.-][0-9]{2}[\/\.-][0-9]{2,4})', p, re.IGNORECASE)
-    validade_raw = None
-    validade_iso = None
-    validade_display = None
-    
-    if val_match:
-        validade_raw = val_match.group(1).replace('.', '/').replace('-', '/')
-        parts = validade_raw.split('/')
-        if len(parts) == 3:
-            d, m, y = parts[0], parts[1], parts[2]
-            if len(y) == 2:
-                y = '20' + y
-            try:
-                dt = datetime(int(y), int(m), int(d))
-                validade_iso = dt.strftime('%Y-%m-%d')
-                validade_display = f"{d.zfill(2)}/{m.zfill(2)}/{y}"
-            except:
-                validade_iso = None
-                validade_display = validade_raw
+    parsed_exp = extract_expiration_from_text(p)
+    validade_iso = parsed_exp.iso
+    validade_display = parsed_exp.formatted if parsed_exp.valid else None
 
     # Lote
     lt_match = re.search(r'(?:LT|LOTE)\.?:?\s*([A-Za-z0-9\.\/-]+)', p, re.IGNORECASE)
@@ -139,23 +124,9 @@ for idx, row in df.iterrows():
         sugestao_compra_custo = round(sugestao_compra_qtd * custo, 2)
         
     # Status de Validade
-    dias_validade = None
-    status_validade = 'SEM_DATA'
-    if meta['validade_iso']:
-        try:
-            val_dt = datetime.strptime(meta['validade_iso'], '%Y-%m-%d')
-            delta = (val_dt - ref_date).days
-            dias_validade = delta
-            if delta < 0:
-                status_validade = 'VENCIDO'
-            elif delta <= 90:
-                status_validade = 'CRITICO_90D'
-            elif delta <= 180:
-                status_validade = 'ATENCAO_180D'
-            else:
-                status_validade = 'REGULAR'
-        except:
-            pass
+    dias_validade, status_validade = compute_expiration_status(
+        meta['validade_iso'], ref_date=ref_date.date() if isinstance(ref_date, datetime) else ref_date
+    )
 
     products.append({
         'id': f"prod-{idx+1}",

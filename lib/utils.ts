@@ -1,6 +1,8 @@
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
+export { formatExpirationDateBr, parseBrazilianExpirationDate } from '@/lib/domain/expirationDate'
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }

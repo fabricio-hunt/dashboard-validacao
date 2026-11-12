@@ -10,6 +10,11 @@ import sys
 import urllib.error
 import urllib.request
 from datetime import datetime, timezone
+from date_utils import (
+    compute_expiration_status,
+    extract_expiration_from_text,
+    parse_brazilian_expiration_date,
+)
 
 DATA_FILE = os.path.join('lib', 'data', 'inventoryData.json')
 
@@ -31,27 +36,9 @@ def load_local_env_if_present() -> None:
 def extract_metadata(prod_str: str, fallback_supplier: str = 'NÃO ESPECIFICADO') -> dict:
     p = str(prod_str or '').strip()
 
-    val_match = re.search(
-        r'(?:VAL(?:IDADE)?|VENC(?:IMENTO)?|DT\.?\s*VALID)\.?:?\s*([0-9]{2}[\/\.-][0-9]{2}[\/\.-][0-9]{2,4})',
-        p,
-        re.IGNORECASE,
-    )
-    validade_iso = None
-    validade_display = 'N/I'
-
-    if val_match:
-        validade_raw = val_match.group(1).replace('.', '/').replace('-', '/')
-        parts = validade_raw.split('/')
-        if len(parts) == 3:
-            d, m, y = parts[0], parts[1], parts[2]
-            if len(y) == 2:
-                y = '20' + y
-            try:
-                dt = datetime(int(y), int(m), int(d))
-                validade_iso = dt.strftime('%Y-%m-%d')
-                validade_display = f"{d.zfill(2)}/{m.zfill(2)}/{y}"
-            except ValueError:
-                validade_display = validade_raw
+    parsed_exp = extract_expiration_from_text(p)
+    validade_iso = parsed_exp.iso
+    validade_display = parsed_exp.formatted
 
     lt_match = re.search(r'(?:LT|LOTE)\.?:?\s*([A-Za-z0-9\.\/-]+)', p, re.IGNORECASE)
     lote = lt_match.group(1).strip(' .-:,') if lt_match else 'N/I'
@@ -139,9 +126,16 @@ def recompute_dataset(existing_data: dict, api_products: list, dry_run: bool = F
         minimo = prod.get('estoque_minimo')
         meta = extract_metadata(produto_nome, fallback_supplier=fabricante)
 
-        # Preserva lote/validade existentes quando o nome atualizado não traz marcador explícito
-        validade_iso = meta['validade_iso'] or prod.get('validade_iso')
-        validade_display = meta['validade_display'] if meta['validade_iso'] else prod.get('validade', 'N/I')
+        # Preserva lote/validade existentes válidos quando o nome atualizado não traz marcador explícito
+        if meta['validade_iso']:
+            validade_iso = meta['validade_iso']
+            validade_display = meta['validade_display']
+        else:
+            existing_parsed = parse_brazilian_expiration_date(
+                prod.get('validade_iso') or prod.get('validade')
+            )
+            validade_iso = existing_parsed.iso if existing_parsed.valid else None
+            validade_display = existing_parsed.formatted if existing_parsed.valid else 'N/I'
         lote = meta['lote'] if meta['lote'] != 'N/I' else prod.get('lote', 'N/I')
 
         lucro_unit = round(venda - custo, 2)
@@ -169,23 +163,10 @@ def recompute_dataset(existing_data: dict, api_products: list, dry_run: bool = F
             sugestao_qtd = int(minimo - estoque)
             sugestao_custo = round(sugestao_qtd * custo, 2)
 
-        dias_validade = prod.get('dias_para_vencer')
-        status_validade = prod.get('status_validade', 'SEM_DATA')
-        if validade_iso:
-            try:
-                val_dt = datetime.strptime(validade_iso, '%Y-%m-%d')
-                delta = (val_dt - ref_date).days
-                dias_validade = delta
-                if delta < 0:
-                    status_validade = 'VENCIDO'
-                elif delta <= 90:
-                    status_validade = 'CRITICO_90D'
-                elif delta <= 180:
-                    status_validade = 'ATENCAO_180D'
-                else:
-                    status_validade = 'REGULAR'
-            except ValueError:
-                pass
+        dias_validade, status_validade = compute_expiration_status(
+            validade_iso,
+            ref_date=ref_date.date() if isinstance(ref_date, datetime) else ref_date,
+        )
 
         rebuilt_products.append({
             **prod,
