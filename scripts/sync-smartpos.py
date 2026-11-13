@@ -256,6 +256,23 @@ def recompute_dataset(existing_data: dict, api_products: list, dry_run: bool = F
         ]
     }
 
+    # Horário UTC e BRT (UTC-3)
+    now_utc = datetime.now(timezone.utc)
+    # BRT fixo sem dependência externa
+    brt_hour = (now_utc.hour - 3) % 24
+    brt_day = now_utc.day if now_utc.hour >= 3 else now_utc.day - 1
+    last_sync_at = now_utc.strftime('%Y-%m-%dT%H:%M:%SZ')
+    last_sync_brt = f"{now_utc.strftime('%d/%m/%Y')} às {brt_hour:02d}:{now_utc.minute:02d} (BRT)"
+
+    sync_metadata = {
+        'last_sync_at': last_sync_at,
+        'last_sync_brt': last_sync_brt,
+        'sync_status': 'SUCCESS' if updated_count > 0 else 'WARNING',
+        'produtos_api': len(api_products),
+        'skus_conciliados': updated_count,
+        'origem': 'SmartPOS API',
+    }
+
     summary = {
         **existing_data.get('summary', {}),
         'total_skus': total_skus,
@@ -278,6 +295,9 @@ def recompute_dataset(existing_data: dict, api_products: list, dry_run: bool = F
         'categorias': categories_list,
         'data_base': ref_date.strftime('%Y-%m-%d'),
         'origem': f'SmartPOS API Sync ({len(api_products)} catálogo / {updated_count} conciliados)',
+        'last_sync_at': last_sync_at,
+        'last_sync_brt': last_sync_brt,
+        'sync_metadata': sync_metadata,
     }
 
     print(f"SmartPOS produtos recebidos: {len(api_products)} | SKUs conciliados: {updated_count}/{len(by_code)}")

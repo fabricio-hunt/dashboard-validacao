@@ -17,6 +17,7 @@ import { DataGridPro } from '@/components/dashboard/DataGridPro'
 import { RestockView } from '@/components/dashboard/RestockView'
 import { ExpirationsView } from '@/components/dashboard/ExpirationsView'
 import { ApiIntegrationHub } from '@/components/dashboard/ApiIntegrationHub'
+import { SyncStatusBar } from '@/components/dashboard/SyncStatusBar'
 import {
   DashboardSummary,
   ExcessItem,
@@ -212,6 +213,7 @@ export function DashboardShell({
         onExportCsv={handleExportFullCsv}
         totalSkus={summary.total_skus}
         salesSourceLabel={salesSourceLabel}
+        lastSyncBrt={summary.last_sync_brt}
       />
 
       {/* Andar 2 do Chrome SAP: Trilho de Abas */}
@@ -259,6 +261,13 @@ export function DashboardShell({
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
         <QuickAlertsBar summary={summary} onSelectFilter={handleSelectQuickFilter} />
+
+        <SyncStatusBar
+          metadata={summary.sync_metadata}
+          lastSyncBrt={summary.last_sync_brt}
+          dataBase={summary.data_base}
+          onOpenApiTab={() => setActiveTab('api-integration')}
+        />
 
         {activeTab === 'executive' && (
           <ExecutiveView

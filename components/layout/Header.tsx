@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { Activity, FileSpreadsheet, Network, Download } from 'lucide-react'
+import { Activity, FileSpreadsheet, Network, Download, CheckCircle2 } from 'lucide-react'
 
 interface HeaderProps {
   activeTab: string
@@ -9,6 +9,7 @@ interface HeaderProps {
   onExportCsv: () => void
   totalSkus: number
   salesSourceLabel?: string
+  lastSyncBrt?: string
 }
 
 export function Header({
@@ -17,6 +18,7 @@ export function Header({
   onExportCsv,
   totalSkus,
   salesSourceLabel,
+  lastSyncBrt,
 }: HeaderProps) {
   return (
     <header className="sticky top-0 z-40 w-full h-[60px] bg-sap-chrome border-b border-sap-hairline">
@@ -41,6 +43,21 @@ export function Header({
         </div>
 
         <div className="flex items-center gap-2.5 shrink-0">
+          {lastSyncBrt && (
+            <div
+              className="hidden md:flex items-center gap-1.5 px-2.5 py-1.5 rounded-sap bg-emerald-50 text-emerald-800 border border-emerald-200 text-[11px] font-medium"
+              title={`Rotina automática 2x ao dia (06:00 e 14:00 BRT). Última sincronização: ${lastSyncBrt}`}
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              </span>
+              <span className="truncate max-w-[190px]">
+                Atualizado: {lastSyncBrt.replace(' (BRT)', '')}
+              </span>
+            </div>
+          )}
+
           <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-sap bg-sap-canvas border border-sap-hairline text-xs text-sap-ink-list">
             <FileSpreadsheet className="h-3.5 w-3.5 text-sap-primary shrink-0" />
             <span className="tabular-nums font-medium text-sap-ink-body">

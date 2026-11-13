@@ -94,6 +94,15 @@ export interface SalesRankingReport {
   notice?: string
 }
 
+export interface SyncMetadata {
+  last_sync_at: string
+  last_sync_brt: string
+  sync_status: 'SUCCESS' | 'WARNING' | 'ERROR'
+  produtos_api: number
+  skus_conciliados: number
+  origem: string
+}
+
 export interface DashboardSummary {
   total_skus: number
   total_unidades: number
@@ -123,6 +132,9 @@ export interface DashboardSummary {
   estoque_top11: StockFamilyReport
   data_base: string
   origem: string
+  last_sync_at?: string
+  last_sync_brt?: string
+  sync_metadata?: SyncMetadata
 }
 
 export interface InventoryFilterOptions {
