@@ -258,8 +258,8 @@ sequenceDiagram
 ### Clone & Install
 ```bash
 # Clone the repository
-git clone https://github.com/fabricio-hunt/dashboard-validacao.git
-cd dashboard-validacao
+git clone https://github.com/fabricio-hunt/medstock-bi.git
+cd medstock-bi
 
 # Install production and development dependencies
 npm install
