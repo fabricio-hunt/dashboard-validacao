@@ -81,7 +81,7 @@ export function ApiIntegrationHub() {
             Hub de Conexão com a API SmartPOS
           </h2>
           <p className="text-sm text-white/90 leading-relaxed">
-            O dashboard combina o inventário físico da planilha com as vendas e lucro bruto em tempo real via endpoints REST da SmartPOS (`/v1/sales`, `/v1/sales/{'{id}'}/items` e `/v1/products`).
+            O dashboard opera integrado diretamente aos endpoints REST oficiais da SmartPOS (`/v1/products`, `/v1/sales` e `/v1/sales/{'{id}'}/items`), sincronizando catálogo, preços, lotes, validades e vendas em tempo real.
           </p>
         </div>
 
@@ -226,9 +226,9 @@ export function ApiIntegrationHub() {
           </div>
 
           <div className="mt-6 pt-4 border-t border-sap-hairline">
-            <div className="text-xs text-sap-ink-meta">Arquitetura Híbrida</div>
+            <div className="text-xs text-sap-ink-meta">Integração Direta</div>
             <div className="text-sm font-semibold text-sap-ink mt-0.5">
-              Vendas SmartPOS + Estoque Planilha
+              SmartPOS API Conectada
             </div>
           </div>
         </div>

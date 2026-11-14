@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { Activity, FileSpreadsheet, Network, Download, CheckCircle2 } from 'lucide-react'
+import { Activity, Database, Network, Download } from 'lucide-react'
 
 interface HeaderProps {
   activeTab: string
@@ -33,7 +33,7 @@ export function Header({
                 MedStock BI
               </span>
               <span className="hidden sm:inline-block px-2 py-0.5 rounded-[4px] text-[11px] font-medium bg-sap-band-blue text-sap-primary-deep border border-sap-primary/20">
-                SmartPOS + Estoque
+                SmartPOS API Direto
               </span>
             </div>
             <p className="text-[11px] text-sap-ink-meta truncate">
@@ -59,7 +59,7 @@ export function Header({
           )}
 
           <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-sap bg-sap-canvas border border-sap-hairline text-xs text-sap-ink-list">
-            <FileSpreadsheet className="h-3.5 w-3.5 text-sap-primary shrink-0" />
+            <Database className="h-3.5 w-3.5 text-sap-primary shrink-0" />
             <span className="tabular-nums font-medium text-sap-ink-body">
               {totalSkus} SKUs
             </span>
