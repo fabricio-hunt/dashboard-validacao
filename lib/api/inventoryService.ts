@@ -29,6 +29,14 @@ export class InventoryService {
     products: ProductItem[]
   }
 
+  public static getRawData(): { summary: DashboardSummary; products: ProductItem[] } {
+    return this.data
+  }
+
+  public static updateData(newData: { summary: DashboardSummary; products: ProductItem[] }) {
+    this.data = newData
+  }
+
   public static getAllProducts(excessMultiplier = 3): ProductItem[] {
     const mult = normalizeExcessMultiplier(excessMultiplier)
     return this.data.products.map((p) => {

@@ -58,6 +58,27 @@ export function DashboardShell({
   const [selectedProduct, setSelectedProduct] = useState<ProductItem | null>(null)
   const [gridInitialFilter, setGridInitialFilter] = useState<string>('ALL')
   const [gridInitialCategory, setGridInitialCategory] = useState<string>('ALL')
+  const [isSyncing, setIsSyncing] = useState<boolean>(false)
+
+  const handleManualSync = useCallback(async () => {
+    if (isSyncing) return
+    setIsSyncing(true)
+    try {
+      const res = await fetch('/api/sync/refresh', { method: 'POST' })
+      const json = await res.json()
+      if (res.ok && json.success) {
+        if (json.summary) setSummary(json.summary)
+        if (Array.isArray(json.products)) setProducts(json.products)
+        alert(json.message || 'Dados atualizados com sucesso diretamente da SmartPOS!')
+      } else {
+        alert(json.message || 'Não foi possível sincronizar no momento. Tente novamente em instantes.')
+      }
+    } catch {
+      alert('Erro de conexão ao solicitar sincronização com a SmartPOS.')
+    } finally {
+      setIsSyncing(false)
+    }
+  }, [isSyncing])
 
   const topProducts = [...products]
     .sort((a, b) => b.valor_total_venda - a.valor_total_venda)
@@ -214,6 +235,8 @@ export function DashboardShell({
         totalSkus={summary.total_skus}
         salesSourceLabel={salesSourceLabel}
         lastSyncBrt={summary.last_sync_brt}
+        onManualSync={handleManualSync}
+        isSyncing={isSyncing}
       />
 
       {/* Andar 2 do Chrome SAP: Trilho de Abas */}
@@ -267,6 +290,8 @@ export function DashboardShell({
           lastSyncBrt={summary.last_sync_brt}
           dataBase={summary.data_base}
           onOpenApiTab={() => setActiveTab('api-integration')}
+          onManualSync={handleManualSync}
+          isSyncing={isSyncing}
         />
 
         {activeTab === 'executive' && (

@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { Activity, Database, Network, Download } from 'lucide-react'
+import { Activity, Database, Network, Download, RefreshCw, Loader2 } from 'lucide-react'
 
 interface HeaderProps {
   activeTab: string
@@ -10,6 +10,8 @@ interface HeaderProps {
   totalSkus: number
   salesSourceLabel?: string
   lastSyncBrt?: string
+  onManualSync?: () => Promise<void>
+  isSyncing?: boolean
 }
 
 export function Header({
@@ -19,6 +21,8 @@ export function Header({
   totalSkus,
   salesSourceLabel,
   lastSyncBrt,
+  onManualSync,
+  isSyncing = false,
 }: HeaderProps) {
   return (
     <header className="sticky top-0 z-40 w-full h-[60px] bg-sap-chrome border-b border-sap-hairline">
@@ -56,6 +60,27 @@ export function Header({
                 Atualizado: {lastSyncBrt.replace(' (BRT)', '')}
               </span>
             </div>
+          )}
+
+          {onManualSync && (
+            <button
+              onClick={onManualSync}
+              disabled={isSyncing}
+              className="flex items-center gap-1.5 px-2.5 py-2 rounded-sap text-xs font-medium border border-sap-hairline-strong bg-sap-canvas hover:bg-sap-band-blue text-sap-ink-body transition-colors disabled:opacity-60"
+              title="Disparar sincronização manual com a API SmartPOS agora"
+            >
+              {isSyncing ? (
+                <>
+                  <Loader2 className="h-3.5 w-3.5 animate-spin text-sap-primary" />
+                  <span className="hidden xl:inline">Sincronizando...</span>
+                </>
+              ) : (
+                <>
+                  <RefreshCw className="h-3.5 w-3.5 text-sap-primary" />
+                  <span className="hidden xl:inline">Sincronizar</span>
+                </>
+              )}
+            </button>
           )}
 
           <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-sap bg-sap-canvas border border-sap-hairline text-xs text-sap-ink-list">

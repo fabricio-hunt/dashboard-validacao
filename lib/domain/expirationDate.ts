@@ -26,6 +26,24 @@ const MONTH_YEAR_BR_RE = /^(\d{2})[./](\d{4})$/
 const ISO_FULL_RE = /^(\d{4})-(\d{2})-(\d{2})$/
 const ISO_MONTH_YEAR_RE = /^(\d{4})-(\d{2})$/
 
+const TEXT_EXP_RE =
+  /(?:VAL(?:ID(?:ADE)?)?|VENC(?:IMENTO)?|DT\.?\s*VALID)\.?:?\s*([0-9]{2}[./][0-9]{2}[./][0-9]{2,4}|[0-9]{2}[./][0-9]{4})/i
+
+/**
+ * Searches for expiration date markers (VAL, VENC, DT. VALID) inside a product description string
+ * and parses it using strict Brazilian expiration date rules.
+ */
+export function extractExpirationFromText(text: string | null | undefined): ParsedExpirationDate {
+  if (!text) {
+    return { valid: false, error: 'Texto vazio' }
+  }
+  const match = TEXT_EXP_RE.exec(String(text))
+  if (!match) {
+    return { valid: false, error: 'Nenhum marcador de validade encontrado' }
+  }
+  return parseBrazilianExpirationDate(match[1])
+}
+
 function pad2(n: number): string {
   return String(n).padStart(2, '0')
 }

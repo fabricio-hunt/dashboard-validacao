@@ -196,6 +196,24 @@ export class SmartPosClient {
     return data
   }
 
+  async getAllProducts(): Promise<SmartPosProduct[]> {
+    const allProducts: SmartPosProduct[] = []
+    let page = 1
+    const size = 100
+
+    while (true) {
+      const result = await this.getProductsPage(page, size)
+      const items = result.items || []
+      allProducts.push(...items)
+      if (items.length < size || allProducts.length >= (result.totalRecords || 0)) {
+        break
+      }
+      page++
+    }
+
+    return allProducts
+  }
+
   async getSales(startDate: string, endDate: string): Promise<SmartPosSale[]> {
     const start = new Date(`${startDate}T00:00:00-04:00`)
     const end = new Date(`${endDate}T23:59:59-04:00`)

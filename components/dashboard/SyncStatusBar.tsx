@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { CheckCircle2, Clock, RefreshCw, Zap } from 'lucide-react'
+import { CheckCircle2, Clock, RefreshCw, Loader2 } from 'lucide-react'
 import { SyncMetadata } from '@/types/inventory'
 
 interface SyncStatusBarProps {
@@ -9,6 +9,8 @@ interface SyncStatusBarProps {
   lastSyncBrt?: string
   dataBase?: string
   onOpenApiTab?: () => void
+  onManualSync?: () => Promise<void>
+  isSyncing?: boolean
 }
 
 export function SyncStatusBar({
@@ -16,6 +18,8 @@ export function SyncStatusBar({
   lastSyncBrt,
   dataBase,
   onOpenApiTab,
+  onManualSync,
+  isSyncing = false,
 }: SyncStatusBarProps) {
   const syncTime = metadata?.last_sync_brt || lastSyncBrt || `${dataBase} (automático)`
   const skusConciliados = metadata?.skus_conciliados ?? 249
@@ -45,13 +49,34 @@ export function SyncStatusBar({
       </div>
 
       <div className="flex items-center gap-2 shrink-0">
+        {onManualSync && (
+          <button
+            type="button"
+            onClick={onManualSync}
+            disabled={isSyncing}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-sap-on-primary bg-sap-primary hover:bg-sap-primary-deep disabled:opacity-60 rounded transition-colors shadow-sm"
+            title="Consultar produtos e preços atualizados diretamente na API SmartPOS agora"
+          >
+            {isSyncing ? (
+              <>
+                <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                <span>Sincronizando...</span>
+              </>
+            ) : (
+              <>
+                <RefreshCw className="h-3.5 w-3.5" />
+                <span>Sincronizar Agora</span>
+              </>
+            )}
+          </button>
+        )}
+
         {onOpenApiTab && (
           <button
             type="button"
             onClick={onOpenApiTab}
-            className="inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-medium text-sap-primary hover:text-sap-primary-deep bg-sap-canvas hover:bg-sap-band-blue border border-sap-hairline rounded transition-colors"
+            className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-sap-primary hover:text-sap-primary-deep bg-sap-canvas hover:bg-sap-band-blue border border-sap-hairline rounded transition-colors"
           >
-            <RefreshCw className="h-3 w-3" />
             Ver Hub de Integração
           </button>
         )}
