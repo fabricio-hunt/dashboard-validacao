@@ -60,23 +60,36 @@ export function DashboardShell({
   const [gridInitialCategory, setGridInitialCategory] = useState<string>('ALL')
   const [isSyncing, setIsSyncing] = useState<boolean>(false)
 
+  const [syncToast, setSyncToast] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
+
   const handleManualSync = useCallback(async () => {
     if (isSyncing) return
     setIsSyncing(true)
+    setSyncToast(null)
     try {
       const res = await fetch('/api/sync/refresh', { method: 'POST' })
       const json = await res.json()
       if (res.ok && json.success) {
-        if (json.summary) setSummary(json.summary)
+        if (json.summary) setSummary((prev) => ({ ...prev, ...json.summary }))
         if (Array.isArray(json.products)) setProducts(json.products)
-        alert(json.message || 'Dados atualizados com sucesso diretamente da SmartPOS!')
+        setSyncToast({
+          type: 'success',
+          message: json.message || 'Dados atualizados com sucesso diretamente da SmartPOS!',
+        })
       } else {
-        alert(json.message || 'Não foi possível sincronizar no momento. Tente novamente em instantes.')
+        setSyncToast({
+          type: 'error',
+          message: json.message || 'Não foi possível sincronizar no momento. Tente novamente em instantes.',
+        })
       }
     } catch {
-      alert('Erro de conexão ao solicitar sincronização com a SmartPOS.')
+      setSyncToast({
+        type: 'error',
+        message: 'Erro de conexão ao solicitar sincronização com a SmartPOS.',
+      })
     } finally {
       setIsSyncing(false)
+      setTimeout(() => setSyncToast(null), 6000)
     }
   }, [isSyncing])
 
@@ -283,6 +296,24 @@ export function DashboardShell({
       </div>
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+        {syncToast && (
+          <div
+            className={`p-3.5 rounded-sap text-xs font-medium border flex items-center justify-between transition-all ${
+              syncToast.type === 'success'
+                ? 'bg-emerald-50 text-emerald-900 border-emerald-300'
+                : 'bg-rose-50 text-rose-900 border-rose-300'
+            }`}
+          >
+            <span>{syncToast.message}</span>
+            <button
+              onClick={() => setSyncToast(null)}
+              className="ml-3 text-xs opacity-70 hover:opacity-100 font-bold"
+            >
+              ✕
+            </button>
+          </div>
+        )}
+
         <QuickAlertsBar summary={summary} onSelectFilter={handleSelectQuickFilter} />
 
         <SyncStatusBar

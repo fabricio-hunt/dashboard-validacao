@@ -4,9 +4,8 @@ import { InventoryService } from '@/lib/api/inventoryService'
 import { extractExpirationFromText, computeExpirationMetrics } from '@/lib/domain/expirationDate'
 import { ProductItem, DashboardSummary, CategorySummary, AbcClass } from '@/types/inventory'
 
-// Memória de cooldown simples por instância serverless (mínimo 30 segundos)
 let lastManualSyncTime = 0
-const COOLDOWN_MS = 30 * 1000
+const COOLDOWN_MS = 15 * 1000
 
 export async function POST(req: NextRequest) {
   const now = Date.now()
@@ -15,7 +14,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(
       {
         success: false,
-        message: `Sincronização executada recentemente. Aguarde ${waitSec} segundos para atualizar novamente.`,
+        message: `Sincronização executada recentemente. Aguarde ${waitSec}s para atualizar novamente.`,
       },
       { status: 429 }
     )
@@ -49,12 +48,8 @@ export async function POST(req: NextRequest) {
     const currentData = InventoryService.getRawData()
     const currentProducts = currentData.products
 
-    // Mapa por ID ou por código ou por nome limpo
-    const apiById = new Map<number, SmartPosProduct>()
     const apiByName = new Map<string, SmartPosProduct>()
-
     apiProducts.forEach((p) => {
-      if (p.id) apiById.set(p.id, p)
       if (p.name) apiByName.set(p.name.trim().toLowerCase(), p)
     })
 
@@ -62,7 +57,6 @@ export async function POST(req: NextRequest) {
     let updatedCount = 0
 
     const rebuiltProducts: ProductItem[] = currentProducts.map((prod) => {
-      // Tentar match por código no alphaCode ou pelo nome do produto
       const match =
         apiProducts.find((ap) => ap.alphaCode && ap.alphaCode.trim() === prod.codigo.trim()) ||
         apiByName.get(prod.produto.trim().toLowerCase()) ||
@@ -83,12 +77,10 @@ export async function POST(req: NextRequest) {
         if (match.supplier?.companyName) fabricante = match.supplier.companyName.trim().toUpperCase()
       }
 
-      // Extrai metadados do nome
       const expParsed = extractExpirationFromText(produtoNome)
       const validadeIso = expParsed.valid ? expParsed.iso : prod.validade_iso
       const validadeDisplay = expParsed.valid ? expParsed.formatted : prod.validade
 
-      // Lote
       const ltMatch = /(?:LT|LOTE)\.?:?\s*([A-Za-z0-9\.\/-]+)/i.exec(produtoNome)
       const lote = ltMatch ? ltMatch[1].replace(/[ .:-]/g, '') : prod.lote
 
@@ -125,24 +117,83 @@ export async function POST(req: NextRequest) {
       }
     })
 
-    // Recalcula totais gerais
     const totalSkus = rebuiltProducts.length
     const totalUnidades = rebuiltProducts.reduce((acc, p) => acc + (p.estoque || 0), 0)
     const valorTotalCusto = round2(rebuiltProducts.reduce((acc, p) => acc + p.valor_total_custo, 0))
     const valorTotalVenda = round2(rebuiltProducts.reduce((acc, p) => acc + p.valor_total_venda, 0))
     const lucroPotencialTotal = round2(valorTotalVenda - valorTotalCusto)
-    const margemMedia = valorTotalVenda > 0 ? round2((lucroPotencialTotal / valorTotalVenda) * 100) : 0
-    const markupMedio = valorTotalCusto > 0 ? round2((lucroPotencialTotal / valorTotalCusto) * 100) : 0
+    const margemMedia = totalSkus > 0 ? round2(rebuiltProducts.reduce((acc, p) => acc + p.margem_percentual, 0) / totalSkus) : 0
+    const markupMedio = totalSkus > 0 ? round2(rebuiltProducts.reduce((acc, p) => acc + p.markup_percentual, 0) / totalSkus) : 0
 
     // Curva ABC
     rebuiltProducts.sort((a, b) => b.valor_total_venda - a.valor_total_venda)
     let accVal = 0
     for (const p of rebuiltProducts) {
-      accVal += p.valor_total_venda
-      const pct = valorTotalVenda > 0 ? round2((accVal / valorTotalVenda) * 100) : 0
+      accVal += Math.max(0, p.valor_total_venda)
+      const pct = valorTotalVenda > 0 ? round2((accVal / valorTotalVenda) * 100) : 100
       p.curva_abc_acumulada_pct = pct
       p.curva_abc = pct <= 80 ? 'A' : pct <= 95 ? 'B' : 'C'
     }
+
+    const abcSummary = {
+      A: {
+        classe: 'A' as AbcClass,
+        skus: rebuiltProducts.filter((p) => p.curva_abc === 'A').length,
+        valor_venda: round2(rebuiltProducts.filter((p) => p.curva_abc === 'A').reduce((acc, p) => acc + p.valor_total_venda, 0)),
+        descricao: '80% do valor imobilizado (Alta Prioridade de Gestão)',
+      },
+      B: {
+        classe: 'B' as AbcClass,
+        skus: rebuiltProducts.filter((p) => p.curva_abc === 'B').length,
+        valor_venda: round2(rebuiltProducts.filter((p) => p.curva_abc === 'B').reduce((acc, p) => acc + p.valor_total_venda, 0)),
+        descricao: '15% do valor imobilizado (Média Prioridade)',
+      },
+      C: {
+        classe: 'C' as AbcClass,
+        skus: rebuiltProducts.filter((p) => p.curva_abc === 'C').length,
+        valor_venda: round2(rebuiltProducts.filter((p) => p.curva_abc === 'C').reduce((acc, p) => acc + p.valor_total_venda, 0)),
+        descricao: '5% do valor imobilizado (Cauda Longa / Giro Pontual)',
+      },
+    }
+
+    // Categorias
+    const catMap = new Map<string, CategorySummary>()
+    for (const p of rebuiltProducts) {
+      const c = p.categoria || 'Outros'
+      let entry = catMap.get(c)
+      if (!entry) {
+        entry = {
+          categoria: c,
+          skus: 0,
+          unidades: 0,
+          valor_custo: 0,
+          valor_venda: 0,
+          lucro_potencial: 0,
+          itens_zerados: 0,
+          itens_criticos: 0,
+          itens_excesso: 0,
+          participacao_venda_pct: 0,
+        }
+        catMap.set(c, entry)
+      }
+      entry.skus += 1
+      entry.unidades += p.estoque
+      entry.valor_custo += p.valor_total_custo
+      entry.valor_venda += p.valor_total_venda
+      entry.lucro_potencial += p.lucro_potencial
+      if (p.status_estoque === 'ZERADO') entry.itens_zerados += 1
+      else if (p.status_estoque === 'CRITICO') entry.itens_criticos += 1
+    }
+
+    const categoriesList = Array.from(catMap.values())
+      .map((cat) => ({
+        ...cat,
+        valor_custo: round2(cat.valor_custo),
+        valor_venda: round2(cat.valor_venda),
+        lucro_potencial: round2(cat.lucro_potencial),
+        participacao_venda_pct: valorTotalVenda > 0 ? round2((cat.valor_venda / valorTotalVenda) * 100) : 0,
+      }))
+      .sort((a, b) => b.valor_venda - a.valor_venda)
 
     // Horário de Brasília
     const nowUtc = new Date()
@@ -158,8 +209,11 @@ export async function POST(req: NextRequest) {
       sync_status: 'SUCCESS' as const,
       produtos_api: apiProducts.length,
       skus_conciliados: updatedCount,
-      origem: 'SmartPOS API (Manual)',
+      origem: 'SmartPOS API',
     }
+
+    // Calcula Top11 de estoque
+    const estoqueTop11 = InventoryService.getStockTop11Report(rebuiltProducts)
 
     const updatedSummary: DashboardSummary = {
       ...currentData.summary,
@@ -177,10 +231,13 @@ export async function POST(req: NextRequest) {
       total_vencidos: rebuiltProducts.filter((p) => p.status_validade === 'VENCIDO').length,
       total_vence_90d: rebuiltProducts.filter((p) => p.status_validade === 'CRITICO_90D').length,
       total_vence_180d: rebuiltProducts.filter((p) => p.status_validade === 'ATENCAO_180D').length,
+      curva_abc: abcSummary,
+      categorias: categoriesList,
+      estoque_top11: estoqueTop11,
       last_sync_at: nowUtc.toISOString(),
       last_sync_brt: lastSyncBrt,
       sync_metadata: syncMetadata,
-      origem: `SmartPOS API Sync Direto (${apiProducts.length} catálogo / ${updatedCount} conciliados)`,
+      origem: `SmartPOS API Sync (${apiProducts.length} catálogo / ${updatedCount} conciliados)`,
     }
 
     const newDataset = {
@@ -188,7 +245,6 @@ export async function POST(req: NextRequest) {
       products: rebuiltProducts,
     }
 
-    // Atualiza cache em memória do servidor
     InventoryService.updateData(newDataset)
     lastManualSyncTime = now
 
