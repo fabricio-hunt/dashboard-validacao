@@ -47,45 +47,45 @@ export async function POST(req: NextRequest) {
 
     const currentData = InventoryService.getRawData()
     const currentProducts = currentData.products
-
-    const apiByName = new Map<string, SmartPosProduct>()
-    apiProducts.forEach((p) => {
-      if (p.name) apiByName.set(p.name.trim().toLowerCase(), p)
+    const currentByCode = new Map<string, ProductItem>()
+    currentProducts.forEach((p) => {
+      if (p.codigo) currentByCode.set(p.codigo.trim(), p)
     })
 
     const refDate = new Date()
-    let updatedCount = 0
 
-    const rebuiltProducts: ProductItem[] = currentProducts.map((prod) => {
-      const match =
-        apiProducts.find((ap) => ap.alphaCode && ap.alphaCode.trim() === prod.codigo.trim()) ||
-        apiByName.get(prod.produto.trim().toLowerCase()) ||
-        apiProducts.find((ap) => ap.name && ap.name.toLowerCase().includes(prod.codigo.toLowerCase()))
+    // O Catálogo mestre é derivado exclusivamente dos produtos ativos retornados pela API SmartPOS
+    const rebuiltProducts: ProductItem[] = apiProducts.map((ap) => {
+      const code = String(ap.alphaCode || ap.id || '').trim()
+      const existingProd = currentByCode.get(code)
 
-      let produtoNome = prod.produto
-      let custo = prod.custo
-      let venda = prod.valor_venda
-      let categoria = prod.categoria
-      let fabricante = prod.fabricante
+      const produtoNome = (ap.name || existingProd?.produto || '').trim()
+      const custo = ap.costValue && ap.costValue > 0 ? round2(ap.costValue) : (existingProd?.custo || 0)
+      const venda = ap.sellValue && ap.sellValue > 0 ? round2(ap.sellValue) : (existingProd?.valor_venda || 0)
+      const categoria = ap.category?.description ? ap.category.description.trim() : (existingProd?.categoria || 'Outros')
+      const fabricante = ap.supplier?.companyName ? ap.supplier.companyName.trim().toUpperCase() : (existingProd?.fabricante || 'NÃO ESPECIFICADO')
 
-      if (match) {
-        updatedCount++
-        produtoNome = match.name || produtoNome
-        if (match.costValue && match.costValue > 0) custo = round2(match.costValue)
-        if (match.sellValue && match.sellValue > 0) venda = round2(match.sellValue)
-        if (match.category?.description) categoria = match.category.description.trim()
-        if (match.supplier?.companyName) fabricante = match.supplier.companyName.trim().toUpperCase()
+      const minimo = ap.minimumStock !== undefined && ap.minimumStock !== null ? Number(ap.minimumStock) : (existingProd?.estoque_minimo ?? null)
+
+      // Saldo físico:
+      // Se noStock for True na SmartPOS -> 0 unidades
+      // Senão, se existia registro de saldo físico prévio no banco, preserva o saldo
+      // Senão (novo item da API), inicia com 0
+      let estoque = 0
+      if (ap.noStock === true) {
+        estoque = 0
+      } else if (existingProd) {
+        estoque = existingProd.estoque ?? 0
+      } else {
+        estoque = 0
       }
 
       const expParsed = extractExpirationFromText(produtoNome)
-      const validadeIso = expParsed.valid ? expParsed.iso : prod.validade_iso
-      const validadeDisplay = expParsed.valid ? expParsed.formatted : prod.validade
+      const validadeIso = expParsed.valid ? expParsed.iso : (existingProd?.validade_iso ?? null)
+      const validadeDisplay = expParsed.valid ? expParsed.formatted : (existingProd?.validade ?? 'N/I')
 
       const ltMatch = /(?:LT|LOTE)\.?:?\s*([A-Za-z0-9\.\/-]+)/i.exec(produtoNome)
-      const lote = ltMatch ? ltMatch[1].replace(/[ .:-]/g, '') : prod.lote
-
-      const estoque = prod.estoque
-      const minimo = prod.estoque_minimo
+      const lote = ltMatch ? ltMatch[1].replace(/[ .:-]/g, '') : (existingProd?.lote ?? 'N/I')
 
       const lucroUnit = round2(venda - custo)
       const margemPerc = venda > 0 ? round2((lucroUnit / venda) * 100) : 0
@@ -96,9 +96,23 @@ export async function POST(req: NextRequest) {
 
       const metrics = computeExpirationMetrics(validadeIso, refDate)
 
+      let statusEstoque: 'NEGATIVO' | 'ZERADO' | 'CRITICO' | 'ALERTA' | 'NORMAL' = 'NORMAL'
+      if (estoque < 0) statusEstoque = 'NEGATIVO'
+      else if (estoque === 0) statusEstoque = 'ZERADO'
+      else if (minimo !== null && estoque < minimo) statusEstoque = 'CRITICO'
+      else if (minimo !== null && estoque <= minimo * 1.2) statusEstoque = 'ALERTA'
+
+      const sugestaoQtd = minimo !== null && estoque < minimo ? Math.max(0, Math.floor(minimo - estoque)) : 0
+      const sugestaoCusto = round2(sugestaoQtd * custo)
+
+      const parts = produtoNome.split(' - ')
+      const nomeResumido = parts.length > 0 ? parts[0].trim() : produtoNome
+
       return {
-        ...prod,
+        id: existingProd?.id || `prod-${ap.id}`,
+        codigo: code,
         produto: produtoNome,
+        nome_resumido: nomeResumido,
         fabricante,
         lote,
         validade_iso: validadeIso,
@@ -111,9 +125,16 @@ export async function POST(req: NextRequest) {
         lucro_unitario: lucroUnit,
         margem_percentual: margemPerc,
         markup_percentual: markupPerc,
+        estoque,
+        estoque_minimo: minimo,
+        status_estoque: statusEstoque,
+        sugestao_compra_qtd: sugestaoQtd,
+        sugestao_compra_custo: sugestaoCusto,
         valor_total_custo: valorTotalCusto,
         valor_total_venda: valorTotalVenda,
         lucro_potencial: lucroPotencial,
+        curva_abc: 'C',
+        curva_abc_acumulada_pct: 100,
       }
     })
 
@@ -208,8 +229,8 @@ export async function POST(req: NextRequest) {
       last_sync_brt: lastSyncBrt,
       sync_status: 'SUCCESS' as const,
       produtos_api: apiProducts.length,
-      skus_conciliados: updatedCount,
-      origem: 'SmartPOS API',
+      skus_conciliados: rebuiltProducts.length,
+      origem: 'SmartPOS API Oficial v1',
     }
 
     // Calcula Top11 de estoque
@@ -237,7 +258,7 @@ export async function POST(req: NextRequest) {
       last_sync_at: nowUtc.toISOString(),
       last_sync_brt: lastSyncBrt,
       sync_metadata: syncMetadata,
-      origem: `SmartPOS API Sync (${apiProducts.length} catálogo / ${updatedCount} conciliados)`,
+      origem: `SmartPOS API Sync (${rebuiltProducts.length} SKUs 100% integrados via API)`,
     }
 
     const newDataset = {
@@ -250,7 +271,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      message: `Sincronização concluída com sucesso! ${updatedCount} SKUs atualizados em tempo real.`,
+      message: `Sincronização concluída com sucesso! ${rebuiltProducts.length} SKUs do catálogo SmartPOS atualizados em tempo real.`,
       last_sync_brt: lastSyncBrt,
       summary: updatedSummary,
       products: rebuiltProducts,

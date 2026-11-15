@@ -25,6 +25,7 @@ export interface SmartPosProduct {
   name: string
   sellValue: number
   costValue: number
+  minimumStock?: number | null
   eanCode?: string
   noStock?: boolean
   isArchived?: boolean

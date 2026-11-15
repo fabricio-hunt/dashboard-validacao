@@ -1,3 +1,16 @@
+"""
+ATENÇÃO: Script legado de inicialização via planilha.
+O catálogo do MedStock BI opera exclusivamente sincronizado com a API oficial da SmartPOS.
+Para atualizar os dados da API, utilize: python scripts/sync-smartpos.py (ou npm run sync-api).
+"""
+import sys
+
+if __name__ == '__main__':
+    print('AVISO: A importação de planilha base de teste foi descontinuada.', file=sys.stderr)
+    print('O catálogo e os preços do MedStock BI operam 100% integrados via API SmartPOS.', file=sys.stderr)
+    print('Para sincronizar os dados da API, execute: python scripts/sync-smartpos.py', file=sys.stderr)
+    sys.exit(1)
+
 import pandas as pd
 import re
 import json

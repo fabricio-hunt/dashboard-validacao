@@ -86,57 +86,53 @@ def fetch_all_smartpos_products(base_url: str, key_id: str, key_secret: str) -> 
 def recompute_dataset(existing_data: dict, api_products: list, dry_run: bool = False) -> dict:
     existing_products = existing_data.get('products') or []
     by_code = {str(p.get('codigo', '')).strip(): p for p in existing_products if p.get('codigo')}
-    api_by_code = {
-        str(item.get('alphaCode', '')).strip(): item
-        for item in api_products
-        if item.get('alphaCode')
-    }
 
     ref_date = datetime.now(timezone.utc).replace(tzinfo=None)
-    updated_count = 0
     rebuilt_products = []
 
-    for prod in existing_products:
-        code = str(prod.get('codigo', '')).strip()
-        api_item = api_by_code.get(code)
+    for api_item in api_products:
+        code = str(api_item.get('alphaCode') or api_item.get('id') or '').strip()
+        existing_prod = by_code.get(code)
 
-        produto_nome = prod['produto']
-        custo = float(prod.get('custo') or 0.0)
-        venda = float(prod.get('valor_venda') or 0.0)
-        categoria = prod.get('categoria') or 'Outros'
-        fabricante = prod.get('fabricante') or 'NÃO ESPECIFICADO'
+        produto_nome = str(api_item.get('name') or '').strip()
+        custo = round(float(api_item.get('costValue') or 0.0), 2)
+        venda = round(float(api_item.get('sellValue') or 0.0), 2)
+        cat_desc = (api_item.get('category') or {}).get('description')
+        categoria = str(cat_desc).strip() if cat_desc else (existing_prod.get('categoria') if existing_prod else 'Outros')
+        sup_name = (api_item.get('supplier') or {}).get('companyName')
+        fabricante = str(sup_name).strip().upper() if sup_name else (existing_prod.get('fabricante') if existing_prod else 'NÃO ESPECIFICADO')
 
-        if api_item:
-            updated_count += 1
-            produto_nome = str(api_item.get('name') or produto_nome).strip()
-            api_cost = float(api_item.get('costValue') or 0.0)
-            api_sell = float(api_item.get('sellValue') or 0.0)
-            if api_cost > 0:
-                custo = round(api_cost, 2)
-            if api_sell > 0:
-                venda = round(api_sell, 2)
-            cat_desc = (api_item.get('category') or {}).get('description')
-            if cat_desc:
-                categoria = str(cat_desc).strip()
-            sup_name = (api_item.get('supplier') or {}).get('companyName')
-            if sup_name:
-                fabricante = str(sup_name).strip().upper()
+        api_min = api_item.get('minimumStock')
+        minimo = float(api_min) if api_min is not None else None
 
-        estoque = int(prod.get('estoque') or 0)
-        minimo = prod.get('estoque_minimo')
+        # Saldo físico:
+        # Se na API SmartPOS noStock for True -> 0 unidades (ZERADO)
+        # Senão, se existia registro prévio no banco, preserva o saldo
+        # Senão (novo item cadastrado na SmartPOS), inicia com 0
+        if api_item.get('noStock') is True:
+            estoque = 0
+        elif existing_prod:
+            estoque = int(existing_prod.get('estoque') or 0)
+        else:
+            estoque = 0
+
         meta = extract_metadata(produto_nome, fallback_supplier=fabricante)
 
         # Preserva lote/validade existentes válidos quando o nome atualizado não traz marcador explícito
         if meta['validade_iso']:
             validade_iso = meta['validade_iso']
             validade_display = meta['validade_display']
-        else:
+        elif existing_prod:
             existing_parsed = parse_brazilian_expiration_date(
-                prod.get('validade_iso') or prod.get('validade')
+                existing_prod.get('validade_iso') or existing_prod.get('validade')
             )
             validade_iso = existing_parsed.iso if existing_parsed.valid else None
             validade_display = existing_parsed.formatted if existing_parsed.valid else 'N/I'
-        lote = meta['lote'] if meta['lote'] != 'N/I' else prod.get('lote', 'N/I')
+        else:
+            validade_iso = None
+            validade_display = 'N/I'
+
+        lote = meta['lote'] if meta['lote'] != 'N/I' else (existing_prod.get('lote', 'N/I') if existing_prod else 'N/I')
 
         lucro_unit = round(venda - custo, 2)
         margem_perc = round((lucro_unit / venda * 100), 1) if venda > 0 else 0.0
@@ -168,8 +164,11 @@ def recompute_dataset(existing_data: dict, api_products: list, dry_run: bool = F
             ref_date=ref_date.date() if isinstance(ref_date, datetime) else ref_date,
         )
 
+        item_id = existing_prod.get('id') if existing_prod else f"prod-{api_item.get('id')}"
+
         rebuilt_products.append({
-            **prod,
+            'id': item_id,
+            'codigo': code,
             'produto': produto_nome,
             'nome_resumido': meta['nome_limpo'],
             'fabricante': fabricante,
@@ -184,6 +183,8 @@ def recompute_dataset(existing_data: dict, api_products: list, dry_run: bool = F
             'lucro_unitario': lucro_unit,
             'margem_percentual': margem_perc,
             'markup_percentual': markup_perc,
+            'estoque': estoque,
+            'estoque_minimo': minimo,
             'status_estoque': status_estoque,
             'sugestao_compra_qtd': sugestao_qtd,
             'sugestao_compra_custo': sugestao_custo,
@@ -267,10 +268,10 @@ def recompute_dataset(existing_data: dict, api_products: list, dry_run: bool = F
     sync_metadata = {
         'last_sync_at': last_sync_at,
         'last_sync_brt': last_sync_brt,
-        'sync_status': 'SUCCESS' if updated_count > 0 else 'WARNING',
+        'sync_status': 'SUCCESS' if len(rebuilt_products) > 0 else 'WARNING',
         'produtos_api': len(api_products),
-        'skus_conciliados': updated_count,
-        'origem': 'SmartPOS API',
+        'skus_conciliados': len(rebuilt_products),
+        'origem': 'SmartPOS API Oficial v1',
     }
 
     summary = {
@@ -294,13 +295,13 @@ def recompute_dataset(existing_data: dict, api_products: list, dry_run: bool = F
         'curva_abc': abc_summary,
         'categorias': categories_list,
         'data_base': ref_date.strftime('%Y-%m-%d'),
-        'origem': f'SmartPOS API Sync ({len(api_products)} catálogo / {updated_count} conciliados)',
+        'origem': f'SmartPOS API Sync ({len(rebuilt_products)} SKUs 100% integrados via API)',
         'last_sync_at': last_sync_at,
         'last_sync_brt': last_sync_brt,
         'sync_metadata': sync_metadata,
     }
 
-    print(f"SmartPOS produtos recebidos: {len(api_products)} | SKUs conciliados: {updated_count}/{len(by_code)}")
+    print(f"SmartPOS produtos recebidos: {len(api_products)} | SKUs catalogados: {len(rebuilt_products)}")
     print(f"Resumo atualizado -> Custo: R$ {valor_total_custo:,.2f} | Venda: R$ {valor_total_venda:,.2f}")
 
     result = {'summary': summary, 'products': rebuilt_products}

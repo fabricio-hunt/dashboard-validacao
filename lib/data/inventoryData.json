@@ -1,17 +1,17 @@
 {
   "summary": {
-    "total_skus": 251,
-    "total_unidades": 61727,
-    "valor_total_custo": 163865.18,
-    "valor_total_venda": 301694.8,
-    "lucro_potencial_total": 137829.62,
+    "total_skus": 258,
+    "total_unidades": 61722,
+    "valor_total_custo": 163771.68,
+    "valor_total_venda": 301526.5,
+    "lucro_potencial_total": 137754.82,
     "margem_media": 45.73,
     "markup_medio": 88.1,
-    "total_zerados": 48,
+    "total_zerados": 56,
     "total_criticos": 12,
     "total_negativos": 4,
-    "total_alertas": 64,
-    "total_vencidos": 13,
+    "total_alertas": 72,
+    "total_vencidos": 11,
     "total_vence_90d": 1,
     "total_vence_180d": 5,
     "total_sugestao_compra_qtd": 24657,
@@ -25,14 +25,14 @@
       },
       "B": {
         "classe": "B",
-        "skus": 62,
-        "valor_venda": 46228.96,
+        "skus": 61,
+        "valor_venda": 45813.6,
         "descricao": "15% do valor imobilizado (Média Prioridade)"
       },
       "C": {
         "classe": "C",
-        "skus": 130,
-        "valor_venda": 14915.88,
+        "skus": 138,
+        "valor_venda": 15162.94,
         "descricao": "5% do valor imobilizado (Cauda Longa / Giro Pontual)"
       }
     },
@@ -46,7 +46,7 @@
         "lucro_potencial": 29754.82,
         "itens_zerados": 6,
         "itens_criticos": 1,
-        "participacao_venda_pct": 21.71
+        "participacao_venda_pct": 21.72
       },
       {
         "categoria": "Limpeza em Geral",
@@ -57,40 +57,40 @@
         "lucro_potencial": 24457.46,
         "itens_zerados": 1,
         "itens_criticos": 0,
-        "participacao_venda_pct": 18.36
+        "participacao_venda_pct": 18.37
       },
       {
         "categoria": "Sondas",
-        "skus": 70,
-        "unidades": 9212,
-        "valor_custo": 23057.58,
-        "valor_venda": 44180.82,
-        "lucro_potencial": 21123.24,
-        "itens_zerados": 12,
+        "skus": 75,
+        "unidades": 9207,
+        "valor_custo": 22964.08,
+        "valor_venda": 44012.52,
+        "lucro_potencial": 21048.44,
+        "itens_zerados": 18,
         "itens_criticos": 0,
-        "participacao_venda_pct": 14.64
+        "participacao_venda_pct": 14.6
       },
       {
         "categoria": "Uso Médico",
-        "skus": 8,
+        "skus": 9,
         "unidades": 4419,
         "valor_custo": 17457.93,
         "valor_venda": 29374.56,
         "lucro_potencial": 11916.63,
-        "itens_zerados": 0,
+        "itens_zerados": 1,
         "itens_criticos": 0,
         "participacao_venda_pct": 9.74
       },
       {
         "categoria": "Agulhas e Seringas",
-        "skus": 28,
+        "skus": 27,
         "unidades": 14712,
         "valor_custo": 11574.8,
         "valor_venda": 21609.05,
         "lucro_potencial": 10034.25,
-        "itens_zerados": 8,
+        "itens_zerados": 7,
         "itens_criticos": 4,
-        "participacao_venda_pct": 7.16
+        "participacao_venda_pct": 7.17
       },
       {
         "categoria": "Cateter",
@@ -138,12 +138,12 @@
       },
       {
         "categoria": "Coletores",
-        "skus": 16,
+        "skus": 18,
         "unidades": 2873,
         "valor_custo": 5096.08,
         "valor_venda": 9500.77,
         "lucro_potencial": 4404.69,
-        "itens_zerados": 2,
+        "itens_zerados": 4,
         "itens_criticos": 3,
         "participacao_venda_pct": 3.15
       },
@@ -211,7 +211,7 @@
         "lucro_potencial": 850.88,
         "itens_zerados": 0,
         "itens_criticos": 1,
-        "participacao_venda_pct": 0.59
+        "participacao_venda_pct": 0.6
       },
       {
         "categoria": "Algodão",
@@ -292,16 +292,16 @@
       }
     ],
     "data_base": "2026-11-15",
-    "origem": "SmartPOS API Sync (258 catálogo / 249 conciliados)",
-    "last_sync_at": "2026-11-15T21:45:16Z",
-    "last_sync_brt": "15/11/2026 às 18:45 (BRT)",
+    "origem": "SmartPOS API Sync (258 SKUs 100% integrados via API)",
+    "last_sync_at": "2026-11-15T22:13:00Z",
+    "last_sync_brt": "15/11/2026 às 19:13 (BRT)",
     "sync_metadata": {
-      "last_sync_at": "2026-11-15T21:45:16Z",
-      "last_sync_brt": "15/11/2026 às 18:45 (BRT)",
+      "last_sync_at": "2026-11-15T22:13:00Z",
+      "last_sync_brt": "15/11/2026 às 19:13 (BRT)",
       "sync_status": "SUCCESS",
       "produtos_api": 258,
-      "skus_conciliados": 249,
-      "origem": "SmartPOS API"
+      "skus_conciliados": 258,
+      "origem": "SmartPOS API Oficial v1"
     }
   },
   "products": [
@@ -330,7 +330,7 @@
       "valor_total_custo": 4018.14,
       "valor_total_venda": 6830.88,
       "lucro_potencial": 2812.74,
-      "curva_abc_acumulada_pct": 33.26,
+      "curva_abc_acumulada_pct": 33.28,
       "curva_abc": "A"
     },
     {
@@ -358,7 +358,7 @@
       "valor_total_custo": 187.04,
       "valor_total_venda": 374.08,
       "lucro_potencial": 187.04,
-      "curva_abc_acumulada_pct": 96.05,
+      "curva_abc_acumulada_pct": 96.1,
       "curva_abc": "C"
     },
     {
@@ -386,7 +386,7 @@
       "valor_total_custo": 513.24,
       "valor_total_venda": 719.1,
       "lucro_potencial": 205.86,
-      "curva_abc_acumulada_pct": 89.82,
+      "curva_abc_acumulada_pct": 89.87,
       "curva_abc": "B"
     },
     {
@@ -414,7 +414,7 @@
       "valor_total_custo": 489.06,
       "valor_total_venda": 929.17,
       "lucro_potencial": 440.11,
-      "curva_abc_acumulada_pct": 86.04,
+      "curva_abc_acumulada_pct": 86.09,
       "curva_abc": "B"
     },
     {
@@ -442,7 +442,7 @@
       "valor_total_custo": 1209.16,
       "valor_total_venda": 2405.0,
       "lucro_potencial": 1195.84,
-      "curva_abc_acumulada_pct": 66.36,
+      "curva_abc_acumulada_pct": 66.39,
       "curva_abc": "A"
     },
     {
@@ -470,7 +470,7 @@
       "valor_total_custo": 80.92,
       "valor_total_venda": 192.0,
       "lucro_potencial": 111.08,
-      "curva_abc_acumulada_pct": 99.15,
+      "curva_abc_acumulada_pct": 99.27,
       "curva_abc": "C"
     },
     {
@@ -526,7 +526,7 @@
       "valor_total_custo": 3750.0,
       "valor_total_venda": 6750.0,
       "lucro_potencial": 3000.0,
-      "curva_abc_acumulada_pct": 37.75,
+      "curva_abc_acumulada_pct": 37.77,
       "curva_abc": "A"
     },
     {
@@ -582,7 +582,7 @@
       "valor_total_custo": 2520.0,
       "valor_total_venda": 4536.0,
       "lucro_potencial": 2016.0,
-      "curva_abc_acumulada_pct": 51.31,
+      "curva_abc_acumulada_pct": 51.34,
       "curva_abc": "A"
     },
     {
@@ -610,7 +610,7 @@
       "valor_total_custo": 2250.0,
       "valor_total_venda": 4050.0,
       "lucro_potencial": 1800.0,
-      "curva_abc_acumulada_pct": 52.65,
+      "curva_abc_acumulada_pct": 52.68,
       "curva_abc": "A"
     },
     {
@@ -638,7 +638,7 @@
       "valor_total_custo": 1287.0,
       "valor_total_venda": 1638.0,
       "lucro_potencial": 351.0,
-      "curva_abc_acumulada_pct": 75.21,
+      "curva_abc_acumulada_pct": 75.25,
       "curva_abc": "A"
     },
     {
@@ -666,7 +666,7 @@
       "valor_total_custo": 199.6,
       "valor_total_venda": 412.8,
       "lucro_potencial": 213.2,
-      "curva_abc_acumulada_pct": 95.41,
+      "curva_abc_acumulada_pct": 95.46,
       "curva_abc": "C"
     },
     {
@@ -694,7 +694,7 @@
       "valor_total_custo": 440.22,
       "valor_total_venda": 986.7,
       "lucro_potencial": 546.48,
-      "curva_abc_acumulada_pct": 84.46,
+      "curva_abc_acumulada_pct": 84.5,
       "curva_abc": "B"
     },
     {
@@ -778,7 +778,7 @@
       "valor_total_custo": 700.8,
       "valor_total_venda": 825.6,
       "lucro_potencial": 124.8,
-      "curva_abc_acumulada_pct": 88.3,
+      "curva_abc_acumulada_pct": 88.35,
       "curva_abc": "B"
     },
     {
@@ -862,7 +862,7 @@
       "valor_total_custo": 1107.0,
       "valor_total_venda": 1537.5,
       "lucro_potencial": 430.5,
-      "curva_abc_acumulada_pct": 75.72,
+      "curva_abc_acumulada_pct": 75.76,
       "curva_abc": "A"
     },
     {
@@ -890,7 +890,7 @@
       "valor_total_custo": 237.9,
       "valor_total_venda": 455.0,
       "lucro_potencial": 217.1,
-      "curva_abc_acumulada_pct": 94.14,
+      "curva_abc_acumulada_pct": 94.19,
       "curva_abc": "B"
     },
     {
@@ -918,7 +918,7 @@
       "valor_total_custo": 585.0,
       "valor_total_venda": 1116.0,
       "lucro_potencial": 531.0,
-      "curva_abc_acumulada_pct": 82.76,
+      "curva_abc_acumulada_pct": 82.8,
       "curva_abc": "B"
     },
     {
@@ -946,7 +946,7 @@
       "valor_total_custo": 989.14,
       "valor_total_venda": 1995.0,
       "lucro_potencial": 1005.86,
-      "curva_abc_acumulada_pct": 70.02,
+      "curva_abc_acumulada_pct": 70.06,
       "curva_abc": "A"
     },
     {
@@ -974,7 +974,7 @@
       "valor_total_custo": 2064.0,
       "valor_total_venda": 3528.15,
       "lucro_potencial": 1464.15,
-      "curva_abc_acumulada_pct": 56.21,
+      "curva_abc_acumulada_pct": 56.24,
       "curva_abc": "A"
     },
     {
@@ -1002,7 +1002,7 @@
       "valor_total_custo": 5749.1,
       "valor_total_venda": 9826.95,
       "lucro_potencial": 4077.85,
-      "curva_abc_acumulada_pct": 18.02,
+      "curva_abc_acumulada_pct": 18.03,
       "curva_abc": "A"
     },
     {
@@ -1058,7 +1058,7 @@
       "valor_total_custo": 7020.0,
       "valor_total_venda": 12012.0,
       "lucro_potencial": 4992.0,
-      "curva_abc_acumulada_pct": 14.76,
+      "curva_abc_acumulada_pct": 14.77,
       "curva_abc": "A"
     },
     {
@@ -1114,7 +1114,7 @@
       "valor_total_custo": 1465.2,
       "valor_total_venda": 2368.0,
       "lucro_potencial": 902.8,
-      "curva_abc_acumulada_pct": 67.14,
+      "curva_abc_acumulada_pct": 67.18,
       "curva_abc": "A"
     },
     {
@@ -1142,7 +1142,7 @@
       "valor_total_custo": 10771.2,
       "valor_total_venda": 19388.16,
       "lucro_potencial": 8616.96,
-      "curva_abc_acumulada_pct": 6.42,
+      "curva_abc_acumulada_pct": 6.43,
       "curva_abc": "A"
     },
     {
@@ -1198,7 +1198,7 @@
       "valor_total_custo": 2662.4,
       "valor_total_venda": 4659.2,
       "lucro_potencial": 1996.8,
-      "curva_abc_acumulada_pct": 49.81,
+      "curva_abc_acumulada_pct": 49.84,
       "curva_abc": "A"
     },
     {
@@ -1254,7 +1254,7 @@
       "valor_total_custo": 145.22,
       "valor_total_venda": 260.3,
       "lucro_potencial": 115.08,
-      "curva_abc_acumulada_pct": 98.21,
+      "curva_abc_acumulada_pct": 98.26,
       "curva_abc": "C"
     },
     {
@@ -1338,7 +1338,7 @@
       "valor_total_custo": 680.4,
       "valor_total_venda": 1327.2,
       "lucro_potencial": 646.8,
-      "curva_abc_acumulada_pct": 78.0,
+      "curva_abc_acumulada_pct": 78.04,
       "curva_abc": "A"
     },
     {
@@ -1366,7 +1366,7 @@
       "valor_total_custo": 420.0,
       "valor_total_venda": 837.2,
       "lucro_potencial": 417.2,
-      "curva_abc_acumulada_pct": 87.75,
+      "curva_abc_acumulada_pct": 87.8,
       "curva_abc": "B"
     },
     {
@@ -1394,7 +1394,7 @@
       "valor_total_custo": 312.0,
       "valor_total_venda": 478.4,
       "lucro_potencial": 166.4,
-      "curva_abc_acumulada_pct": 93.38,
+      "curva_abc_acumulada_pct": 93.43,
       "curva_abc": "B"
     },
     {
@@ -1422,8 +1422,36 @@
       "valor_total_custo": 401.28,
       "valor_total_venda": 722.4,
       "lucro_potencial": 321.12,
-      "curva_abc_acumulada_pct": 89.58,
+      "curva_abc_acumulada_pct": 89.63,
       "curva_abc": "B"
+    },
+    {
+      "id": "prod-47288034",
+      "codigo": "1722",
+      "produto": "Cloreto potassio 19 ,1% ampola 10ml samte Lote:TYQ1 Venc.:28/02/2028",
+      "nome_resumido": "Cloreto potassio 19 ,1% ampola 10ml samte Lote:TYQ1 Venc.:28/02/2028",
+      "fabricante": "W L COMÉRCIO DE PRODUTOS FARMACEUTICOS",
+      "lote": "TYQ1",
+      "validade_iso": "2028-02-28",
+      "validade": "28/02/2028",
+      "dias_para_vencer": 470,
+      "status_validade": "REGULAR",
+      "categoria": "Uso Médico",
+      "custo": 0.83,
+      "valor_venda": 1.08,
+      "lucro_unitario": 0.25,
+      "margem_percentual": 23.1,
+      "markup_percentual": 30.1,
+      "estoque": 0,
+      "estoque_minimo": null,
+      "status_estoque": "ZERADO",
+      "sugestao_compra_qtd": 0,
+      "sugestao_compra_custo": 0.0,
+      "valor_total_custo": 0.0,
+      "valor_total_venda": 0.0,
+      "lucro_potencial": 0.0,
+      "curva_abc_acumulada_pct": 100.0,
+      "curva_abc": "C"
     },
     {
       "id": "prod-210",
@@ -1450,7 +1478,7 @@
       "valor_total_custo": 930.0,
       "valor_total_venda": 1705.0,
       "lucro_potencial": 775.0,
-      "curva_abc_acumulada_pct": 73.57,
+      "curva_abc_acumulada_pct": 73.61,
       "curva_abc": "A"
     },
     {
@@ -1478,7 +1506,7 @@
       "valor_total_custo": 417.88,
       "valor_total_venda": 835.76,
       "lucro_potencial": 417.88,
-      "curva_abc_acumulada_pct": 88.03,
+      "curva_abc_acumulada_pct": 88.08,
       "curva_abc": "B"
     },
     {
@@ -1534,7 +1562,7 @@
       "valor_total_custo": 722.7,
       "valor_total_venda": 1373.13,
       "lucro_potencial": 650.43,
-      "curva_abc_acumulada_pct": 77.11,
+      "curva_abc_acumulada_pct": 77.15,
       "curva_abc": "A"
     },
     {
@@ -1562,7 +1590,7 @@
       "valor_total_custo": 1385.5,
       "valor_total_venda": 2493.9,
       "lucro_potencial": 1108.4,
-      "curva_abc_acumulada_pct": 64.75,
+      "curva_abc_acumulada_pct": 64.78,
       "curva_abc": "A"
     },
     {
@@ -1590,7 +1618,7 @@
       "valor_total_custo": 840.0,
       "valor_total_venda": 1806.0,
       "lucro_potencial": 966.0,
-      "curva_abc_acumulada_pct": 72.42,
+      "curva_abc_acumulada_pct": 72.46,
       "curva_abc": "A"
     },
     {
@@ -1646,8 +1674,36 @@
       "valor_total_custo": 713.9,
       "valor_total_venda": 1213.74,
       "lucro_potencial": 499.84,
-      "curva_abc_acumulada_pct": 80.08,
+      "curva_abc_acumulada_pct": 80.13,
       "curva_abc": "B"
+    },
+    {
+      "id": "prod-47033582",
+      "codigo": "3952",
+      "produto": "Tubo mini 0.5ml edta k2 c/ 50 (IM) Labor -lote: B46004 dt. valid: 13/10/2027",
+      "nome_resumido": "Tubo mini 0.5ml edta k2 c/ 50 (IM) Labor -lote: B46004 dt. valid: 13/10/2027",
+      "fabricante": "LABOR IMPORT. COMERCIAL IMP. EXP. LTDA",
+      "lote": "B46004",
+      "validade_iso": "2027-10-13",
+      "validade": "13/10/2027",
+      "dias_para_vencer": 332,
+      "status_validade": "REGULAR",
+      "categoria": "Coletores",
+      "custo": 29.0,
+      "valor_venda": 52.0,
+      "lucro_unitario": 23.0,
+      "margem_percentual": 44.2,
+      "markup_percentual": 79.3,
+      "estoque": 0,
+      "estoque_minimo": null,
+      "status_estoque": "ZERADO",
+      "sugestao_compra_qtd": 0,
+      "sugestao_compra_custo": 0.0,
+      "valor_total_custo": 0.0,
+      "valor_total_venda": 0.0,
+      "lucro_potencial": 0.0,
+      "curva_abc_acumulada_pct": 100.0,
+      "curva_abc": "C"
     },
     {
       "id": "prod-177",
@@ -1702,7 +1758,7 @@
       "valor_total_custo": 211.2,
       "valor_total_venda": 432.0,
       "lucro_potencial": 220.8,
-      "curva_abc_acumulada_pct": 94.43,
+      "curva_abc_acumulada_pct": 94.63,
       "curva_abc": "B"
     },
     {
@@ -1730,8 +1786,8 @@
       "valor_total_custo": 230.56,
       "valor_total_venda": 415.36,
       "lucro_potencial": 184.8,
-      "curva_abc_acumulada_pct": 94.99,
-      "curva_abc": "B"
+      "curva_abc_acumulada_pct": 95.05,
+      "curva_abc": "C"
     },
     {
       "id": "prod-164",
@@ -1814,7 +1870,7 @@
       "valor_total_custo": 1220.4,
       "valor_total_venda": 2446.45,
       "lucro_potencial": 1226.05,
-      "curva_abc_acumulada_pct": 65.56,
+      "curva_abc_acumulada_pct": 65.6,
       "curva_abc": "A"
     },
     {
@@ -1842,7 +1898,7 @@
       "valor_total_custo": 97.8,
       "valor_total_venda": 195.0,
       "lucro_potencial": 97.2,
-      "curva_abc_acumulada_pct": 99.08,
+      "curva_abc_acumulada_pct": 99.14,
       "curva_abc": "C"
     },
     {
@@ -1870,8 +1926,36 @@
       "valor_total_custo": 422.5,
       "valor_total_venda": 819.0,
       "lucro_potencial": 396.5,
-      "curva_abc_acumulada_pct": 88.57,
+      "curva_abc_acumulada_pct": 88.62,
       "curva_abc": "B"
+    },
+    {
+      "id": "prod-47033583",
+      "codigo": "50217",
+      "produto": "Tubo roxo edta k2 2ml c/100 (AB) Labor - lote: 2564011 dt. valid: 30/10/2027",
+      "nome_resumido": "Tubo roxo edta k2 2ml c/100 (AB) Labor",
+      "fabricante": "LABOR IMPORT. COMERCIAL IMP. EXP. LTDA",
+      "lote": "2564011",
+      "validade_iso": "2027-10-30",
+      "validade": "30/10/2027",
+      "dias_para_vencer": 349,
+      "status_validade": "REGULAR",
+      "categoria": "Coletores",
+      "custo": 36.0,
+      "valor_venda": 65.0,
+      "lucro_unitario": 29.0,
+      "margem_percentual": 44.6,
+      "markup_percentual": 80.6,
+      "estoque": 0,
+      "estoque_minimo": null,
+      "status_estoque": "ZERADO",
+      "sugestao_compra_qtd": 0,
+      "sugestao_compra_custo": 0.0,
+      "valor_total_custo": 0.0,
+      "valor_total_venda": 0.0,
+      "lucro_potencial": 0.0,
+      "curva_abc_acumulada_pct": 100.0,
+      "curva_abc": "C"
     },
     {
       "id": "prod-127",
@@ -1898,7 +1982,7 @@
       "valor_total_custo": 401.85,
       "valor_total_venda": 1125.18,
       "lucro_potencial": 723.33,
-      "curva_abc_acumulada_pct": 82.39,
+      "curva_abc_acumulada_pct": 82.43,
       "curva_abc": "B"
     },
     {
@@ -1926,7 +2010,7 @@
       "valor_total_custo": 880.0,
       "valor_total_venda": 1760.0,
       "lucro_potencial": 880.0,
-      "curva_abc_acumulada_pct": 73.0,
+      "curva_abc_acumulada_pct": 73.04,
       "curva_abc": "A"
     },
     {
@@ -1954,7 +2038,7 @@
       "valor_total_custo": 1709.07,
       "valor_total_venda": 3630.0,
       "lucro_potencial": 1920.93,
-      "curva_abc_acumulada_pct": 53.86,
+      "curva_abc_acumulada_pct": 53.89,
       "curva_abc": "A"
     },
     {
@@ -1982,7 +2066,7 @@
       "valor_total_custo": 1320.0,
       "valor_total_venda": 2640.0,
       "lucro_potencial": 1320.0,
-      "curva_abc_acumulada_pct": 62.21,
+      "curva_abc_acumulada_pct": 62.25,
       "curva_abc": "A"
     },
     {
@@ -2038,7 +2122,7 @@
       "valor_total_custo": 323.08,
       "valor_total_venda": 646.16,
       "lucro_potencial": 323.08,
-      "curva_abc_acumulada_pct": 90.48,
+      "curva_abc_acumulada_pct": 90.53,
       "curva_abc": "B"
     },
     {
@@ -2066,7 +2150,7 @@
       "valor_total_custo": 620.6,
       "valor_total_venda": 1148.4,
       "lucro_potencial": 527.8,
-      "curva_abc_acumulada_pct": 81.64,
+      "curva_abc_acumulada_pct": 81.69,
       "curva_abc": "B"
     },
     {
@@ -2094,7 +2178,7 @@
       "valor_total_custo": 756.0,
       "valor_total_venda": 1360.8,
       "lucro_potencial": 604.8,
-      "curva_abc_acumulada_pct": 77.56,
+      "curva_abc_acumulada_pct": 77.6,
       "curva_abc": "A"
     },
     {
@@ -2150,7 +2234,7 @@
       "valor_total_custo": 1015.0,
       "valor_total_venda": 1827.0,
       "lucro_potencial": 812.0,
-      "curva_abc_acumulada_pct": 70.62,
+      "curva_abc_acumulada_pct": 70.66,
       "curva_abc": "A"
     },
     {
@@ -2178,7 +2262,7 @@
       "valor_total_custo": 139.12,
       "valor_total_venda": 278.24,
       "lucro_potencial": 139.12,
-      "curva_abc_acumulada_pct": 98.03,
+      "curva_abc_acumulada_pct": 98.09,
       "curva_abc": "C"
     },
     {
@@ -2206,7 +2290,7 @@
       "valor_total_custo": 206.98,
       "valor_total_venda": 372.88,
       "lucro_potencial": 165.9,
-      "curva_abc_acumulada_pct": 96.3,
+      "curva_abc_acumulada_pct": 96.35,
       "curva_abc": "C"
     },
     {
@@ -2234,7 +2318,7 @@
       "valor_total_custo": 111.0,
       "valor_total_venda": 236.8,
       "lucro_potencial": 125.8,
-      "curva_abc_acumulada_pct": 98.53,
+      "curva_abc_acumulada_pct": 98.59,
       "curva_abc": "C"
     },
     {
@@ -2318,7 +2402,7 @@
       "valor_total_custo": 119.6,
       "valor_total_venda": 224.64,
       "lucro_potencial": 105.04,
-      "curva_abc_acumulada_pct": 98.61,
+      "curva_abc_acumulada_pct": 98.66,
       "curva_abc": "C"
     },
     {
@@ -2374,7 +2458,7 @@
       "valor_total_custo": 94.3,
       "valor_total_venda": 177.12,
       "lucro_potencial": 82.82,
-      "curva_abc_acumulada_pct": 99.39,
+      "curva_abc_acumulada_pct": 99.45,
       "curva_abc": "C"
     },
     {
@@ -2402,7 +2486,7 @@
       "valor_total_custo": 270.75,
       "valor_total_venda": 577.6,
       "lucro_potencial": 306.85,
-      "curva_abc_acumulada_pct": 91.69,
+      "curva_abc_acumulada_pct": 91.74,
       "curva_abc": "B"
     },
     {
@@ -2430,7 +2514,7 @@
       "valor_total_custo": 170.2,
       "valor_total_venda": 319.68,
       "lucro_potencial": 149.48,
-      "curva_abc_acumulada_pct": 97.45,
+      "curva_abc_acumulada_pct": 97.5,
       "curva_abc": "C"
     },
     {
@@ -2458,7 +2542,7 @@
       "valor_total_custo": 220.8,
       "valor_total_venda": 414.72,
       "lucro_potencial": 193.92,
-      "curva_abc_acumulada_pct": 95.13,
+      "curva_abc_acumulada_pct": 95.19,
       "curva_abc": "C"
     },
     {
@@ -2486,7 +2570,7 @@
       "valor_total_custo": 207.0,
       "valor_total_venda": 388.8,
       "lucro_potencial": 181.8,
-      "curva_abc_acumulada_pct": 95.8,
+      "curva_abc_acumulada_pct": 95.86,
       "curva_abc": "C"
     },
     {
@@ -2514,7 +2598,7 @@
       "valor_total_custo": 193.2,
       "valor_total_venda": 362.88,
       "lucro_potencial": 169.68,
-      "curva_abc_acumulada_pct": 96.66,
+      "curva_abc_acumulada_pct": 96.72,
       "curva_abc": "C"
     },
     {
@@ -2542,7 +2626,7 @@
       "valor_total_custo": 105.8,
       "valor_total_venda": 198.72,
       "lucro_potencial": 92.92,
-      "curva_abc_acumulada_pct": 98.95,
+      "curva_abc_acumulada_pct": 99.07,
       "curva_abc": "C"
     },
     {
@@ -2570,7 +2654,7 @@
       "valor_total_custo": 108.1,
       "valor_total_venda": 203.04,
       "lucro_potencial": 94.94,
-      "curva_abc_acumulada_pct": 98.89,
+      "curva_abc_acumulada_pct": 98.94,
       "curva_abc": "C"
     },
     {
@@ -2598,7 +2682,7 @@
       "valor_total_custo": 718.2,
       "valor_total_venda": 1290.1,
       "lucro_potencial": 571.9,
-      "curva_abc_acumulada_pct": 78.85,
+      "curva_abc_acumulada_pct": 78.9,
       "curva_abc": "A"
     },
     {
@@ -2626,7 +2710,7 @@
       "valor_total_custo": 190.9,
       "valor_total_venda": 358.56,
       "lucro_potencial": 167.66,
-      "curva_abc_acumulada_pct": 96.78,
+      "curva_abc_acumulada_pct": 96.84,
       "curva_abc": "C"
     },
     {
@@ -2654,7 +2738,7 @@
       "valor_total_custo": 131.1,
       "valor_total_venda": 246.24,
       "lucro_potencial": 115.14,
-      "curva_abc_acumulada_pct": 98.45,
+      "curva_abc_acumulada_pct": 98.51,
       "curva_abc": "C"
     },
     {
@@ -2682,7 +2766,7 @@
       "valor_total_custo": 257.4,
       "valor_total_venda": 463.32,
       "lucro_potencial": 205.92,
-      "curva_abc_acumulada_pct": 93.69,
+      "curva_abc_acumulada_pct": 93.74,
       "curva_abc": "B"
     },
     {
@@ -2710,7 +2794,7 @@
       "valor_total_custo": 197.8,
       "valor_total_venda": 371.52,
       "lucro_potencial": 173.72,
-      "curva_abc_acumulada_pct": 96.42,
+      "curva_abc_acumulada_pct": 96.48,
       "curva_abc": "C"
     },
     {
@@ -2738,7 +2822,7 @@
       "valor_total_custo": 279.4,
       "valor_total_venda": 502.92,
       "lucro_potencial": 223.52,
-      "curva_abc_acumulada_pct": 92.74,
+      "curva_abc_acumulada_pct": 92.79,
       "curva_abc": "B"
     },
     {
@@ -2766,7 +2850,7 @@
       "valor_total_custo": 210.0,
       "valor_total_venda": 420.0,
       "lucro_potencial": 210.0,
-      "curva_abc_acumulada_pct": 94.86,
+      "curva_abc_acumulada_pct": 94.91,
       "curva_abc": "B"
     },
     {
@@ -2794,7 +2878,7 @@
       "valor_total_custo": 253.0,
       "valor_total_venda": 455.4,
       "lucro_potencial": 202.4,
-      "curva_abc_acumulada_pct": 93.99,
+      "curva_abc_acumulada_pct": 94.04,
       "curva_abc": "B"
     },
     {
@@ -2822,7 +2906,7 @@
       "valor_total_custo": 232.2,
       "valor_total_venda": 510.84,
       "lucro_potencial": 278.64,
-      "curva_abc_acumulada_pct": 92.57,
+      "curva_abc_acumulada_pct": 92.62,
       "curva_abc": "B"
     },
     {
@@ -2878,7 +2962,7 @@
       "valor_total_custo": 192.0,
       "valor_total_venda": 345.6,
       "lucro_potencial": 153.6,
-      "curva_abc_acumulada_pct": 97.01,
+      "curva_abc_acumulada_pct": 97.07,
       "curva_abc": "C"
     },
     {
@@ -2934,7 +3018,7 @@
       "valor_total_custo": 110.4,
       "valor_total_venda": 198.72,
       "lucro_potencial": 88.32,
-      "curva_abc_acumulada_pct": 99.02,
+      "curva_abc_acumulada_pct": 99.01,
       "curva_abc": "C"
     },
     {
@@ -3018,7 +3102,7 @@
       "valor_total_custo": 141.92,
       "valor_total_venda": 283.84,
       "lucro_potencial": 141.92,
-      "curva_abc_acumulada_pct": 97.94,
+      "curva_abc_acumulada_pct": 98.0,
       "curva_abc": "C"
     },
     {
@@ -3046,7 +3130,7 @@
       "valor_total_custo": 253.46,
       "valor_total_venda": 413.54,
       "lucro_potencial": 160.08,
-      "curva_abc_acumulada_pct": 95.27,
+      "curva_abc_acumulada_pct": 95.32,
       "curva_abc": "C"
     },
     {
@@ -3074,7 +3158,7 @@
       "valor_total_custo": 740.0,
       "valor_total_venda": 1190.0,
       "lucro_potencial": 450.0,
-      "curva_abc_acumulada_pct": 80.88,
+      "curva_abc_acumulada_pct": 80.92,
       "curva_abc": "B"
     },
     {
@@ -3102,7 +3186,7 @@
       "valor_total_custo": 671.6,
       "valor_total_venda": 1276.04,
       "lucro_potencial": 604.44,
-      "curva_abc_acumulada_pct": 79.28,
+      "curva_abc_acumulada_pct": 79.32,
       "curva_abc": "A"
     },
     {
@@ -3158,7 +3242,7 @@
       "valor_total_custo": 630.19,
       "valor_total_venda": 1134.41,
       "lucro_potencial": 504.22,
-      "curva_abc_acumulada_pct": 82.02,
+      "curva_abc_acumulada_pct": 82.06,
       "curva_abc": "B"
     },
     {
@@ -3186,7 +3270,7 @@
       "valor_total_custo": 153.8,
       "valor_total_venda": 307.6,
       "lucro_potencial": 153.8,
-      "curva_abc_acumulada_pct": 97.66,
+      "curva_abc_acumulada_pct": 97.71,
       "curva_abc": "C"
     },
     {
@@ -3214,7 +3298,7 @@
       "valor_total_custo": 156.8,
       "valor_total_venda": 313.6,
       "lucro_potencial": 156.8,
-      "curva_abc_acumulada_pct": 97.55,
+      "curva_abc_acumulada_pct": 97.61,
       "curva_abc": "C"
     },
     {
@@ -3242,7 +3326,7 @@
       "valor_total_custo": 7974.96,
       "valor_total_venda": 13160.3,
       "lucro_potencial": 5185.34,
-      "curva_abc_acumulada_pct": 10.78,
+      "curva_abc_acumulada_pct": 10.79,
       "curva_abc": "A"
     },
     {
@@ -3270,7 +3354,7 @@
       "valor_total_custo": 1526.4,
       "valor_total_venda": 2747.52,
       "lucro_potencial": 1221.12,
-      "curva_abc_acumulada_pct": 60.45,
+      "curva_abc_acumulada_pct": 60.48,
       "curva_abc": "A"
     },
     {
@@ -3298,7 +3382,7 @@
       "valor_total_custo": 3783.5,
       "valor_total_venda": 6810.3,
       "lucro_potencial": 3026.8,
-      "curva_abc_acumulada_pct": 35.51,
+      "curva_abc_acumulada_pct": 35.53,
       "curva_abc": "A"
     },
     {
@@ -3326,7 +3410,7 @@
       "valor_total_custo": 189.0,
       "valor_total_venda": 340.2,
       "lucro_potencial": 151.2,
-      "curva_abc_acumulada_pct": 97.13,
+      "curva_abc_acumulada_pct": 97.18,
       "curva_abc": "C"
     },
     {
@@ -3354,7 +3438,7 @@
       "valor_total_custo": 4638.6,
       "valor_total_venda": 8349.48,
       "lucro_potencial": 3710.88,
-      "curva_abc_acumulada_pct": 23.79,
+      "curva_abc_acumulada_pct": 23.81,
       "curva_abc": "A"
     },
     {
@@ -3382,7 +3466,7 @@
       "valor_total_custo": 3070.9,
       "valor_total_venda": 5527.62,
       "lucro_potencial": 2456.72,
-      "curva_abc_acumulada_pct": 43.36,
+      "curva_abc_acumulada_pct": 43.38,
       "curva_abc": "A"
     },
     {
@@ -3410,7 +3494,7 @@
       "valor_total_custo": 1497.3,
       "valor_total_venda": 2695.14,
       "lucro_potencial": 1197.84,
-      "curva_abc_acumulada_pct": 61.34,
+      "curva_abc_acumulada_pct": 61.37,
       "curva_abc": "A"
     },
     {
@@ -3438,7 +3522,7 @@
       "valor_total_custo": 2633.75,
       "valor_total_venda": 4740.75,
       "lucro_potencial": 2107.0,
-      "curva_abc_acumulada_pct": 46.7,
+      "curva_abc_acumulada_pct": 46.73,
       "curva_abc": "A"
     },
     {
@@ -3466,7 +3550,7 @@
       "valor_total_custo": 3417.15,
       "valor_total_venda": 6865.65,
       "lucro_potencial": 3448.5,
-      "curva_abc_acumulada_pct": 31.0,
+      "curva_abc_acumulada_pct": 31.01,
       "curva_abc": "A"
     },
     {
@@ -3550,7 +3634,7 @@
       "valor_total_custo": 465.0,
       "valor_total_venda": 1199.7,
       "lucro_potencial": 734.7,
-      "curva_abc_acumulada_pct": 80.48,
+      "curva_abc_acumulada_pct": 80.53,
       "curva_abc": "B"
     },
     {
@@ -3606,7 +3690,7 @@
       "valor_total_custo": 450.0,
       "valor_total_venda": 1161.0,
       "lucro_potencial": 711.0,
-      "curva_abc_acumulada_pct": 81.26,
+      "curva_abc_acumulada_pct": 81.31,
       "curva_abc": "B"
     },
     {
@@ -3634,7 +3718,7 @@
       "valor_total_custo": 392.2,
       "valor_total_venda": 954.6,
       "lucro_potencial": 562.4,
-      "curva_abc_acumulada_pct": 85.42,
+      "curva_abc_acumulada_pct": 85.47,
       "curva_abc": "B"
     },
     {
@@ -3662,7 +3746,7 @@
       "valor_total_custo": 1788.72,
       "valor_total_venda": 3515.76,
       "lucro_potencial": 1727.04,
-      "curva_abc_acumulada_pct": 57.38,
+      "curva_abc_acumulada_pct": 57.41,
       "curva_abc": "A"
     },
     {
@@ -3690,7 +3774,7 @@
       "valor_total_custo": 157.82,
       "valor_total_venda": 284.18,
       "lucro_potencial": 126.36,
-      "curva_abc_acumulada_pct": 97.85,
+      "curva_abc_acumulada_pct": 97.9,
       "curva_abc": "C"
     },
     {
@@ -3718,7 +3802,7 @@
       "valor_total_custo": 415.0,
       "valor_total_venda": 971.1,
       "lucro_potencial": 556.1,
-      "curva_abc_acumulada_pct": 85.1,
+      "curva_abc_acumulada_pct": 85.15,
       "curva_abc": "B"
     },
     {
@@ -3746,7 +3830,7 @@
       "valor_total_custo": 420.0,
       "valor_total_venda": 982.8,
       "lucro_potencial": 562.8,
-      "curva_abc_acumulada_pct": 84.78,
+      "curva_abc_acumulada_pct": 84.83,
       "curva_abc": "B"
     },
     {
@@ -3774,7 +3858,7 @@
       "valor_total_custo": 1666.6,
       "valor_total_venda": 2999.88,
       "lucro_potencial": 1333.28,
-      "curva_abc_acumulada_pct": 59.54,
+      "curva_abc_acumulada_pct": 59.57,
       "curva_abc": "A"
     },
     {
@@ -3802,7 +3886,7 @@
       "valor_total_custo": 1441.7,
       "valor_total_venda": 2595.06,
       "lucro_potencial": 1153.36,
-      "curva_abc_acumulada_pct": 63.07,
+      "curva_abc_acumulada_pct": 63.11,
       "curva_abc": "A"
     },
     {
@@ -3830,7 +3914,7 @@
       "valor_total_custo": 404.0,
       "valor_total_venda": 945.36,
       "lucro_potencial": 541.36,
-      "curva_abc_acumulada_pct": 85.73,
+      "curva_abc_acumulada_pct": 85.78,
       "curva_abc": "B"
     },
     {
@@ -3914,7 +3998,7 @@
       "valor_total_custo": 1425.6,
       "valor_total_venda": 2566.08,
       "lucro_potencial": 1140.48,
-      "curva_abc_acumulada_pct": 63.92,
+      "curva_abc_acumulada_pct": 63.96,
       "curva_abc": "A"
     },
     {
@@ -3942,7 +4026,7 @@
       "valor_total_custo": 284.76,
       "valor_total_venda": 668.96,
       "lucro_potencial": 384.2,
-      "curva_abc_acumulada_pct": 90.26,
+      "curva_abc_acumulada_pct": 90.31,
       "curva_abc": "B"
     },
     {
@@ -3970,7 +4054,7 @@
       "valor_total_custo": 230.58,
       "valor_total_venda": 614.88,
       "lucro_potencial": 384.3,
-      "curva_abc_acumulada_pct": 91.3,
+      "curva_abc_acumulada_pct": 91.35,
       "curva_abc": "B"
     },
     {
@@ -4054,7 +4138,7 @@
       "valor_total_custo": 188.0,
       "valor_total_venda": 376.0,
       "lucro_potencial": 188.0,
-      "curva_abc_acumulada_pct": 95.93,
+      "curva_abc_acumulada_pct": 95.98,
       "curva_abc": "C"
     },
     {
@@ -4166,7 +4250,7 @@
       "valor_total_custo": 261.28,
       "valor_total_venda": 471.44,
       "lucro_potencial": 210.16,
-      "curva_abc_acumulada_pct": 93.53,
+      "curva_abc_acumulada_pct": 93.59,
       "curva_abc": "B"
     },
     {
@@ -4194,7 +4278,7 @@
       "valor_total_custo": 297.98,
       "valor_total_venda": 535.73,
       "lucro_potencial": 237.75,
-      "curva_abc_acumulada_pct": 92.22,
+      "curva_abc_acumulada_pct": 92.28,
       "curva_abc": "B"
     },
     {
@@ -4222,7 +4306,7 @@
       "valor_total_custo": 163.35,
       "valor_total_venda": 293.7,
       "lucro_potencial": 130.35,
-      "curva_abc_acumulada_pct": 97.75,
+      "curva_abc_acumulada_pct": 97.81,
       "curva_abc": "C"
     },
     {
@@ -4250,7 +4334,7 @@
       "valor_total_custo": 86.1,
       "valor_total_venda": 172.2,
       "lucro_potencial": 86.1,
-      "curva_abc_acumulada_pct": 99.45,
+      "curva_abc_acumulada_pct": 99.51,
       "curva_abc": "C"
     },
     {
@@ -4278,7 +4362,7 @@
       "valor_total_custo": 212.38,
       "valor_total_venda": 424.76,
       "lucro_potencial": 212.38,
-      "curva_abc_acumulada_pct": 94.72,
+      "curva_abc_acumulada_pct": 94.77,
       "curva_abc": "B"
     },
     {
@@ -4306,7 +4390,7 @@
       "valor_total_custo": 241.49,
       "valor_total_venda": 482.98,
       "lucro_potencial": 241.49,
-      "curva_abc_acumulada_pct": 93.06,
+      "curva_abc_acumulada_pct": 93.11,
       "curva_abc": "B"
     },
     {
@@ -4334,7 +4418,7 @@
       "valor_total_custo": 203.7,
       "valor_total_venda": 407.4,
       "lucro_potencial": 203.7,
-      "curva_abc_acumulada_pct": 95.54,
+      "curva_abc_acumulada_pct": 95.59,
       "curva_abc": "C"
     },
     {
@@ -4362,7 +4446,7 @@
       "valor_total_custo": 269.18,
       "valor_total_venda": 538.36,
       "lucro_potencial": 269.18,
-      "curva_abc_acumulada_pct": 92.05,
+      "curva_abc_acumulada_pct": 92.1,
       "curva_abc": "B"
     },
     {
@@ -4390,7 +4474,7 @@
       "valor_total_custo": 612.0,
       "valor_total_venda": 1076.0,
       "lucro_potencial": 464.0,
-      "curva_abc_acumulada_pct": 83.11,
+      "curva_abc_acumulada_pct": 83.16,
       "curva_abc": "B"
     },
     {
@@ -4418,7 +4502,7 @@
       "valor_total_custo": 95.0,
       "valor_total_venda": 207.1,
       "lucro_potencial": 112.1,
-      "curva_abc_acumulada_pct": 98.82,
+      "curva_abc_acumulada_pct": 98.88,
       "curva_abc": "C"
     },
     {
@@ -4446,7 +4530,7 @@
       "valor_total_custo": 3787.6,
       "valor_total_venda": 7575.2,
       "lucro_potencial": 3787.6,
-      "curva_abc_acumulada_pct": 26.3,
+      "curva_abc_acumulada_pct": 26.32,
       "curva_abc": "A"
     },
     {
@@ -4474,7 +4558,7 @@
       "valor_total_custo": 102.0,
       "valor_total_venda": 219.3,
       "lucro_potencial": 117.3,
-      "curva_abc_acumulada_pct": 98.68,
+      "curva_abc_acumulada_pct": 98.73,
       "curva_abc": "C"
     },
     {
@@ -4530,7 +4614,35 @@
       "valor_total_custo": 196.0,
       "valor_total_venda": 352.8,
       "lucro_potencial": 156.8,
-      "curva_abc_acumulada_pct": 96.9,
+      "curva_abc_acumulada_pct": 96.95,
+      "curva_abc": "C"
+    },
+    {
+      "id": "prod-47177218",
+      "codigo": "AMD.273467",
+      "produto": "Sonda tom cat bario 1.0X130mm 3fr Buster/Cruser UN - Lote:273467 venc.:30.11.2027",
+      "nome_resumido": "Sonda tom cat bario 1.0X130mm 3fr Buster/Cruser UN",
+      "fabricante": "ABASE COMÉRCIO E REPRESENTAÇÃO LTDA",
+      "lote": "273467",
+      "validade_iso": "2027-11-30",
+      "validade": "30/11/2027",
+      "dias_para_vencer": 380,
+      "status_validade": "REGULAR",
+      "categoria": "Sondas",
+      "custo": 11.54,
+      "valor_venda": 19.62,
+      "lucro_unitario": 8.08,
+      "margem_percentual": 41.2,
+      "markup_percentual": 70.0,
+      "estoque": 0,
+      "estoque_minimo": null,
+      "status_estoque": "ZERADO",
+      "sugestao_compra_qtd": 0,
+      "sugestao_compra_custo": 0.0,
+      "valor_total_custo": 0.0,
+      "valor_total_venda": 0.0,
+      "lucro_potencial": 0.0,
+      "curva_abc_acumulada_pct": 100.0,
       "curva_abc": "C"
     },
     {
@@ -4558,7 +4670,7 @@
       "valor_total_custo": 434.24,
       "valor_total_venda": 875.84,
       "lucro_potencial": 441.6,
-      "curva_abc_acumulada_pct": 86.91,
+      "curva_abc_acumulada_pct": 86.96,
       "curva_abc": "B"
     },
     {
@@ -4586,7 +4698,7 @@
       "valor_total_custo": 445.06,
       "valor_total_venda": 878.56,
       "lucro_potencial": 433.5,
-      "curva_abc_acumulada_pct": 86.62,
+      "curva_abc_acumulada_pct": 86.67,
       "curva_abc": "B"
     },
     {
@@ -4642,7 +4754,7 @@
       "valor_total_custo": 1264.0,
       "valor_total_venda": 2275.04,
       "lucro_potencial": 1011.04,
-      "curva_abc_acumulada_pct": 67.89,
+      "curva_abc_acumulada_pct": 67.93,
       "curva_abc": "A"
     },
     {
@@ -4670,7 +4782,7 @@
       "valor_total_custo": 718.56,
       "valor_total_venda": 1293.36,
       "lucro_potencial": 574.8,
-      "curva_abc_acumulada_pct": 78.43,
+      "curva_abc_acumulada_pct": 78.47,
       "curva_abc": "A"
     },
     {
@@ -4754,7 +4866,7 @@
       "valor_total_custo": 4054.5,
       "valor_total_venda": 7298.1,
       "lucro_potencial": 3243.6,
-      "curva_abc_acumulada_pct": 28.72,
+      "curva_abc_acumulada_pct": 28.74,
       "curva_abc": "A"
     },
     {
@@ -4782,7 +4894,7 @@
       "valor_total_custo": 1121.0,
       "valor_total_venda": 2261.0,
       "lucro_potencial": 1140.0,
-      "curva_abc_acumulada_pct": 68.64,
+      "curva_abc_acumulada_pct": 68.68,
       "curva_abc": "A"
     },
     {
@@ -4894,7 +5006,7 @@
       "valor_total_custo": 1791.99,
       "valor_total_venda": 3583.98,
       "lucro_potencial": 1791.99,
-      "curva_abc_acumulada_pct": 55.04,
+      "curva_abc_acumulada_pct": 55.07,
       "curva_abc": "A"
     },
     {
@@ -5006,7 +5118,7 @@
       "valor_total_custo": 580.81,
       "valor_total_venda": 1045.94,
       "lucro_potencial": 465.13,
-      "curva_abc_acumulada_pct": 83.46,
+      "curva_abc_acumulada_pct": 83.51,
       "curva_abc": "B"
     },
     {
@@ -5090,7 +5202,7 @@
       "valor_total_custo": 98.55,
       "valor_total_venda": 187.61,
       "lucro_potencial": 89.06,
-      "curva_abc_acumulada_pct": 99.34,
+      "curva_abc_acumulada_pct": 99.39,
       "curva_abc": "C"
     },
     {
@@ -5118,7 +5230,7 @@
       "valor_total_custo": 1192.32,
       "valor_total_venda": 2152.8,
       "lucro_potencial": 960.48,
-      "curva_abc_acumulada_pct": 69.36,
+      "curva_abc_acumulada_pct": 69.39,
       "curva_abc": "A"
     },
     {
@@ -5146,7 +5258,7 @@
       "valor_total_custo": 240.24,
       "valor_total_venda": 456.56,
       "lucro_potencial": 216.32,
-      "curva_abc_acumulada_pct": 93.84,
+      "curva_abc_acumulada_pct": 93.89,
       "curva_abc": "B"
     },
     {
@@ -5174,7 +5286,7 @@
       "valor_total_custo": 1849.92,
       "valor_total_venda": 3515.52,
       "lucro_potencial": 1665.6,
-      "curva_abc_acumulada_pct": 58.54,
+      "curva_abc_acumulada_pct": 58.57,
       "curva_abc": "A"
     },
     {
@@ -5230,7 +5342,7 @@
       "valor_total_custo": 347.88,
       "valor_total_venda": 622.17,
       "lucro_potencial": 274.29,
-      "curva_abc_acumulada_pct": 91.1,
+      "curva_abc_acumulada_pct": 91.15,
       "curva_abc": "B"
     },
     {
@@ -5258,7 +5370,7 @@
       "valor_total_custo": 880.0,
       "valor_total_venda": 1670.0,
       "lucro_potencial": 790.0,
-      "curva_abc_acumulada_pct": 74.12,
+      "curva_abc_acumulada_pct": 74.16,
       "curva_abc": "A"
     },
     {
@@ -5286,7 +5398,7 @@
       "valor_total_custo": 208.44,
       "valor_total_venda": 534.6,
       "lucro_potencial": 326.16,
-      "curva_abc_acumulada_pct": 92.4,
+      "curva_abc_acumulada_pct": 92.45,
       "curva_abc": "B"
     },
     {
@@ -5314,7 +5426,7 @@
       "valor_total_custo": 470.16,
       "valor_total_venda": 846.0,
       "lucro_potencial": 375.84,
-      "curva_abc_acumulada_pct": 87.19,
+      "curva_abc_acumulada_pct": 87.24,
       "curva_abc": "B"
     },
     {
@@ -5370,7 +5482,7 @@
       "valor_total_custo": 137.13,
       "valor_total_venda": 246.96,
       "lucro_potencial": 109.83,
-      "curva_abc_acumulada_pct": 98.37,
+      "curva_abc_acumulada_pct": 98.43,
       "curva_abc": "C"
     },
     {
@@ -5398,7 +5510,7 @@
       "valor_total_custo": 489.75,
       "valor_total_venda": 882.0,
       "lucro_potencial": 392.25,
-      "curva_abc_acumulada_pct": 86.33,
+      "curva_abc_acumulada_pct": 86.38,
       "curva_abc": "B"
     },
     {
@@ -5454,7 +5566,7 @@
       "valor_total_custo": 333.03,
       "valor_total_venda": 599.76,
       "lucro_potencial": 266.73,
-      "curva_abc_acumulada_pct": 91.5,
+      "curva_abc_acumulada_pct": 91.55,
       "curva_abc": "B"
     },
     {
@@ -5538,7 +5650,7 @@
       "valor_total_custo": 914.2,
       "valor_total_venda": 1646.4,
       "lucro_potencial": 732.2,
-      "curva_abc_acumulada_pct": 74.67,
+      "curva_abc_acumulada_pct": 74.71,
       "curva_abc": "A"
     },
     {
@@ -5566,7 +5678,7 @@
       "valor_total_custo": 1005.62,
       "valor_total_venda": 1809.5,
       "lucro_potencial": 803.88,
-      "curva_abc_acumulada_pct": 71.82,
+      "curva_abc_acumulada_pct": 71.86,
       "curva_abc": "A"
     },
     {
@@ -5594,7 +5706,7 @@
       "valor_total_custo": 300.0,
       "valor_total_venda": 540.0,
       "lucro_potencial": 240.0,
-      "curva_abc_acumulada_pct": 91.87,
+      "curva_abc_acumulada_pct": 91.92,
       "curva_abc": "B"
     },
     {
@@ -5678,7 +5790,7 @@
       "valor_total_custo": 452.09,
       "valor_total_venda": 769.03,
       "lucro_potencial": 316.94,
-      "curva_abc_acumulada_pct": 89.09,
+      "curva_abc_acumulada_pct": 89.14,
       "curva_abc": "B"
     },
     {
@@ -5706,7 +5818,7 @@
       "valor_total_custo": 281.49,
       "valor_total_venda": 478.83,
       "lucro_potencial": 197.34,
-      "curva_abc_acumulada_pct": 93.22,
+      "curva_abc_acumulada_pct": 93.27,
       "curva_abc": "B"
     },
     {
@@ -5762,7 +5874,7 @@
       "valor_total_custo": 781.0,
       "valor_total_venda": 1420.0,
       "lucro_potencial": 639.0,
-      "curva_abc_acumulada_pct": 76.19,
+      "curva_abc_acumulada_pct": 76.23,
       "curva_abc": "A"
     },
     {
@@ -5818,7 +5930,7 @@
       "valor_total_custo": 325.0,
       "valor_total_venda": 624.0,
       "lucro_potencial": 299.0,
-      "curva_abc_acumulada_pct": 90.89,
+      "curva_abc_acumulada_pct": 90.94,
       "curva_abc": "B"
     },
     {
@@ -5846,7 +5958,7 @@
       "valor_total_custo": 100.0,
       "valor_total_venda": 192.0,
       "lucro_potencial": 92.0,
-      "curva_abc_acumulada_pct": 99.21,
+      "curva_abc_acumulada_pct": 99.2,
       "curva_abc": "C"
     },
     {
@@ -5874,7 +5986,7 @@
       "valor_total_custo": 225.0,
       "valor_total_venda": 432.0,
       "lucro_potencial": 207.0,
-      "curva_abc_acumulada_pct": 94.58,
+      "curva_abc_acumulada_pct": 94.49,
       "curva_abc": "B"
     },
     {
@@ -5902,7 +6014,7 @@
       "valor_total_custo": 415.38,
       "valor_total_venda": 786.6,
       "lucro_potencial": 371.22,
-      "curva_abc_acumulada_pct": 88.83,
+      "curva_abc_acumulada_pct": 88.88,
       "curva_abc": "B"
     },
     {
@@ -5930,7 +6042,7 @@
       "valor_total_custo": 355.18,
       "valor_total_venda": 674.8,
       "lucro_potencial": 319.62,
-      "curva_abc_acumulada_pct": 90.04,
+      "curva_abc_acumulada_pct": 90.09,
       "curva_abc": "B"
     },
     {
@@ -5958,7 +6070,7 @@
       "valor_total_custo": 735.73,
       "valor_total_venda": 1397.8,
       "lucro_potencial": 662.07,
-      "curva_abc_acumulada_pct": 76.65,
+      "curva_abc_acumulada_pct": 76.7,
       "curva_abc": "A"
     },
     {
@@ -5986,7 +6098,7 @@
       "valor_total_custo": 268.2,
       "valor_total_venda": 496.2,
       "lucro_potencial": 228.0,
-      "curva_abc_acumulada_pct": 92.9,
+      "curva_abc_acumulada_pct": 92.95,
       "curva_abc": "B"
     },
     {
@@ -6070,7 +6182,7 @@
       "valor_total_custo": 329.81,
       "valor_total_venda": 626.6,
       "lucro_potencial": 296.79,
-      "curva_abc_acumulada_pct": 90.68,
+      "curva_abc_acumulada_pct": 90.73,
       "curva_abc": "B"
     },
     {
@@ -6126,36 +6238,8 @@
       "valor_total_custo": 908.6,
       "valor_total_venda": 1817.2,
       "lucro_potencial": 908.6,
-      "curva_abc_acumulada_pct": 71.22,
+      "curva_abc_acumulada_pct": 71.26,
       "curva_abc": "A"
-    },
-    {
-      "id": "prod-110",
-      "codigo": "SE03SAGLS405",
-      "produto": "SERINGA 3ML LUER SLIP S/ AGULHA - SR - LT: 4684P4 - VAL: 27/08/2026",
-      "nome_resumido": "SERINGA 3ML LUER SLIP S/ AGULHA",
-      "fabricante": "SR",
-      "lote": "4684P4",
-      "validade_iso": "2026-08-27",
-      "validade": "27/08/2026",
-      "dias_para_vencer": -80,
-      "status_validade": "VENCIDO",
-      "categoria": "Agulhas e Seringas",
-      "custo": 0.09,
-      "valor_venda": 0.15,
-      "lucro_unitario": 0.06,
-      "margem_percentual": 40.0,
-      "markup_percentual": 66.7,
-      "estoque": 0,
-      "estoque_minimo": null,
-      "status_estoque": "ZERADO",
-      "sugestao_compra_qtd": 0,
-      "sugestao_compra_custo": 0.0,
-      "valor_total_custo": 0.0,
-      "valor_total_venda": 0.0,
-      "lucro_potencial": 0.0,
-      "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
     },
     {
       "id": "prod-32",
@@ -6238,7 +6322,7 @@
       "valor_total_custo": 166.4,
       "valor_total_venda": 327.6,
       "lucro_potencial": 161.2,
-      "curva_abc_acumulada_pct": 97.34,
+      "curva_abc_acumulada_pct": 97.4,
       "curva_abc": "C"
     },
     {
@@ -6294,7 +6378,7 @@
       "valor_total_custo": 2359.0,
       "valor_total_venda": 4718.0,
       "lucro_potencial": 2359.0,
-      "curva_abc_acumulada_pct": 48.27,
+      "curva_abc_acumulada_pct": 48.29,
       "curva_abc": "A"
     },
     {
@@ -6322,7 +6406,7 @@
       "valor_total_custo": 3179.0,
       "valor_total_venda": 5722.2,
       "lucro_potencial": 2543.2,
-      "curva_abc_acumulada_pct": 39.65,
+      "curva_abc_acumulada_pct": 39.67,
       "curva_abc": "A"
     },
     {
@@ -6378,7 +6462,7 @@
       "valor_total_custo": 2973.3,
       "valor_total_venda": 5351.94,
       "lucro_potencial": 2378.64,
-      "curva_abc_acumulada_pct": 45.13,
+      "curva_abc_acumulada_pct": 45.16,
       "curva_abc": "A"
     },
     {
@@ -6406,7 +6490,7 @@
       "valor_total_custo": 88.64,
       "valor_total_venda": 168.32,
       "lucro_potencial": 79.68,
-      "curva_abc_acumulada_pct": 99.56,
+      "curva_abc_acumulada_pct": 99.62,
       "curva_abc": "C"
     },
     {
@@ -6462,7 +6546,7 @@
       "valor_total_custo": 3160.3,
       "valor_total_venda": 5688.54,
       "lucro_potencial": 2528.24,
-      "curva_abc_acumulada_pct": 41.53,
+      "curva_abc_acumulada_pct": 41.55,
       "curva_abc": "A"
     },
     {
@@ -6546,7 +6630,7 @@
       "valor_total_custo": 561.0,
       "valor_total_venda": 1009.8,
       "lucro_potencial": 448.8,
-      "curva_abc_acumulada_pct": 83.8,
+      "curva_abc_acumulada_pct": 83.84,
       "curva_abc": "B"
     },
     {
@@ -6606,34 +6690,6 @@
       "curva_abc": "C"
     },
     {
-      "id": "prod-13",
-      "codigo": "SONEND065AC481",
-      "produto": "sonda endotr. aramada c/bl 6,5 - VITALGOLD - LT: O10971C265 - VAL: 14/04/26",
-      "nome_resumido": "sonda endotr. aramada c/bl 6,5",
-      "fabricante": "VITALGOLD",
-      "lote": "O10971C265",
-      "validade_iso": "2026-04-14",
-      "validade": "14/04/2026",
-      "dias_para_vencer": -215,
-      "status_validade": "VENCIDO",
-      "categoria": "Sondas",
-      "custo": 18.7,
-      "valor_venda": 33.66,
-      "lucro_unitario": 14.96,
-      "margem_percentual": 44.4,
-      "markup_percentual": 80.0,
-      "estoque": 5,
-      "estoque_minimo": null,
-      "status_estoque": "NORMAL",
-      "sugestao_compra_qtd": 0,
-      "sugestao_compra_custo": 0.0,
-      "valor_total_custo": 93.5,
-      "valor_total_venda": 168.3,
-      "lucro_potencial": 74.8,
-      "curva_abc_acumulada_pct": 99.62,
-      "curva_abc": "C"
-    },
-    {
       "id": "prod-28",
       "codigo": "SONEND065C481",
       "produto": "Sonda endotr. c/bl 6,5 - VITALGOLD - LT: N10981B265 - VAL: 14/05/26",
@@ -6686,7 +6742,7 @@
       "valor_total_custo": 561.0,
       "valor_total_venda": 1009.8,
       "lucro_potencial": 448.8,
-      "curva_abc_acumulada_pct": 84.13,
+      "curva_abc_acumulada_pct": 84.18,
       "curva_abc": "B"
     },
     {
@@ -6742,7 +6798,7 @@
       "valor_total_custo": 467.5,
       "valor_total_venda": 841.5,
       "lucro_potencial": 374.0,
-      "curva_abc_acumulada_pct": 87.47,
+      "curva_abc_acumulada_pct": 87.52,
       "curva_abc": "B"
     },
     {
@@ -6826,7 +6882,7 @@
       "valor_total_custo": 420.48,
       "valor_total_venda": 757.44,
       "lucro_potencial": 336.96,
-      "curva_abc_acumulada_pct": 89.34,
+      "curva_abc_acumulada_pct": 89.39,
       "curva_abc": "B"
     },
     {
@@ -6910,7 +6966,35 @@
       "valor_total_custo": 89.04,
       "valor_total_venda": 169.68,
       "lucro_potencial": 80.64,
-      "curva_abc_acumulada_pct": 99.51,
+      "curva_abc_acumulada_pct": 99.56,
+      "curva_abc": "C"
+    },
+    {
+      "id": "prod-47119236",
+      "codigo": "SONNA04L102",
+      "produto": "sonda naso longa No 04 - Medsonda - LT: 86659 - VAL: 01/09/2030",
+      "nome_resumido": "sonda naso longa No 04",
+      "fabricante": "JOÃOMED COMÉRCIO DE MATERIAIS CIRURGÍCOS S.A",
+      "lote": "86659",
+      "validade_iso": "2030-09-01",
+      "validade": "01/09/2030",
+      "dias_para_vencer": 1386,
+      "status_validade": "REGULAR",
+      "categoria": "Sondas",
+      "custo": 0.74,
+      "valor_venda": 1.5,
+      "lucro_unitario": 0.76,
+      "margem_percentual": 50.7,
+      "markup_percentual": 102.7,
+      "estoque": 0,
+      "estoque_minimo": null,
+      "status_estoque": "ZERADO",
+      "sugestao_compra_qtd": 0,
+      "sugestao_compra_custo": 0.0,
+      "valor_total_custo": 0.0,
+      "valor_total_venda": 0.0,
+      "lucro_potencial": 0.0,
+      "curva_abc_acumulada_pct": 100.0,
       "curva_abc": "C"
     },
     {
@@ -6942,6 +7026,34 @@
       "curva_abc": "C"
     },
     {
+      "id": "prod-47119235",
+      "codigo": "SONNA06L102",
+      "produto": "sonda naso longa No 06 - Medsonda lote:",
+      "nome_resumido": "sonda naso longa No 06",
+      "fabricante": "JOÃOMED COMÉRCIO DE MATERIAIS CIRURGÍCOS S.A",
+      "lote": "N/I",
+      "validade_iso": null,
+      "validade": "N/I",
+      "dias_para_vencer": null,
+      "status_validade": "SEM_DATA",
+      "categoria": "Sondas",
+      "custo": 0.82,
+      "valor_venda": 1.64,
+      "lucro_unitario": 0.82,
+      "margem_percentual": 50.0,
+      "markup_percentual": 100.0,
+      "estoque": 0,
+      "estoque_minimo": null,
+      "status_estoque": "ZERADO",
+      "sugestao_compra_qtd": 0,
+      "sugestao_compra_custo": 0.0,
+      "valor_total_custo": 0.0,
+      "valor_total_venda": 0.0,
+      "lucro_potencial": 0.0,
+      "curva_abc_acumulada_pct": 100.0,
+      "curva_abc": "C"
+    },
+    {
       "id": "prod-185",
       "codigo": "SONNA08C102",
       "produto": "Sonda naso curta Nº 08 - MEDSONDA - LT: 83987 - VAL: 01/01/2030",
@@ -6966,7 +7078,7 @@
       "valor_total_custo": 100.34,
       "valor_total_venda": 190.3,
       "lucro_potencial": 89.96,
-      "curva_abc_acumulada_pct": 99.27,
+      "curva_abc_acumulada_pct": 99.33,
       "curva_abc": "C"
     },
     {
@@ -6994,7 +7106,7 @@
       "valor_total_custo": 113.46,
       "valor_total_venda": 215.76,
       "lucro_potencial": 102.3,
-      "curva_abc_acumulada_pct": 98.75,
+      "curva_abc_acumulada_pct": 98.81,
       "curva_abc": "C"
     },
     {
@@ -7050,7 +7162,7 @@
       "valor_total_custo": 136.4,
       "valor_total_venda": 261.8,
       "lucro_potencial": 125.4,
-      "curva_abc_acumulada_pct": 98.12,
+      "curva_abc_acumulada_pct": 98.17,
       "curva_abc": "C"
     },
     {
@@ -7078,7 +7190,7 @@
       "valor_total_custo": 128.0,
       "valor_total_venda": 256.0,
       "lucro_potencial": 128.0,
-      "curva_abc_acumulada_pct": 98.29,
+      "curva_abc_acumulada_pct": 98.35,
       "curva_abc": "C"
     },
     {
@@ -7106,7 +7218,7 @@
       "valor_total_custo": 172.16,
       "valor_total_venda": 328.18,
       "lucro_potencial": 156.02,
-      "curva_abc_acumulada_pct": 97.24,
+      "curva_abc_acumulada_pct": 97.29,
       "curva_abc": "C"
     },
     {
@@ -7134,7 +7246,7 @@
       "valor_total_custo": 201.96,
       "valor_total_venda": 401.94,
       "lucro_potencial": 199.98,
-      "curva_abc_acumulada_pct": 95.67,
+      "curva_abc_acumulada_pct": 95.73,
       "curva_abc": "C"
     },
     {
@@ -7162,7 +7274,91 @@
       "valor_total_custo": 193.9,
       "valor_total_venda": 368.41,
       "lucro_potencial": 174.51,
-      "curva_abc_acumulada_pct": 96.54,
+      "curva_abc_acumulada_pct": 96.6,
+      "curva_abc": "C"
+    },
+    {
+      "id": "prod-47119237",
+      "codigo": "SONNA16L102",
+      "produto": "sonda naso longa No 16 - Medsonda - LT: 86104 - VAL: 01/07/2030",
+      "nome_resumido": "sonda naso longa No 16",
+      "fabricante": "JOÃOMED COMÉRCIO DE MATERIAIS CIRURGÍCOS S.A",
+      "lote": "86104",
+      "validade_iso": "2030-07-01",
+      "validade": "01/07/2030",
+      "dias_para_vencer": 1324,
+      "status_validade": "REGULAR",
+      "categoria": "Sondas",
+      "custo": 1.14,
+      "valor_venda": 2.3,
+      "lucro_unitario": 1.16,
+      "margem_percentual": 50.4,
+      "markup_percentual": 101.8,
+      "estoque": 0,
+      "estoque_minimo": null,
+      "status_estoque": "ZERADO",
+      "sugestao_compra_qtd": 0,
+      "sugestao_compra_custo": 0.0,
+      "valor_total_custo": 0.0,
+      "valor_total_venda": 0.0,
+      "lucro_potencial": 0.0,
+      "curva_abc_acumulada_pct": 100.0,
+      "curva_abc": "C"
+    },
+    {
+      "id": "prod-47119238",
+      "codigo": "SONNA18L102",
+      "produto": "sonda naso longa No 18 - Medsonda - LT: 86281 - VAL: 01/08/2030",
+      "nome_resumido": "sonda naso longa No 18",
+      "fabricante": "JOÃOMED COMÉRCIO DE MATERIAIS CIRURGÍCOS S.A",
+      "lote": "86281",
+      "validade_iso": "2030-08-01",
+      "validade": "01/08/2030",
+      "dias_para_vencer": 1355,
+      "status_validade": "REGULAR",
+      "categoria": "Sondas",
+      "custo": 1.26,
+      "valor_venda": 2.52,
+      "lucro_unitario": 1.26,
+      "margem_percentual": 50.0,
+      "markup_percentual": 100.0,
+      "estoque": 0,
+      "estoque_minimo": null,
+      "status_estoque": "ZERADO",
+      "sugestao_compra_qtd": 0,
+      "sugestao_compra_custo": 0.0,
+      "valor_total_custo": 0.0,
+      "valor_total_venda": 0.0,
+      "lucro_potencial": 0.0,
+      "curva_abc_acumulada_pct": 100.0,
+      "curva_abc": "C"
+    },
+    {
+      "id": "prod-47119239",
+      "codigo": "SONNA20L102",
+      "produto": "sonda naso longa No 20 - Medsonda - LT: 86212 - VAL: 01/08/2030",
+      "nome_resumido": "sonda naso longa No 20",
+      "fabricante": "JOÃOMED COMÉRCIO DE MATERIAIS CIRURGÍCOS S.A",
+      "lote": "86212",
+      "validade_iso": "2030-08-01",
+      "validade": "01/08/2030",
+      "dias_para_vencer": 1355,
+      "status_validade": "REGULAR",
+      "categoria": "Sondas",
+      "custo": 1.44,
+      "valor_venda": 2.89,
+      "lucro_unitario": 1.45,
+      "margem_percentual": 50.2,
+      "markup_percentual": 100.7,
+      "estoque": 0,
+      "estoque_minimo": null,
+      "status_estoque": "ZERADO",
+      "sugestao_compra_qtd": 0,
+      "sugestao_compra_custo": 0.0,
+      "valor_total_custo": 0.0,
+      "valor_total_venda": 0.0,
+      "lucro_potencial": 0.0,
+      "curva_abc_acumulada_pct": 100.0,
       "curva_abc": "C"
     },
     {
@@ -7190,7 +7386,7 @@
       "valor_total_custo": 4156.64,
       "valor_total_venda": 9095.78,
       "lucro_potencial": 4939.14,
-      "curva_abc_acumulada_pct": 21.03,
+      "curva_abc_acumulada_pct": 21.04,
       "curva_abc": "A"
     },
     {
@@ -7246,7 +7442,7 @@
       "valor_total_custo": 204.0,
       "valor_total_venda": 374.0,
       "lucro_potencial": 170.0,
-      "curva_abc_acumulada_pct": 96.18,
+      "curva_abc_acumulada_pct": 96.23,
       "curva_abc": "C"
     },
     {
@@ -7274,7 +7470,7 @@
       "valor_total_custo": 609.5,
       "valor_total_venda": 1223.6,
       "lucro_potencial": 614.1,
-      "curva_abc_acumulada_pct": 79.68,
+      "curva_abc_acumulada_pct": 79.73,
       "curva_abc": "A"
     },
     {
@@ -7302,7 +7498,7 @@
       "valor_total_custo": 251.1,
       "valor_total_venda": 453.6,
       "lucro_potencial": 202.5,
-      "curva_abc_acumulada_pct": 94.29,
+      "curva_abc_acumulada_pct": 94.34,
       "curva_abc": "B"
     },
     {
