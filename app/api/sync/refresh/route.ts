@@ -4,6 +4,9 @@ import { InventoryService } from '@/lib/api/inventoryService'
 import { extractExpirationFromText, computeExpirationMetrics } from '@/lib/domain/expirationDate'
 import { ProductItem, DashboardSummary, CategorySummary, AbcClass } from '@/types/inventory'
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 let lastManualSyncTime = 0
 const COOLDOWN_MS = 15 * 1000
 
@@ -269,16 +272,33 @@ export async function POST(req: NextRequest) {
     InventoryService.updateData(newDataset)
     lastManualSyncTime = now
 
-    return NextResponse.json({
-      success: true,
-      message: `Sincronização concluída com sucesso! ${rebuiltProducts.length} SKUs do catálogo SmartPOS atualizados em tempo real.`,
-      last_sync_brt: lastSyncBrt,
-      summary: updatedSummary,
-      products: rebuiltProducts,
-    })
+    return NextResponse.json(
+      {
+        success: true,
+        message: `Sincronização concluída com sucesso! ${rebuiltProducts.length} SKUs do catálogo SmartPOS atualizados em tempo real.`,
+        last_sync_brt: lastSyncBrt,
+        summary: updatedSummary,
+        products: rebuiltProducts,
+      },
+      {
+        headers: {
+          'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0',
+          Pragma: 'no-cache',
+          Expires: '0',
+        },
+      }
+    )
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : 'Erro ao sincronizar com SmartPOS'
-    return NextResponse.json({ success: false, message }, { status: 500 })
+    return NextResponse.json(
+      { success: false, message },
+      {
+        status: 500,
+        headers: {
+          'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0',
+        },
+      }
+    )
   }
 }
 

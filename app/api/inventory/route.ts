@@ -4,6 +4,7 @@ import { InventoryFilterOptions } from '@/types/inventory'
 import { normalizeExcessMultiplier } from '@/lib/domain/familyClassifier'
 
 export const dynamic = 'force-dynamic'
+export const revalidate = 0
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
@@ -22,9 +23,18 @@ export async function GET(request: Request) {
   }
 
   const result = InventoryService.filterProducts(filters)
-  return NextResponse.json({
-    ...result,
-    categories: InventoryService.getCategories(),
-    manufacturers: InventoryService.getManufacturers(),
-  })
+  return NextResponse.json(
+    {
+      ...result,
+      categories: InventoryService.getCategories(),
+      manufacturers: InventoryService.getManufacturers(),
+    },
+    {
+      headers: {
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0',
+        Pragma: 'no-cache',
+        Expires: '0',
+      },
+    }
+  )
 }

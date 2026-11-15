@@ -45,7 +45,7 @@ export function DashboardShell({
   const [activeTab, setActiveTab] = useState<string>('executive')
   const [summary, setSummary] = useState<DashboardSummary>(initialSummary)
   const [products, setProducts] = useState<ProductItem[]>(initialProducts)
-  const [restockItems] = useState<RestockItem[]>(initialRestockItems)
+  const [restockItems, setRestockItems] = useState<RestockItem[]>(initialRestockItems)
   const [excessItems, setExcessItems] = useState<ExcessItem[]>(initialExcessItems)
   const [excessMultiplier, setExcessMultiplier] = useState<number>(
     initialSummary.excess_multiplier
@@ -67,11 +67,25 @@ export function DashboardShell({
     setIsSyncing(true)
     setSyncToast(null)
     try {
-      const res = await fetch('/api/sync/refresh', { method: 'POST' })
+      const res = await fetch('/api/sync/refresh', { method: 'POST', cache: 'no-store' })
       const json = await res.json()
       if (res.ok && json.success) {
         if (json.summary) setSummary((prev) => ({ ...prev, ...json.summary }))
         if (Array.isArray(json.products)) setProducts(json.products)
+
+        try {
+          const restockRes = await fetch(`/api/restock?excessMultiplier=${excessMultiplier}`, {
+            cache: 'no-store',
+          })
+          if (restockRes.ok) {
+            const rJson = await restockRes.json()
+            if (Array.isArray(rJson.restock)) setRestockItems(rJson.restock)
+            if (Array.isArray(rJson.excess)) setExcessItems(rJson.excess)
+          }
+        } catch {
+          // Mantém estado local se a rota de restock demorar
+        }
+
         setSyncToast({
           type: 'success',
           message: json.message || 'Dados atualizados com sucesso diretamente da SmartPOS!',
@@ -91,7 +105,7 @@ export function DashboardShell({
       setIsSyncing(false)
       setTimeout(() => setSyncToast(null), 6000)
     }
-  }, [isSyncing])
+  }, [isSyncing, excessMultiplier])
 
   const topProducts = [...products]
     .sort((a, b) => b.valor_total_venda - a.valor_total_venda)
@@ -102,9 +116,11 @@ export function DashboardShell({
       setExcessMultiplier(mult)
       try {
         const [metricsRes, invRes, restockRes] = await Promise.all([
-          fetch(`/api/metrics?excessMultiplier=${mult}&contasAReceber=${contasAReceber}`),
-          fetch(`/api/inventory?excessMultiplier=${mult}`),
-          fetch(`/api/restock?excessMultiplier=${mult}`),
+          fetch(`/api/metrics?excessMultiplier=${mult}&contasAReceber=${contasAReceber}`, {
+            cache: 'no-store',
+          }),
+          fetch(`/api/inventory?excessMultiplier=${mult}`, { cache: 'no-store' }),
+          fetch(`/api/restock?excessMultiplier=${mult}`, { cache: 'no-store' }),
         ])
         if (metricsRes.ok) setSummary(await metricsRes.json())
         if (invRes.ok) {
@@ -114,6 +130,7 @@ export function DashboardShell({
         if (restockRes.ok) {
           const rJson = await restockRes.json()
           if (Array.isArray(rJson.excess)) setExcessItems(rJson.excess)
+          if (Array.isArray(rJson.restock)) setRestockItems(rJson.restock)
         }
       } catch {
         // Mantém estado local atual caso ocorra falha transitória de rede
