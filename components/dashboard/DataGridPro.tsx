@@ -16,6 +16,7 @@ import {
 } from 'lucide-react'
 import { ProductItem } from '@/types/inventory'
 import { formatCurrency, formatNumber, formatPercent } from '@/lib/utils'
+import { DocInfoTrigger } from '@/components/ui/DocInfoTrigger'
 
 interface DataGridProProps {
   products: ProductItem[]
@@ -220,6 +221,18 @@ export function DataGridPro({
 
   return (
     <div className="space-y-4">
+      <div className="flex items-center justify-between px-1">
+        <div className="flex items-center gap-2">
+          <h2 className="text-base font-semibold text-sap-ink">
+            Catálogo Geral de Produtos e Estoque Físico
+          </h2>
+          <DocInfoTrigger docId="datagrid_catalog" />
+        </div>
+        <span className="text-xs text-sap-ink-meta hidden sm:inline">
+          Mostrando {filteredProducts.length} de {products.length} itens catalogados
+        </span>
+      </div>
+
       <div className="rounded-sap bg-sap-canvas border border-sap-hairline p-4 space-y-3">
         <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
           <div className="relative flex-1">
@@ -320,9 +333,12 @@ export function DataGridPro({
           </div>
 
           <div>
-            <label className="block text-[10px] font-semibold text-sap-ink-meta mb-1 uppercase">
-              Curva ABC
-            </label>
+            <div className="flex items-center justify-between mb-1">
+              <label className="block text-[10px] font-semibold text-sap-ink-meta uppercase">
+                Curva ABC
+              </label>
+              <DocInfoTrigger docId="curva_abc_estoque" />
+            </div>
             <select
               value={selectedAbc}
               onChange={(e) => {

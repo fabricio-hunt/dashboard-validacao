@@ -36,6 +36,8 @@ pnpm-debug.log*
 Thumbs.db
 /graphify-out/
 *.json.bak
+__pycache__/
+*.py[cod]
 
 # TypeScript
 *.tsbuildinfo

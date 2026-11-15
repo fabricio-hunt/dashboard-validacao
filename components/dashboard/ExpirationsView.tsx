@@ -22,6 +22,7 @@ import {
 } from 'recharts'
 import { ProductItem } from '@/types/inventory'
 import { formatCurrency, formatNumber } from '@/lib/utils'
+import { DocInfoTrigger } from '@/components/ui/DocInfoTrigger'
 
 interface ExpirationsViewProps {
   products: ProductItem[]
@@ -188,9 +189,12 @@ export function ExpirationsView({ products, onSelectProduct }: ExpirationsViewPr
       <div className="rounded-sap-lg bg-sap-canvas border border-sap-hairline overflow-hidden">
         <div className="px-5 py-4 bg-sap-chrome border-b border-sap-hairline flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h3 className="font-semibold text-sm text-sap-ink">
-              Auditoria de Lotes e Validade ANVISA
-            </h3>
+            <div className="flex items-center gap-1.5">
+              <h3 className="font-semibold text-sm text-sap-ink">
+                Auditoria de Lotes e Validade ANVISA
+              </h3>
+              <DocInfoTrigger docId="expirations_anvisa" />
+            </div>
             <p className="text-xs text-sap-ink-meta mt-0.5">
               Controle sanitário e rastreabilidade por lote
             </p>

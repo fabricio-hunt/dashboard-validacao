@@ -10,6 +10,7 @@ import {
 } from 'lucide-react'
 import { DashboardSummary } from '@/types/inventory'
 import { formatNumber } from '@/lib/utils'
+import { DocInfoTrigger } from '@/components/ui/DocInfoTrigger'
 
 interface QuickAlertsBarProps {
   summary: DashboardSummary
@@ -61,36 +62,50 @@ export function QuickAlertsBar({ summary, onSelectFilter }: QuickAlertsBarProps)
   ]
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-      {alerts.map((item) => {
-        const Icon = item.icon
-        return (
-          <button
-            key={item.key}
-            onClick={() => onSelectFilter(item.key)}
-            className={`group rounded-sap bg-sap-canvas border border-sap-hairline ${item.borderAccent} p-4 text-left transition-colors hover:bg-sap-band-blue/60`}
-          >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Icon className={`h-4 w-4 ${item.accentClass}`} />
-                <span className="text-xs font-medium text-sap-ink-meta">
-                  {item.title}
-                </span>
+    <div className="space-y-2">
+      <div className="flex items-center justify-between px-1">
+        <div className="flex items-center gap-1.5">
+          <span className="text-xs font-semibold text-sap-ink-secondary uppercase tracking-wider">
+            Alertas Operacionais Imediatos
+          </span>
+          <DocInfoTrigger docId="quick_alerts" />
+        </div>
+        <span className="text-[11px] text-sap-ink-meta hidden sm:inline">
+          Clique em qualquer card para filtrar o catálogo abaixo
+        </span>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        {alerts.map((item) => {
+          const Icon = item.icon
+          return (
+            <button
+              key={item.key}
+              onClick={() => onSelectFilter(item.key)}
+              className={`group rounded-sap bg-sap-canvas border border-sap-hairline ${item.borderAccent} p-4 text-left transition-colors hover:bg-sap-band-blue/60`}
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Icon className={`h-4 w-4 ${item.accentClass}`} />
+                  <span className="text-xs font-medium text-sap-ink-meta">
+                    {item.title}
+                  </span>
+                </div>
+                <ArrowRight className="h-3.5 w-3.5 text-sap-primary opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
-              <ArrowRight className="h-3.5 w-3.5 text-sap-primary opacity-0 group-hover:opacity-100 transition-opacity" />
-            </div>
-            <div className="mt-2 flex items-baseline gap-2">
-              <span className={`text-2xl font-bold tabular-nums ${item.accentClass}`}>
-                {formatNumber(item.value)}
-              </span>
-              <span className="text-xs text-sap-ink-list">{item.unit}</span>
-            </div>
-            <p className="mt-1 text-[11px] text-sap-ink-meta leading-snug">
-              {item.subtitle}
-            </p>
-          </button>
-        )
-      })}
+              <div className="mt-2 flex items-baseline gap-2">
+                <span className={`text-2xl font-bold tabular-nums ${item.accentClass}`}>
+                  {formatNumber(item.value)}
+                </span>
+                <span className="text-xs text-sap-ink-list">{item.unit}</span>
+              </div>
+              <p className="mt-1 text-[11px] text-sap-ink-meta leading-snug">
+                {item.subtitle}
+              </p>
+            </button>
+          )
+        })}
+      </div>
     </div>
   )
 }

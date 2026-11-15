@@ -4,6 +4,7 @@ import React, { useEffect, useState, useCallback } from 'react'
 import { Calendar, RefreshCw, TrendingUp, Package, Wallet, Info } from 'lucide-react'
 import { SalesRankingReport, StockFamilyReport } from '@/types/inventory'
 import { formatCurrency } from '@/lib/utils'
+import { DocInfoTrigger } from '@/components/ui/DocInfoTrigger'
 
 interface RankingsTop11ViewProps {
   stockTop11: StockFamilyReport
@@ -72,9 +73,12 @@ export function RankingsTop11View({
       {/* Faixa de Período e Controles */}
       <section className="bg-sap-band-blue border border-sap-primary/15 px-5 py-4 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-medium text-sap-ink tracking-tight">
-            Rankings Estratégicos Top 11 — Vendas &amp; Estoque
-          </h2>
+          <div className="flex items-center gap-2">
+            <h2 className="text-xl font-medium text-sap-ink tracking-tight">
+              Rankings Estratégicos Top 11 — Vendas &amp; Estoque
+            </h2>
+            <DocInfoTrigger docId="sales_rankings" />
+          </div>
           <p className="text-xs text-sap-ink-body mt-0.5">
             Concentração de faturamento, lucro bruto e capital imobilizado por família de produtos
           </p>

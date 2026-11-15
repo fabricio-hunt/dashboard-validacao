@@ -12,6 +12,7 @@ import {
 } from 'lucide-react'
 import { ExcessItem, RestockItem } from '@/types/inventory'
 import { formatCurrency, formatNumber } from '@/lib/utils'
+import { DocInfoTrigger } from '@/components/ui/DocInfoTrigger'
 
 interface RestockViewProps {
   items: RestockItem[]
@@ -148,9 +149,12 @@ export function RestockView({
           <div className="flex items-center gap-2">
             <ShoppingCart className="h-4 w-4 text-sap-primary" />
             <div>
-              <h3 className="font-semibold text-sm text-sap-ink">
-                Plano de Ação — Reposição &amp; Desmobilização de Excesso
-              </h3>
+              <div className="flex items-center gap-1.5">
+                <h3 className="font-semibold text-sm text-sap-ink">
+                  Plano de Ação — Reposição &amp; Desmobilização de Excesso
+                </h3>
+                <DocInfoTrigger docId="restock_plan" />
+              </div>
               <p className="text-xs text-sap-ink-meta">
                 Alternância entre compras urgentes e itens com cobertura excedente
               </p>

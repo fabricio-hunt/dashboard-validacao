@@ -20,6 +20,7 @@ import {
 } from 'recharts'
 import { DashboardSummary, ProductItem } from '@/types/inventory'
 import { formatCurrency, formatNumber, formatPercent } from '@/lib/utils'
+import { DocInfoTrigger } from '@/components/ui/DocInfoTrigger'
 
 interface ExecutiveViewProps {
   summary: DashboardSummary
@@ -140,9 +141,12 @@ export function ExecutiveView({
       {/* Faixa Executiva SAP */}
       <section className="bg-sap-band-blue border border-sap-primary/15 px-5 py-4 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl sm:text-2xl font-medium text-sap-ink tracking-tight">
-            BI Executivo | Estoque, Margem e Capital
-          </h2>
+          <div className="flex items-center gap-2">
+            <h2 className="text-xl sm:text-2xl font-medium text-sap-ink tracking-tight">
+              BI Executivo | Estoque, Margem e Capital
+            </h2>
+            <DocInfoTrigger docId="executive_overview" />
+          </div>
           <p className="text-sm text-sap-ink-body mt-0.5">
             Visão gerencial para reposição, excesso, rentabilidade e priorização de capital
           </p>
@@ -392,9 +396,12 @@ export function ExecutiveView({
         <div className="lg:col-span-5 rounded-sap-lg bg-sap-canvas border border-sap-hairline p-5">
           <div className="pb-3 border-b border-sap-hairline flex items-center justify-between">
             <div>
-              <h3 className="text-sm font-semibold text-sap-ink">
-                Curva ABC de Estoque (Pareto)
-              </h3>
+              <div className="flex items-center gap-1.5">
+                <h3 className="text-sm font-semibold text-sap-ink">
+                  Curva ABC de Estoque (Pareto)
+                </h3>
+                <DocInfoTrigger docId="curva_abc_estoque" />
+              </div>
               <p className="text-xs text-sap-ink-meta mt-0.5">
                 Distribuição do valor de venda potencial por classe
               </p>

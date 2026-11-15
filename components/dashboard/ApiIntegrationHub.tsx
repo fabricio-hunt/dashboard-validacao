@@ -13,6 +13,7 @@ import {
   ExternalLink,
 } from 'lucide-react'
 import { SmartPosClient } from '@/lib/api/clientAdapter'
+import { DocInfoTrigger } from '@/components/ui/DocInfoTrigger'
 
 export function ApiIntegrationHub() {
   const [apiUrl, setApiUrl] = useState('https://api.smartpos.app/v1')
@@ -77,9 +78,12 @@ export function ApiIntegrationHub() {
           <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-[4px] text-xs font-medium bg-white/15">
             <Plug className="h-3.5 w-3.5" /> Integração Oficial SmartPOS
           </div>
-          <h2 className="text-2xl font-medium tracking-tight">
-            Hub de Conexão com a API SmartPOS
-          </h2>
+          <div className="flex items-center gap-2.5">
+            <h2 className="text-2xl font-medium tracking-tight">
+              Hub de Conexão com a API SmartPOS
+            </h2>
+            <DocInfoTrigger docId="api_integration" variant="inverted" size="md" />
+          </div>
           <p className="text-sm text-white/90 leading-relaxed">
             O dashboard opera integrado diretamente aos endpoints REST oficiais da SmartPOS (`/v1/products`, `/v1/sales` e `/v1/sales/{'{id}'}/items`), sincronizando catálogo, preços, lotes, validades e vendas em tempo real.
           </p>
