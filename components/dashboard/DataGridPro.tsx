@@ -69,11 +69,17 @@ export function DataGridPro({
         setAdjustFeedback({ type: 'error', message: data.message || 'Falha ao ajustar estoque.' })
         return
       }
-      setAdjustFeedback({ type: 'success', message: data.message })
       if (data.product && data.summary) {
         onStockAdjusted?.(data.product, data.summary)
         setSelectedProduct(data.product)
       }
+      if (!data.persisted) {
+        // Valor já reflete na tela, mas a persistência durável (commit no GitHub) falhou:
+        // mantém o formulário aberto para o usuário ler o motivo e tentar de novo.
+        setAdjustFeedback({ type: 'error', message: data.message })
+        return
+      }
+      setAdjustFeedback({ type: 'success', message: data.message })
       setIsAdjustingStock(false)
       setAdjustEstoque('')
       setAdjustMotivo('')
