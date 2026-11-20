@@ -31,6 +31,9 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+# Operational exports (contagem física, planilhas de trabalho)
+/exports/
+
 # System & knowledge graphs
 .DS_Store
 Thumbs.db
