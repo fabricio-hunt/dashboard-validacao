@@ -107,6 +107,11 @@ export function DashboardShell({
     }
   }, [isSyncing, excessMultiplier])
 
+  const handleStockAdjusted = useCallback((updatedProduct: ProductItem, updatedSummary: DashboardSummary) => {
+    setProducts((prev) => prev.map((p) => (p.codigo === updatedProduct.codigo ? updatedProduct : p)))
+    setSummary((prev) => ({ ...prev, ...updatedSummary }))
+  }, [])
+
   const topProducts = [...products]
     .sort((a, b) => b.valor_total_venda - a.valor_total_venda)
     .slice(0, 10)
@@ -376,6 +381,7 @@ export function DashboardShell({
             initialCategory={gridInitialCategory}
             selectedProduct={selectedProduct}
             setSelectedProduct={setSelectedProduct}
+            onStockAdjusted={handleStockAdjusted}
           />
         )}
 

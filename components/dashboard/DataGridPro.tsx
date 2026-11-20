@@ -13,8 +13,10 @@ import {
   X,
   Tag,
   Layers,
+  PencilLine,
+  Loader2,
 } from 'lucide-react'
-import { ProductItem } from '@/types/inventory'
+import { DashboardSummary, ProductItem } from '@/types/inventory'
 import { formatCurrency, formatNumber, formatPercent } from '@/lib/utils'
 import { DocInfoTrigger } from '@/components/ui/DocInfoTrigger'
 
@@ -26,6 +28,7 @@ interface DataGridProProps {
   initialCategory?: string
   selectedProduct: ProductItem | null
   setSelectedProduct: (p: ProductItem | null) => void
+  onStockAdjusted?: (updatedProduct: ProductItem, updatedSummary: DashboardSummary) => void
 }
 
 export function DataGridPro({
@@ -36,7 +39,51 @@ export function DataGridPro({
   initialCategory,
   selectedProduct,
   setSelectedProduct,
+  onStockAdjusted,
 }: DataGridProProps) {
+  const [isAdjustingStock, setIsAdjustingStock] = useState(false)
+  const [adjustEstoque, setAdjustEstoque] = useState('')
+  const [adjustMotivo, setAdjustMotivo] = useState('')
+  const [adjustToken, setAdjustToken] = useState('')
+  const [adjustFeedback, setAdjustFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
+  const [isSavingAdjustment, setIsSavingAdjustment] = useState(false)
+
+  const handleSubmitStockAdjustment = async () => {
+    if (!selectedProduct) return
+    const novoEstoque = Number(adjustEstoque)
+    if (!Number.isFinite(novoEstoque) || !Number.isInteger(novoEstoque)) {
+      setAdjustFeedback({ type: 'error', message: 'Informe um número inteiro de unidades.' })
+      return
+    }
+
+    setIsSavingAdjustment(true)
+    setAdjustFeedback(null)
+    try {
+      const res = await fetch('/api/inventory/adjust-stock', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-inventory-adjust-token': adjustToken },
+        body: JSON.stringify({ codigo: selectedProduct.codigo, novoEstoque, motivo: adjustMotivo }),
+      })
+      const data = await res.json()
+      if (!res.ok || !data.success) {
+        setAdjustFeedback({ type: 'error', message: data.message || 'Falha ao ajustar estoque.' })
+        return
+      }
+      setAdjustFeedback({ type: 'success', message: data.message })
+      if (data.product && data.summary) {
+        onStockAdjusted?.(data.product, data.summary)
+        setSelectedProduct(data.product)
+      }
+      setIsAdjustingStock(false)
+      setAdjustEstoque('')
+      setAdjustMotivo('')
+    } catch {
+      setAdjustFeedback({ type: 'error', message: 'Erro de rede ao ajustar estoque.' })
+    } finally {
+      setIsSavingAdjustment(false)
+    }
+  }
+
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState(initialCategory || 'ALL')
   const [selectedStatus, setSelectedStatus] = useState<string>(initialFilter || 'ALL')
@@ -631,6 +678,91 @@ export function DataGridPro({
                   {formatCurrency(selectedProduct.sugestao_compra_custo)})
                 </div>
               )}
+
+              <div className="pt-2 border-t border-sap-hairline">
+                {!isAdjustingStock ? (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsAdjustingStock(true)
+                      setAdjustEstoque(String(selectedProduct.estoque))
+                      setAdjustFeedback(null)
+                    }}
+                    className="inline-flex items-center gap-1.5 text-xs font-medium text-sap-primary hover:text-sap-primary-deep"
+                  >
+                    <PencilLine className="h-3.5 w-3.5" />
+                    Ajustar saldo físico (contagem manual)
+                  </button>
+                ) : (
+                  <div className="space-y-2.5">
+                    <div className="text-xs text-sap-ink-meta">
+                      Use esta opção quando a contagem física real divergir do saldo exibido (ex.: a
+                      SmartPOS só sinaliza &quot;sem estoque&quot;, nunca a quantidade exata).
+                    </div>
+                    <div className="grid grid-cols-2 gap-2">
+                      <label className="text-xs">
+                        <span className="block mb-1 text-sap-ink-meta">Novo saldo (un)</span>
+                        <input
+                          type="number"
+                          value={adjustEstoque}
+                          onChange={(e) => setAdjustEstoque(e.target.value)}
+                          className="w-full px-2 py-1.5 rounded border border-sap-hairline text-sm"
+                        />
+                      </label>
+                      <label className="text-xs">
+                        <span className="block mb-1 text-sap-ink-meta">Senha de ajuste</span>
+                        <input
+                          type="password"
+                          value={adjustToken}
+                          onChange={(e) => setAdjustToken(e.target.value)}
+                          className="w-full px-2 py-1.5 rounded border border-sap-hairline text-sm"
+                        />
+                      </label>
+                    </div>
+                    <label className="text-xs block">
+                      <span className="block mb-1 text-sap-ink-meta">Motivo (opcional)</span>
+                      <input
+                        type="text"
+                        value={adjustMotivo}
+                        onChange={(e) => setAdjustMotivo(e.target.value)}
+                        placeholder="Ex.: contagem física de 20/11"
+                        className="w-full px-2 py-1.5 rounded border border-sap-hairline text-sm"
+                      />
+                    </label>
+                    {adjustFeedback && (
+                      <div
+                        className={`text-xs font-medium ${
+                          adjustFeedback.type === 'error' ? 'text-rose-700' : 'text-emerald-700'
+                        }`}
+                      >
+                        {adjustFeedback.message}
+                      </div>
+                    )}
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={handleSubmitStockAdjustment}
+                        disabled={isSavingAdjustment}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-sap-on-primary bg-sap-primary hover:bg-sap-primary-deep disabled:opacity-60 rounded transition-colors"
+                      >
+                        {isSavingAdjustment && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
+                        Confirmar ajuste
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setIsAdjustingStock(false)
+                          setAdjustFeedback(null)
+                        }}
+                        disabled={isSavingAdjustment}
+                        className="px-3 py-1.5 text-xs font-medium text-sap-ink-meta hover:text-sap-ink"
+                      >
+                        Cancelar
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
 
             <div className="p-4 rounded-sap bg-sap-chrome border border-sap-hairline space-y-3">
