@@ -1,6 +1,6 @@
 {
   "summary": {
-    "total_skus": 259,
+    "total_skus": 257,
     "total_unidades": 61722,
     "valor_total_custo": 163774.8,
     "valor_total_venda": 301665.93,
@@ -278,17 +278,6 @@
         "itens_zerados": 0,
         "itens_criticos": 0,
         "participacao_venda_pct": 0.02
-      },
-      {
-        "categoria": "Estoque em Transição",
-        "skus": 2,
-        "unidades": 0,
-        "valor_custo": 0.0,
-        "valor_venda": 0.0,
-        "lucro_potencial": 0.0,
-        "itens_zerados": 2,
-        "itens_criticos": 0,
-        "participacao_venda_pct": 0.0
       }
     ],
     "data_base": "2026-11-19",
@@ -300,7 +289,7 @@
       "last_sync_brt": "19/11/2026 às 14:45 (BRT)",
       "sync_status": "SUCCESS",
       "produtos_api": 259,
-      "skus_conciliados": 259,
+      "skus_conciliados": 257,
       "origem": "SmartPOS API Oficial v1"
     }
   },
@@ -530,34 +519,6 @@
       "curva_abc": "A"
     },
     {
-      "id": "prod-224",
-      "codigo": "0163866",
-      "produto": "LUVA PROCED LATEX C/PO SOFT AID P CX 100UN EMBRAST Lote:elmi0144 venc.:30/09/30",
-      "nome_resumido": "LUVA PROCED LATEX C/PO SOFT AID P CX 100UN EMBRAST Lote:elmi0144 venc.:30/09/30",
-      "fabricante": "CM HOSPITALAR S.A",
-      "lote": "elmi0144",
-      "validade_iso": "2030-09-30",
-      "validade": "30/09/2030",
-      "dias_para_vencer": 1411,
-      "status_validade": "REGULAR",
-      "categoria": "Estoque em Transição",
-      "custo": 15.0,
-      "valor_venda": 29.9,
-      "lucro_unitario": 14.9,
-      "margem_percentual": 49.8,
-      "markup_percentual": 99.3,
-      "estoque": 0,
-      "estoque_minimo": null,
-      "status_estoque": "ZERADO",
-      "sugestao_compra_qtd": 0,
-      "sugestao_compra_custo": 0.0,
-      "valor_total_custo": 0.0,
-      "valor_total_venda": 0.0,
-      "lucro_potencial": 0.0,
-      "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
-    },
-    {
       "id": "prod-223",
       "codigo": "0163879",
       "produto": "Luva proced tam M latex c/po soft aid cx 100un embrast lote:elsi0011 venc.:30/12/30",
@@ -696,34 +657,6 @@
       "lucro_potencial": 546.48,
       "curva_abc_acumulada_pct": 84.51,
       "curva_abc": "B"
-    },
-    {
-      "id": "prod-235",
-      "codigo": "05473",
-      "produto": "CATETER INTRA FEP 22G C/100              - LOTE: 251414 DT. VALID: 30/09/30",
-      "nome_resumido": "CATETER INTRA FEP 22G C/100",
-      "fabricante": "LOTE: 251414 DT. VALID: 30/09/30",
-      "lote": "251414",
-      "validade_iso": "2030-09-30",
-      "validade": "30/09/2030",
-      "dias_para_vencer": 1411,
-      "status_validade": "REGULAR",
-      "categoria": "Estoque em Transição",
-      "custo": 51.79,
-      "valor_venda": 110.0,
-      "lucro_unitario": 58.21,
-      "margem_percentual": 52.9,
-      "markup_percentual": 112.4,
-      "estoque": 0,
-      "estoque_minimo": null,
-      "status_estoque": "ZERADO",
-      "sugestao_compra_qtd": 0,
-      "sugestao_compra_custo": 0.0,
-      "valor_total_custo": 0.0,
-      "valor_total_venda": 0.0,
-      "lucro_potencial": 0.0,
-      "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
     },
     {
       "id": "prod-225",

@@ -83,6 +83,32 @@ def fetch_all_smartpos_products(base_url: str, key_id: str, key_secret: str) -> 
     return all_items
 
 
+LEGACY_TRANSITION_CATEGORY = 'Estoque em Transição'
+
+
+def dedupe_legacy_transition_rows(products: list) -> list:
+    """
+    Remove linhas remanescentes da importação legada por planilha (categoria
+    'Estoque em Transição') que são um fantasma de estoque zerado de um produto já
+    reconciliado via SmartPOS com o mesmo lote sob um 'codigo' formatado diferente
+    (ex.: variante com zero à esquerda). Linhas cujo lote não bate com nenhum outro
+    produto são preservadas — presume-se que sejam lotes distintos ainda não conciliados.
+    """
+    live_lotes = {
+        p.get('lote') for p in products
+        if p.get('categoria') != LEGACY_TRANSITION_CATEGORY and p.get('lote') and p.get('lote') != 'N/I'
+    }
+
+    def is_duplicate_ghost(p: dict) -> bool:
+        if p.get('categoria') != LEGACY_TRANSITION_CATEGORY:
+            return False
+        if p.get('estoque') != 0:
+            return False
+        return p.get('lote') in live_lotes
+
+    return [p for p in products if not is_duplicate_ghost(p)]
+
+
 def recompute_dataset(existing_data: dict, api_products: list, dry_run: bool = False) -> dict:
     existing_products = existing_data.get('products') or []
     by_code = {str(p.get('codigo', '')).strip(): p for p in existing_products if p.get('codigo')}
@@ -192,6 +218,8 @@ def recompute_dataset(existing_data: dict, api_products: list, dry_run: bool = F
             'valor_total_venda': valor_total_venda,
             'lucro_potencial': lucro_potencial,
         })
+
+    rebuilt_products = dedupe_legacy_transition_rows(rebuilt_products)
 
     # Recalcula Curva ABC
     sorted_desc = sorted(rebuilt_products, key=lambda x: max(0.0, x['valor_total_venda']), reverse=True)
