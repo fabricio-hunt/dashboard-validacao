@@ -191,13 +191,15 @@ export function buildSummaryTotals(products: ProductItem[]): SummaryTotals {
  */
 export function dedupeLegacyTransitionRows(products: ProductItem[]): ProductItem[] {
   const liveLotes = new Set(
-    products.filter((p) => p.categoria !== LEGACY_TRANSITION_CATEGORY && p.lote && p.lote !== 'N/I').map((p) => p.lote)
+    products
+      .filter((p) => p.categoria !== LEGACY_TRANSITION_CATEGORY && p.lote && p.lote !== 'N/I')
+      .map((p) => p.lote.toUpperCase())
   )
 
   return products.filter((p) => {
     if (p.categoria !== LEGACY_TRANSITION_CATEGORY) return true
     if (p.estoque !== 0) return true
-    return !liveLotes.has(p.lote)
+    return !liveLotes.has(p.lote.toUpperCase())
   })
 }
 
@@ -229,8 +231,14 @@ export function recomputeDataset(currentSummary: DashboardSummary, products: Pro
 /**
  * Applies a manual physical-stock correction to a single product and recomputes every
  * derived field for that product plus every dataset-level aggregate that depends on it.
+ * The corrected count becomes the new baseline for the sales-based auto-decrement.
  */
-export function applyStockAdjustment(dataset: InventoryDataset, codigo: string, novoEstoque: number): InventoryDataset {
+export function applyStockAdjustment(
+  dataset: InventoryDataset,
+  codigo: string,
+  novoEstoque: number,
+  nowIso: string = new Date().toISOString()
+): InventoryDataset {
   const products = dataset.products.map((p) => {
     if (p.codigo !== codigo) return p
 
@@ -238,8 +246,44 @@ export function applyStockAdjustment(dataset: InventoryDataset, codigo: string, 
     return {
       ...p,
       estoque: novoEstoque,
+      baseline_estoque: novoEstoque,
+      baseline_at: nowIso,
       ...derived,
     }
+  })
+
+  return recomputeDataset(dataset.summary, products)
+}
+
+export interface SoldSinceBaseline {
+  codigo: string
+  quantity: number
+  saleDate: string
+}
+
+/**
+ * Recomputes `estoque` for every product as `baseline_estoque` minus units actually sold
+ * (per SmartPOS `/sales`) since that product's own `baseline_at` — the only automatic signal
+ * available, since SmartPOS exposes no endpoint for incoming stock/purchases. A product with
+ * no sales records in `soldRecords` keeps its current `estoque` unchanged (nothing sold yet).
+ */
+export function applySalesDecrement(dataset: InventoryDataset, soldRecords: SoldSinceBaseline[]): InventoryDataset {
+  const productByCode = new Map(dataset.products.map((p) => [p.codigo, p]))
+  const soldByCode = new Map<string, number>()
+  for (const rec of soldRecords) {
+    const product = productByCode.get(rec.codigo)
+    if (!product || !product.baseline_at) continue
+    if (new Date(rec.saleDate).getTime() < new Date(product.baseline_at).getTime()) continue
+    soldByCode.set(rec.codigo, (soldByCode.get(rec.codigo) || 0) + rec.quantity)
+  }
+
+  const products = dataset.products.map((p) => {
+    const sold = soldByCode.get(p.codigo)
+    if (!sold) return p
+
+    const novoEstoque = p.baseline_estoque - sold
+    const derived = computeDerivedProductFields(p.custo, p.valor_venda, novoEstoque, p.estoque_minimo)
+    return { ...p, estoque: novoEstoque, ...derived }
   })
 
   return recomputeDataset(dataset.summary, products)

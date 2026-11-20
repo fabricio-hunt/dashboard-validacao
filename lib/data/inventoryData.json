@@ -1,6 +1,6 @@
 {
   "summary": {
-    "total_skus": 258,
+    "total_skus": 257,
     "total_unidades": 61722,
     "valor_total_custo": 163774.8,
     "valor_total_venda": 301665.93,
@@ -278,17 +278,6 @@
         "itens_zerados": 0,
         "itens_criticos": 0,
         "participacao_venda_pct": 0.02
-      },
-      {
-        "categoria": "Estoque em Transição",
-        "skus": 1,
-        "unidades": 0,
-        "valor_custo": 0.0,
-        "valor_venda": 0.0,
-        "lucro_potencial": 0.0,
-        "itens_zerados": 1,
-        "itens_criticos": 0,
-        "participacao_venda_pct": 0.0
       }
     ],
     "data_base": "2026-11-20",
@@ -300,9 +289,10 @@
       "last_sync_brt": "20/11/2026 às 14:23 (BRT)",
       "sync_status": "SUCCESS",
       "produtos_api": 259,
-      "skus_conciliados": 258,
+      "skus_conciliados": 257,
       "origem": "SmartPOS API Oficial v1"
-    }
+    },
+    "total_recontagem_pendente": 0
   },
   "products": [
     {
@@ -331,7 +321,9 @@
       "valor_total_venda": 6830.88,
       "lucro_potencial": 2812.74,
       "curva_abc_acumulada_pct": 33.26,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 42,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-214",
@@ -359,7 +351,9 @@
       "valor_total_venda": 374.08,
       "lucro_potencial": 187.04,
       "curva_abc_acumulada_pct": 96.11,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 167,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-244",
@@ -387,7 +381,9 @@
       "valor_total_venda": 719.1,
       "lucro_potencial": 205.86,
       "curva_abc_acumulada_pct": 89.87,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 47,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-165",
@@ -415,7 +411,9 @@
       "valor_total_venda": 929.17,
       "lucro_potencial": 440.11,
       "curva_abc_acumulada_pct": 86.1,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 11,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-243",
@@ -443,7 +441,9 @@
       "valor_total_venda": 2405.0,
       "lucro_potencial": 1195.84,
       "curva_abc_acumulada_pct": 66.36,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 37,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-126",
@@ -471,7 +471,9 @@
       "valor_total_venda": 192.0,
       "lucro_potencial": 111.08,
       "curva_abc_acumulada_pct": 99.27,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 4,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-199",
@@ -499,7 +501,9 @@
       "valor_total_venda": 53.0,
       "lucro_potencial": 26.0,
       "curva_abc_acumulada_pct": 99.88,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 100,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-250",
@@ -527,35 +531,9 @@
       "valor_total_venda": 6750.0,
       "lucro_potencial": 3000.0,
       "curva_abc_acumulada_pct": 37.75,
-      "curva_abc": "A"
-    },
-    {
-      "id": "prod-45995185",
-      "codigo": "0163866",
-      "produto": "LUVA PROCED LATEX C/PO SOFT AID P CX 100UN EMBRAST Lote:elmi0144 venc.:30/09/30",
-      "nome_resumido": "LUVA PROCED LATEX C/PO SOFT AID P CX 100UN EMBRAST Lote:elmi0144 venc.:30/09/30",
-      "fabricante": "CM HOSPITALAR S.A",
-      "lote": "elmi0144",
-      "validade_iso": "2030-09-30",
-      "validade": "30/09/2030",
-      "dias_para_vencer": 1410,
-      "status_validade": "REGULAR",
-      "categoria": "Estoque em Transição",
-      "custo": 15.0,
-      "valor_venda": 29.9,
-      "lucro_unitario": 14.9,
-      "margem_percentual": 49.8,
-      "markup_percentual": 99.3,
-      "estoque": 0,
-      "estoque_minimo": null,
-      "status_estoque": "ZERADO",
-      "sugestao_compra_qtd": 0,
-      "sugestao_compra_custo": 0.0,
-      "valor_total_custo": 0.0,
-      "valor_total_venda": 0.0,
-      "lucro_potencial": 0.0,
-      "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "A",
+      "baseline_estoque": 250,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-223",
@@ -583,7 +561,9 @@
       "valor_total_venda": 4536.0,
       "lucro_potencial": 2016.0,
       "curva_abc_acumulada_pct": 51.32,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 168,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-251",
@@ -611,7 +591,9 @@
       "valor_total_venda": 4050.0,
       "lucro_potencial": 1800.0,
       "curva_abc_acumulada_pct": 52.66,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 150,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-147",
@@ -639,7 +621,9 @@
       "valor_total_venda": 1638.0,
       "lucro_potencial": 351.0,
       "curva_abc_acumulada_pct": 75.22,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 2925,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-233",
@@ -667,7 +651,9 @@
       "valor_total_venda": 412.8,
       "lucro_potencial": 213.2,
       "curva_abc_acumulada_pct": 95.46,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 40,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-148",
@@ -695,7 +681,9 @@
       "valor_total_venda": 986.7,
       "lucro_potencial": 546.48,
       "curva_abc_acumulada_pct": 84.51,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 1518,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-225",
@@ -723,7 +711,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-146",
@@ -751,7 +741,9 @@
       "valor_total_venda": 825.6,
       "lucro_potencial": 124.8,
       "curva_abc_acumulada_pct": 88.36,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 960,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-79",
@@ -779,7 +771,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-78",
@@ -807,7 +801,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-248",
@@ -835,7 +831,9 @@
       "valor_total_venda": 1537.5,
       "lucro_potencial": 430.5,
       "curva_abc_acumulada_pct": 75.73,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 205,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-230",
@@ -863,7 +861,9 @@
       "valor_total_venda": 455.0,
       "lucro_potencial": 217.1,
       "curva_abc_acumulada_pct": 94.2,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 13,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-231",
@@ -891,7 +891,9 @@
       "valor_total_venda": 1116.0,
       "lucro_potencial": 531.0,
       "curva_abc_acumulada_pct": 82.81,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 18,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-232",
@@ -919,7 +921,9 @@
       "valor_total_venda": 1995.0,
       "lucro_potencial": 1005.86,
       "curva_abc_acumulada_pct": 70.02,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 19,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-209",
@@ -947,7 +951,9 @@
       "valor_total_venda": 3528.15,
       "lucro_potencial": 1464.15,
       "curva_abc_acumulada_pct": 56.22,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 645,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-206",
@@ -975,7 +981,9 @@
       "valor_total_venda": 9826.95,
       "lucro_potencial": 4077.85,
       "curva_abc_acumulada_pct": 18.02,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 1337,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-237",
@@ -1003,7 +1011,9 @@
       "valor_total_venda": 8.96,
       "lucro_potencial": 2.51,
       "curva_abc_acumulada_pct": 99.99,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 1,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-207",
@@ -1031,7 +1041,9 @@
       "valor_total_venda": 12012.0,
       "lucro_potencial": 4992.0,
       "curva_abc_acumulada_pct": 14.76,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 1950,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-208",
@@ -1059,7 +1071,9 @@
       "valor_total_venda": 7.5,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 1,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-220",
@@ -1087,7 +1101,9 @@
       "valor_total_venda": 2368.0,
       "lucro_potencial": 902.8,
       "curva_abc_acumulada_pct": 67.15,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 185,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-62",
@@ -1115,7 +1131,9 @@
       "valor_total_venda": 19388.16,
       "lucro_potencial": 8616.96,
       "curva_abc_acumulada_pct": 6.42,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 1088,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-221",
@@ -1143,7 +1161,9 @@
       "valor_total_venda": 85.5,
       "lucro_potencial": 43.7,
       "curva_abc_acumulada_pct": 99.79,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 95,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-57",
@@ -1171,7 +1191,9 @@
       "valor_total_venda": 4659.2,
       "lucro_potencial": 1996.8,
       "curva_abc_acumulada_pct": 49.81,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 208,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-140",
@@ -1199,7 +1221,9 @@
       "valor_total_venda": 4.74,
       "lucro_potencial": 2.11,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 1,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-95",
@@ -1227,7 +1251,9 @@
       "valor_total_venda": 260.3,
       "lucro_potencial": 115.08,
       "curva_abc_acumulada_pct": 98.26,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 274,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-96",
@@ -1255,7 +1281,9 @@
       "valor_total_venda": 23.8,
       "lucro_potencial": 10.6,
       "curva_abc_acumulada_pct": 99.95,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 20,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-97",
@@ -1283,7 +1311,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-215",
@@ -1311,7 +1341,9 @@
       "valor_total_venda": 1327.2,
       "lucro_potencial": 646.8,
       "curva_abc_acumulada_pct": 78.47,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 84,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-213",
@@ -1339,7 +1371,9 @@
       "valor_total_venda": 837.2,
       "lucro_potencial": 417.2,
       "curva_abc_acumulada_pct": 87.81,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 28,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-218",
@@ -1367,7 +1401,9 @@
       "valor_total_venda": 478.4,
       "lucro_potencial": 166.4,
       "curva_abc_acumulada_pct": 93.43,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 16,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-222",
@@ -1395,7 +1431,9 @@
       "valor_total_venda": 722.4,
       "lucro_potencial": 321.12,
       "curva_abc_acumulada_pct": 89.63,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 48,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-47288034",
@@ -1423,7 +1461,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-47290287",
@@ -1451,7 +1491,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-210",
@@ -1479,7 +1521,9 @@
       "valor_total_venda": 1705.0,
       "lucro_potencial": 775.0,
       "curva_abc_acumulada_pct": 73.58,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 3100,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-216",
@@ -1507,7 +1551,9 @@
       "valor_total_venda": 835.76,
       "lucro_potencial": 417.88,
       "curva_abc_acumulada_pct": 88.08,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 337,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-249",
@@ -1535,7 +1581,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-197",
@@ -1563,7 +1611,9 @@
       "valor_total_venda": 1445.4,
       "lucro_potencial": 722.7,
       "curva_abc_acumulada_pct": 76.21,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 99,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-242",
@@ -1591,7 +1641,9 @@
       "valor_total_venda": 2493.9,
       "lucro_potencial": 1108.4,
       "curva_abc_acumulada_pct": 64.75,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 163,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-107",
@@ -1619,7 +1671,9 @@
       "valor_total_venda": 1806.0,
       "lucro_potencial": 966.0,
       "curva_abc_acumulada_pct": 72.43,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 24,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-128",
@@ -1647,7 +1701,9 @@
       "valor_total_venda": 20.64,
       "lucro_potencial": 10.36,
       "curva_abc_acumulada_pct": 99.97,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 2,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-124",
@@ -1675,7 +1731,9 @@
       "valor_total_venda": 1213.74,
       "lucro_potencial": 499.84,
       "curva_abc_acumulada_pct": 80.14,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 22,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-47033582",
@@ -1703,7 +1761,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-177",
@@ -1731,7 +1791,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-125",
@@ -1759,7 +1821,9 @@
       "valor_total_venda": 432.0,
       "lucro_potencial": 220.8,
       "curva_abc_acumulada_pct": 94.63,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 960,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-179",
@@ -1787,7 +1851,9 @@
       "valor_total_venda": 415.36,
       "lucro_potencial": 184.8,
       "curva_abc_acumulada_pct": 95.05,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 88,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-164",
@@ -1815,7 +1881,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-163",
@@ -1843,7 +1911,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-196",
@@ -1871,7 +1941,9 @@
       "valor_total_venda": 2446.45,
       "lucro_potencial": 1226.05,
       "curva_abc_acumulada_pct": 65.56,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 565,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-144",
@@ -1899,7 +1971,9 @@
       "valor_total_venda": 195.0,
       "lucro_potencial": 97.2,
       "curva_abc_acumulada_pct": 99.14,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 3,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-176",
@@ -1927,7 +2001,9 @@
       "valor_total_venda": 819.0,
       "lucro_potencial": 396.5,
       "curva_abc_acumulada_pct": 88.63,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 13,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-47033583",
@@ -1955,7 +2031,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-127",
@@ -1983,7 +2061,9 @@
       "valor_total_venda": 1125.18,
       "lucro_potencial": 723.33,
       "curva_abc_acumulada_pct": 82.44,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 423,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-162",
@@ -2011,7 +2091,9 @@
       "valor_total_venda": 1760.0,
       "lucro_potencial": 880.0,
       "curva_abc_acumulada_pct": 73.01,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 16,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-194",
@@ -2039,7 +2121,9 @@
       "valor_total_venda": 3630.0,
       "lucro_potencial": 1920.93,
       "curva_abc_acumulada_pct": 53.86,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 33,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-195",
@@ -2067,7 +2151,9 @@
       "valor_total_venda": 2640.0,
       "lucro_potencial": 1320.0,
       "curva_abc_acumulada_pct": 62.22,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 24,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-92",
@@ -2095,7 +2181,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-63",
@@ -2123,7 +2211,9 @@
       "valor_total_venda": 646.16,
       "lucro_potencial": 323.08,
       "curva_abc_acumulada_pct": 90.53,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 82,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-64",
@@ -2151,7 +2241,9 @@
       "valor_total_venda": 1148.4,
       "lucro_potencial": 527.8,
       "curva_abc_acumulada_pct": 81.69,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 116,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-101",
@@ -2179,7 +2271,9 @@
       "valor_total_venda": 1360.8,
       "lucro_potencial": 604.8,
       "curva_abc_acumulada_pct": 77.59,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 45,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-73",
@@ -2207,7 +2301,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-72",
@@ -2235,7 +2331,9 @@
       "valor_total_venda": 1827.0,
       "lucro_potencial": 812.0,
       "curva_abc_acumulada_pct": 70.63,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 58,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-170",
@@ -2263,7 +2361,9 @@
       "valor_total_venda": 278.24,
       "lucro_potencial": 139.12,
       "curva_abc_acumulada_pct": 98.09,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 296,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-157",
@@ -2291,7 +2391,9 @@
       "valor_total_venda": 372.88,
       "lucro_potencial": 165.9,
       "curva_abc_acumulada_pct": 96.35,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 79,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-74",
@@ -2319,7 +2421,9 @@
       "valor_total_venda": 236.8,
       "lucro_potencial": 125.8,
       "curva_abc_acumulada_pct": 98.59,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 740,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-167",
@@ -2347,7 +2451,9 @@
       "valor_total_venda": 21.6,
       "lucro_potencial": 10.1,
       "curva_abc_acumulada_pct": 99.96,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 5,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-75",
@@ -2375,7 +2481,9 @@
       "valor_total_venda": -11.2,
       "lucro_potencial": -5.95,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": -35,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-180",
@@ -2403,7 +2511,9 @@
       "valor_total_venda": 224.64,
       "lucro_potencial": 105.04,
       "curva_abc_acumulada_pct": 98.66,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 52,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-76",
@@ -2431,7 +2541,9 @@
       "valor_total_venda": 11.52,
       "lucro_potencial": 6.12,
       "curva_abc_acumulada_pct": 99.99,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 36,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-175",
@@ -2459,7 +2571,9 @@
       "valor_total_venda": 177.12,
       "lucro_potencial": 82.82,
       "curva_abc_acumulada_pct": 99.45,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 41,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-77",
@@ -2487,7 +2601,9 @@
       "valor_total_venda": 577.6,
       "lucro_potencial": 306.85,
       "curva_abc_acumulada_pct": 91.74,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 1805,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-166",
@@ -2515,7 +2631,9 @@
       "valor_total_venda": 319.68,
       "lucro_potencial": 149.48,
       "curva_abc_acumulada_pct": 97.51,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 74,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-174",
@@ -2543,7 +2661,9 @@
       "valor_total_venda": 414.72,
       "lucro_potencial": 193.92,
       "curva_abc_acumulada_pct": 95.19,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 96,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-168",
@@ -2571,7 +2691,9 @@
       "valor_total_venda": 388.8,
       "lucro_potencial": 181.8,
       "curva_abc_acumulada_pct": 95.86,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 90,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-171",
@@ -2599,7 +2721,9 @@
       "valor_total_venda": 362.88,
       "lucro_potencial": 169.68,
       "curva_abc_acumulada_pct": 96.72,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 84,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-158",
@@ -2627,7 +2751,9 @@
       "valor_total_venda": 198.72,
       "lucro_potencial": 92.92,
       "curva_abc_acumulada_pct": 99.07,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 46,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-159",
@@ -2655,7 +2781,9 @@
       "valor_total_venda": 203.04,
       "lucro_potencial": 94.94,
       "curva_abc_acumulada_pct": 98.94,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 47,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-91",
@@ -2683,7 +2811,9 @@
       "valor_total_venda": 1290.1,
       "lucro_potencial": 571.9,
       "curva_abc_acumulada_pct": 79.33,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 1330,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-173",
@@ -2711,7 +2841,9 @@
       "valor_total_venda": 358.56,
       "lucro_potencial": 167.66,
       "curva_abc_acumulada_pct": 96.84,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 83,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-160",
@@ -2739,7 +2871,9 @@
       "valor_total_venda": 246.24,
       "lucro_potencial": 115.14,
       "curva_abc_acumulada_pct": 98.51,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 57,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-80",
@@ -2767,7 +2901,9 @@
       "valor_total_venda": 463.32,
       "lucro_potencial": 205.92,
       "curva_abc_acumulada_pct": 93.74,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 117,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-161",
@@ -2795,7 +2931,9 @@
       "valor_total_venda": 371.52,
       "lucro_potencial": 173.72,
       "curva_abc_acumulada_pct": 96.48,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 86,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-81",
@@ -2823,7 +2961,9 @@
       "valor_total_venda": 502.92,
       "lucro_potencial": 223.52,
       "curva_abc_acumulada_pct": 92.79,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 127,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-169",
@@ -2851,7 +2991,9 @@
       "valor_total_venda": 420.0,
       "lucro_potencial": 210.0,
       "curva_abc_acumulada_pct": 94.91,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 70,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-82",
@@ -2879,7 +3021,9 @@
       "valor_total_venda": 455.4,
       "lucro_potencial": 202.4,
       "curva_abc_acumulada_pct": 94.05,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 115,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-83",
@@ -2907,7 +3051,9 @@
       "valor_total_venda": 510.84,
       "lucro_potencial": 278.64,
       "curva_abc_acumulada_pct": 92.63,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 129,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-119",
@@ -2935,7 +3081,9 @@
       "valor_total_venda": 82.08,
       "lucro_potencial": 36.48,
       "curva_abc_acumulada_pct": 99.82,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 19,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-93",
@@ -2963,7 +3111,9 @@
       "valor_total_venda": 345.6,
       "lucro_potencial": 153.6,
       "curva_abc_acumulada_pct": 97.07,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 80,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-120",
@@ -2991,7 +3141,9 @@
       "valor_total_venda": 38.88,
       "lucro_potencial": 17.28,
       "curva_abc_acumulada_pct": 99.93,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 9,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-121",
@@ -3019,7 +3171,9 @@
       "valor_total_venda": 198.72,
       "lucro_potencial": 88.32,
       "curva_abc_acumulada_pct": 99.01,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 46,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-122",
@@ -3047,7 +3201,9 @@
       "valor_total_venda": 69.12,
       "lucro_potencial": 30.72,
       "curva_abc_acumulada_pct": 99.87,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 16,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-99",
@@ -3075,7 +3231,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-154",
@@ -3103,7 +3261,9 @@
       "valor_total_venda": 283.84,
       "lucro_potencial": 141.92,
       "curva_abc_acumulada_pct": 98.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 887,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-149",
@@ -3131,7 +3291,9 @@
       "valor_total_venda": 413.54,
       "lucro_potencial": 160.08,
       "curva_abc_acumulada_pct": 95.32,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 667,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-150",
@@ -3159,7 +3321,9 @@
       "valor_total_venda": 1190.0,
       "lucro_potencial": 450.0,
       "curva_abc_acumulada_pct": 80.93,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 1000,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-198",
@@ -3187,7 +3351,9 @@
       "valor_total_venda": 1343.2,
       "lucro_potencial": 671.6,
       "curva_abc_acumulada_pct": 78.03,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 92,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-155",
@@ -3215,7 +3381,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-54",
@@ -3243,7 +3411,9 @@
       "valor_total_venda": 1134.41,
       "lucro_potencial": 504.22,
       "curva_abc_acumulada_pct": 82.07,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 17,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-236",
@@ -3271,7 +3441,9 @@
       "valor_total_venda": 307.6,
       "lucro_potencial": 153.8,
       "curva_abc_acumulada_pct": 97.71,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 10,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-156",
@@ -3299,7 +3471,9 @@
       "valor_total_venda": 313.6,
       "lucro_potencial": 156.8,
       "curva_abc_acumulada_pct": 97.61,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 980,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-52",
@@ -3327,7 +3501,9 @@
       "valor_total_venda": 13160.3,
       "lucro_potencial": 5185.34,
       "curva_abc_acumulada_pct": 10.78,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 202,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-48",
@@ -3355,7 +3531,9 @@
       "valor_total_venda": 2747.52,
       "lucro_potencial": 1221.12,
       "curva_abc_acumulada_pct": 60.45,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 288,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-49",
@@ -3383,7 +3561,9 @@
       "valor_total_venda": 6810.3,
       "lucro_potencial": 3026.8,
       "curva_abc_acumulada_pct": 35.52,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 235,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-53",
@@ -3411,7 +3591,9 @@
       "valor_total_venda": 340.2,
       "lucro_potencial": 151.2,
       "curva_abc_acumulada_pct": 97.18,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 21,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-50",
@@ -3439,7 +3621,9 @@
       "valor_total_venda": 8349.48,
       "lucro_potencial": 3710.88,
       "curva_abc_acumulada_pct": 23.8,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 2577,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-51",
@@ -3467,7 +3651,9 @@
       "valor_total_venda": 5527.62,
       "lucro_potencial": 2456.72,
       "curva_abc_acumulada_pct": 43.36,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 749,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-58",
@@ -3495,7 +3681,9 @@
       "valor_total_venda": 2695.14,
       "lucro_potencial": 1197.84,
       "curva_abc_acumulada_pct": 61.34,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 93,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-56",
@@ -3523,7 +3711,9 @@
       "valor_total_venda": 4740.75,
       "lucro_potencial": 2107.0,
       "curva_abc_acumulada_pct": 46.71,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 1505,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-55",
@@ -3551,7 +3741,9 @@
       "valor_total_venda": 6865.65,
       "lucro_potencial": 3448.5,
       "curva_abc_acumulada_pct": 31.0,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 627,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-61",
@@ -3579,7 +3771,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-115",
@@ -3607,7 +3801,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-151",
@@ -3635,7 +3831,9 @@
       "valor_total_venda": 1199.7,
       "lucro_potencial": 734.7,
       "curva_abc_acumulada_pct": 80.53,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 93,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-142",
@@ -3663,7 +3861,9 @@
       "valor_total_venda": 90.3,
       "lucro_potencial": 55.3,
       "curva_abc_acumulada_pct": 99.73,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 7,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-152",
@@ -3691,7 +3891,9 @@
       "valor_total_venda": 1161.0,
       "lucro_potencial": 711.0,
       "curva_abc_acumulada_pct": 81.31,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 90,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-153",
@@ -3719,7 +3921,9 @@
       "valor_total_venda": 954.6,
       "lucro_potencial": 562.4,
       "curva_abc_acumulada_pct": 85.47,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 74,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-98",
@@ -3747,7 +3951,9 @@
       "valor_total_venda": 3515.76,
       "lucro_potencial": 1727.04,
       "curva_abc_acumulada_pct": 57.38,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 3084,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-172",
@@ -3775,7 +3981,9 @@
       "valor_total_venda": 284.18,
       "lucro_potencial": 126.36,
       "curva_abc_acumulada_pct": 97.9,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 26,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-203",
@@ -3803,7 +4011,9 @@
       "valor_total_venda": 971.1,
       "lucro_potencial": 556.1,
       "curva_abc_acumulada_pct": 85.16,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 415,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-204",
@@ -3831,7 +4041,9 @@
       "valor_total_venda": 982.8,
       "lucro_potencial": 562.8,
       "curva_abc_acumulada_pct": 84.84,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 420,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-70",
@@ -3859,7 +4071,9 @@
       "valor_total_venda": 2999.88,
       "lucro_potencial": 1333.28,
       "curva_abc_acumulada_pct": 59.54,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 1282,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-71",
@@ -3887,7 +4101,9 @@
       "valor_total_venda": 2595.06,
       "lucro_potencial": 1153.36,
       "curva_abc_acumulada_pct": 63.08,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 1109,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-205",
@@ -3915,7 +4131,9 @@
       "valor_total_venda": 945.36,
       "lucro_potencial": 541.36,
       "curva_abc_acumulada_pct": 85.79,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 404,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-117",
@@ -3943,7 +4161,9 @@
       "valor_total_venda": 4.32,
       "lucro_potencial": 1.92,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 1,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-118",
@@ -3971,7 +4191,9 @@
       "valor_total_venda": 17.28,
       "lucro_potencial": 7.68,
       "curva_abc_acumulada_pct": 99.97,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 4,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-69",
@@ -3999,7 +4221,9 @@
       "valor_total_venda": 2566.08,
       "lucro_potencial": 1140.48,
       "curva_abc_acumulada_pct": 63.93,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 144,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-211",
@@ -4027,7 +4251,9 @@
       "valor_total_venda": 668.96,
       "lucro_potencial": 384.2,
       "curva_abc_acumulada_pct": 90.32,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 452,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-212",
@@ -4055,7 +4281,9 @@
       "valor_total_venda": 614.88,
       "lucro_potencial": 384.3,
       "curva_abc_acumulada_pct": 91.35,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 366,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-68",
@@ -4083,7 +4311,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-67",
@@ -4111,7 +4341,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-123",
@@ -4139,7 +4371,9 @@
       "valor_total_venda": 376.0,
       "lucro_potencial": 188.0,
       "curva_abc_acumulada_pct": 95.98,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 235,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-66",
@@ -4167,7 +4401,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-65",
@@ -4195,7 +4431,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-87",
@@ -4223,7 +4461,9 @@
       "valor_total_venda": -28.12,
       "lucro_potencial": -12.54,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": -19,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-84",
@@ -4251,7 +4491,9 @@
       "valor_total_venda": 471.44,
       "lucro_potencial": 210.16,
       "curva_abc_acumulada_pct": 93.59,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 284,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-85",
@@ -4279,7 +4521,9 @@
       "valor_total_venda": 535.73,
       "lucro_potencial": 237.75,
       "curva_abc_acumulada_pct": 92.28,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 317,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-86",
@@ -4307,7 +4551,9 @@
       "valor_total_venda": 293.7,
       "lucro_potencial": 130.35,
       "curva_abc_acumulada_pct": 97.81,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 165,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-100",
@@ -4335,7 +4581,9 @@
       "valor_total_venda": 172.2,
       "lucro_potencial": 86.1,
       "curva_abc_acumulada_pct": 99.51,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 210,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-90",
@@ -4363,7 +4611,9 @@
       "valor_total_venda": 424.76,
       "lucro_potencial": 212.38,
       "curva_abc_acumulada_pct": 94.77,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 518,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-116",
@@ -4391,7 +4641,9 @@
       "valor_total_venda": 482.98,
       "lucro_potencial": 241.49,
       "curva_abc_acumulada_pct": 93.12,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 589,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-88",
@@ -4419,7 +4671,9 @@
       "valor_total_venda": 407.4,
       "lucro_potencial": 203.7,
       "curva_abc_acumulada_pct": 95.6,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 485,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-89",
@@ -4447,7 +4701,9 @@
       "valor_total_venda": 538.36,
       "lucro_potencial": 269.18,
       "curva_abc_acumulada_pct": 92.1,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 626,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-234",
@@ -4475,7 +4731,9 @@
       "valor_total_venda": 1076.0,
       "lucro_potencial": 464.0,
       "curva_abc_acumulada_pct": 83.17,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 40,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-191",
@@ -4503,7 +4761,9 @@
       "valor_total_venda": 207.1,
       "lucro_potencial": 112.1,
       "curva_abc_acumulada_pct": 98.88,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 19,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-60",
@@ -4531,7 +4791,9 @@
       "valor_total_venda": 7575.2,
       "lucro_potencial": 3787.6,
       "curva_abc_acumulada_pct": 26.31,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 557,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-105",
@@ -4559,7 +4821,9 @@
       "valor_total_venda": 219.3,
       "lucro_potencial": 117.3,
       "curva_abc_acumulada_pct": 98.74,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 17,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-104",
@@ -4587,7 +4851,9 @@
       "valor_total_venda": 86.4,
       "lucro_potencial": 38.4,
       "curva_abc_acumulada_pct": 99.76,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 6,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-41",
@@ -4615,7 +4881,9 @@
       "valor_total_venda": 352.8,
       "lucro_potencial": 156.8,
       "curva_abc_acumulada_pct": 96.96,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 14,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-47177218",
@@ -4643,7 +4911,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-219",
@@ -4671,7 +4941,9 @@
       "valor_total_venda": 875.84,
       "lucro_potencial": 441.6,
       "curva_abc_acumulada_pct": 86.97,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 736,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-42",
@@ -4699,7 +4971,9 @@
       "valor_total_venda": 878.56,
       "lucro_potencial": 433.5,
       "curva_abc_acumulada_pct": 86.68,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 578,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-7",
@@ -4727,7 +5001,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-21",
@@ -4755,7 +5031,9 @@
       "valor_total_venda": 2275.04,
       "lucro_potencial": 1011.04,
       "curva_abc_acumulada_pct": 67.9,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 16,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-22",
@@ -4783,7 +5061,9 @@
       "valor_total_venda": 1293.36,
       "lucro_potencial": 574.8,
       "curva_abc_acumulada_pct": 78.9,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 8,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-39",
@@ -4811,7 +5091,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-40",
@@ -4839,7 +5121,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-59",
@@ -4867,7 +5151,9 @@
       "valor_total_venda": 7298.1,
       "lucro_potencial": 3243.6,
       "curva_abc_acumulada_pct": 28.72,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 477,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-17",
@@ -4895,7 +5181,9 @@
       "valor_total_venda": 2261.0,
       "lucro_potencial": 1140.0,
       "curva_abc_acumulada_pct": 68.65,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 19,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-18",
@@ -4923,7 +5211,9 @@
       "valor_total_venda": -119.0,
       "lucro_potencial": -60.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": -1,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-19",
@@ -4951,7 +5241,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-20",
@@ -4979,7 +5271,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-94",
@@ -5007,7 +5301,9 @@
       "valor_total_venda": 3583.98,
       "lucro_potencial": 1791.99,
       "curva_abc_acumulada_pct": 55.05,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 27,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-43",
@@ -5035,7 +5331,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-1",
@@ -5063,7 +5361,9 @@
       "valor_total_venda": 73.0,
       "lucro_potencial": 36.5,
       "curva_abc_acumulada_pct": 99.84,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 1,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-23",
@@ -5091,7 +5391,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-106",
@@ -5119,7 +5421,9 @@
       "valor_total_venda": 1045.94,
       "lucro_potencial": 465.13,
       "curva_abc_acumulada_pct": 83.52,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 241,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-2",
@@ -5147,7 +5451,9 @@
       "valor_total_venda": 29.15,
       "lucro_potencial": 12.98,
       "curva_abc_acumulada_pct": 99.93,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 11,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-38",
@@ -5175,7 +5481,9 @@
       "valor_total_venda": 13.34,
       "lucro_potencial": 5.93,
       "curva_abc_acumulada_pct": 99.98,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 1,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-141",
@@ -5203,7 +5511,9 @@
       "valor_total_venda": 187.61,
       "lucro_potencial": 89.06,
       "curva_abc_acumulada_pct": 99.39,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 73,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-3",
@@ -5231,7 +5541,9 @@
       "valor_total_venda": 2152.8,
       "lucro_potencial": 960.48,
       "curva_abc_acumulada_pct": 69.36,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 1656,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-202",
@@ -5259,7 +5571,9 @@
       "valor_total_venda": 456.56,
       "lucro_potencial": 216.32,
       "curva_abc_acumulada_pct": 93.89,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 13,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-201",
@@ -5287,7 +5601,9 @@
       "valor_total_venda": 3515.52,
       "lucro_potencial": 1665.6,
       "curva_abc_acumulada_pct": 58.55,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 96,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-200",
@@ -5315,7 +5631,9 @@
       "valor_total_venda": 41.04,
       "lucro_potencial": 19.44,
       "curva_abc_acumulada_pct": 99.91,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 1,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-4",
@@ -5343,7 +5661,9 @@
       "valor_total_venda": 622.17,
       "lucro_potencial": 274.29,
       "curva_abc_acumulada_pct": 91.15,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 669,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-178",
@@ -5371,7 +5691,9 @@
       "valor_total_venda": 1670.0,
       "lucro_potencial": 790.0,
       "curva_abc_acumulada_pct": 74.13,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 500,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-109",
@@ -5399,7 +5721,9 @@
       "valor_total_venda": 534.6,
       "lucro_potencial": 326.16,
       "curva_abc_acumulada_pct": 92.46,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 54,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-136",
@@ -5427,7 +5751,9 @@
       "valor_total_venda": 846.0,
       "lucro_potencial": 375.84,
       "curva_abc_acumulada_pct": 87.25,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 72,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-133",
@@ -5455,7 +5781,9 @@
       "valor_total_venda": 94.08,
       "lucro_potencial": 41.84,
       "curva_abc_acumulada_pct": 99.7,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 8,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-145",
@@ -5483,7 +5811,9 @@
       "valor_total_venda": 246.96,
       "lucro_potencial": 109.83,
       "curva_abc_acumulada_pct": 98.43,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 21,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-134",
@@ -5511,7 +5841,9 @@
       "valor_total_venda": 882.0,
       "lucro_potencial": 392.25,
       "curva_abc_acumulada_pct": 86.39,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 75,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-129",
@@ -5539,7 +5871,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-34",
@@ -5567,7 +5901,9 @@
       "valor_total_venda": 599.76,
       "lucro_potencial": 266.73,
       "curva_abc_acumulada_pct": 91.55,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 51,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-137",
@@ -5595,7 +5931,9 @@
       "valor_total_venda": 11.76,
       "lucro_potencial": 5.23,
       "curva_abc_acumulada_pct": 99.98,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 1,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-35",
@@ -5623,7 +5961,9 @@
       "valor_total_venda": 11.76,
       "lucro_potencial": 5.23,
       "curva_abc_acumulada_pct": 99.98,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 1,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-36",
@@ -5651,7 +5991,9 @@
       "valor_total_venda": 1646.4,
       "lucro_potencial": 732.2,
       "curva_abc_acumulada_pct": 74.67,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 140,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-130",
@@ -5679,7 +6021,9 @@
       "valor_total_venda": 1809.5,
       "lucro_potencial": 803.88,
       "curva_abc_acumulada_pct": 71.83,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 154,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-47",
@@ -5707,7 +6051,9 @@
       "valor_total_venda": 540.0,
       "lucro_potencial": 240.0,
       "curva_abc_acumulada_pct": 91.92,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 10,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-193",
@@ -5735,7 +6081,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-33",
@@ -5763,7 +6111,9 @@
       "valor_total_venda": 2.35,
       "lucro_potencial": 1.05,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 1,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-245",
@@ -5791,7 +6141,9 @@
       "valor_total_venda": 769.03,
       "lucro_potencial": 316.94,
       "curva_abc_acumulada_pct": 89.14,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 53,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-246",
@@ -5819,7 +6171,9 @@
       "valor_total_venda": 478.83,
       "lucro_potencial": 197.34,
       "curva_abc_acumulada_pct": 93.28,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 33,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-247",
@@ -5847,7 +6201,9 @@
       "valor_total_venda": 29.02,
       "lucro_potencial": 11.96,
       "curva_abc_acumulada_pct": 99.94,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 2,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-44",
@@ -5875,7 +6231,9 @@
       "valor_total_venda": 1420.0,
       "lucro_potencial": 639.0,
       "curva_abc_acumulada_pct": 76.68,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 142,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-226",
@@ -5903,7 +6261,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-227",
@@ -5931,7 +6291,9 @@
       "valor_total_venda": 624.0,
       "lucro_potencial": 299.0,
       "curva_abc_acumulada_pct": 90.94,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 13,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-228",
@@ -5959,7 +6321,9 @@
       "valor_total_venda": 192.0,
       "lucro_potencial": 92.0,
       "curva_abc_acumulada_pct": 99.2,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 4,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-229",
@@ -5987,7 +6351,9 @@
       "valor_total_venda": 432.0,
       "lucro_potencial": 207.0,
       "curva_abc_acumulada_pct": 94.49,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 9,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-192",
@@ -6015,7 +6381,9 @@
       "valor_total_venda": 786.6,
       "lucro_potencial": 371.22,
       "curva_abc_acumulada_pct": 88.89,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 69,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-132",
@@ -6043,7 +6411,9 @@
       "valor_total_venda": 674.8,
       "lucro_potencial": 319.62,
       "curva_abc_acumulada_pct": 90.09,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 14,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-131",
@@ -6071,7 +6441,9 @@
       "valor_total_venda": 1397.8,
       "lucro_potencial": 662.07,
       "curva_abc_acumulada_pct": 77.14,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 29,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-182",
@@ -6099,7 +6471,9 @@
       "valor_total_venda": 496.2,
       "lucro_potencial": 228.0,
       "curva_abc_acumulada_pct": 92.96,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 10,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-138",
@@ -6127,7 +6501,9 @@
       "valor_total_venda": 48.2,
       "lucro_potencial": 22.83,
       "curva_abc_acumulada_pct": 99.9,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 1,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-135",
@@ -6155,7 +6531,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-181",
@@ -6183,7 +6561,9 @@
       "valor_total_venda": 626.6,
       "lucro_potencial": 296.79,
       "curva_abc_acumulada_pct": 90.74,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 13,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-31",
@@ -6211,7 +6591,9 @@
       "valor_total_venda": 0.48,
       "lucro_potencial": 0.24,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 1,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-102",
@@ -6239,7 +6621,9 @@
       "valor_total_venda": 1817.2,
       "lucro_potencial": 908.6,
       "curva_abc_acumulada_pct": 71.23,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 3245,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-32",
@@ -6267,7 +6651,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-111",
@@ -6295,7 +6681,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-112",
@@ -6323,7 +6711,9 @@
       "valor_total_venda": 327.6,
       "lucro_potencial": 161.2,
       "curva_abc_acumulada_pct": 97.4,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 520,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-30",
@@ -6351,7 +6741,9 @@
       "valor_total_venda": -36.0,
       "lucro_potencial": -6.3,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": -30,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-103",
@@ -6379,7 +6771,9 @@
       "valor_total_venda": 4718.0,
       "lucro_potencial": 2359.0,
       "curva_abc_acumulada_pct": 48.27,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 1685,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-8",
@@ -6407,7 +6801,9 @@
       "valor_total_venda": 5722.2,
       "lucro_potencial": 2543.2,
       "curva_abc_acumulada_pct": 39.65,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 170,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-113",
@@ -6435,7 +6831,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-9",
@@ -6463,7 +6861,9 @@
       "valor_total_venda": 5351.94,
       "lucro_potencial": 2378.64,
       "curva_abc_acumulada_pct": 45.14,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 159,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-114",
@@ -6491,7 +6891,9 @@
       "valor_total_venda": 168.32,
       "lucro_potencial": 79.68,
       "curva_abc_acumulada_pct": 99.62,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 32,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-108",
@@ -6519,7 +6921,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-10",
@@ -6547,7 +6951,9 @@
       "valor_total_venda": 5688.54,
       "lucro_potencial": 2528.24,
       "curva_abc_acumulada_pct": 41.53,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 169,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-25",
@@ -6575,7 +6981,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-26",
@@ -6603,7 +7011,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-11",
@@ -6631,7 +7041,9 @@
       "valor_total_venda": 1009.8,
       "lucro_potencial": 448.8,
       "curva_abc_acumulada_pct": 83.85,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 30,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-12",
@@ -6659,7 +7071,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-27",
@@ -6687,7 +7101,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-28",
@@ -6715,7 +7131,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-14",
@@ -6743,7 +7161,9 @@
       "valor_total_venda": 1009.8,
       "lucro_potencial": 448.8,
       "curva_abc_acumulada_pct": 84.18,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 30,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-29",
@@ -6771,7 +7191,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-15",
@@ -6799,7 +7221,9 @@
       "valor_total_venda": 841.5,
       "lucro_potencial": 374.0,
       "curva_abc_acumulada_pct": 87.53,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 25,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-16",
@@ -6827,7 +7251,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-45",
@@ -6855,7 +7281,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-5",
@@ -6883,7 +7311,9 @@
       "valor_total_venda": 757.44,
       "lucro_potencial": 336.96,
       "curva_abc_acumulada_pct": 89.39,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 96,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-46",
@@ -6911,7 +7341,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-190",
@@ -6939,7 +7371,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-183",
@@ -6967,7 +7401,9 @@
       "valor_total_venda": 169.68,
       "lucro_potencial": 80.64,
       "curva_abc_acumulada_pct": 99.56,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 168,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-47119236",
@@ -6995,7 +7431,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-184",
@@ -7023,7 +7461,9 @@
       "valor_total_venda": 162.0,
       "lucro_potencial": 76.5,
       "curva_abc_acumulada_pct": 99.67,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 150,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-47119235",
@@ -7051,7 +7491,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-185",
@@ -7079,7 +7521,9 @@
       "valor_total_venda": 190.3,
       "lucro_potencial": 89.96,
       "curva_abc_acumulada_pct": 99.33,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 173,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-186",
@@ -7107,7 +7551,9 @@
       "valor_total_venda": 215.76,
       "lucro_potencial": 102.3,
       "curva_abc_acumulada_pct": 98.81,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 186,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-239",
@@ -7135,7 +7581,9 @@
       "valor_total_venda": 7.72,
       "lucro_potencial": 3.88,
       "curva_abc_acumulada_pct": 99.99,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 4,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-187",
@@ -7163,7 +7611,9 @@
       "valor_total_venda": 261.8,
       "lucro_potencial": 125.4,
       "curva_abc_acumulada_pct": 98.18,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 220,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-240",
@@ -7191,7 +7641,9 @@
       "valor_total_venda": 256.0,
       "lucro_potencial": 128.0,
       "curva_abc_acumulada_pct": 98.35,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 128,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-188",
@@ -7219,7 +7671,9 @@
       "valor_total_venda": 328.18,
       "lucro_potencial": 156.02,
       "curva_abc_acumulada_pct": 97.29,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 269,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-241",
@@ -7247,7 +7701,9 @@
       "valor_total_venda": 401.94,
       "lucro_potencial": 199.98,
       "curva_abc_acumulada_pct": 95.73,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 198,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-189",
@@ -7275,7 +7731,9 @@
       "valor_total_venda": 368.41,
       "lucro_potencial": 174.51,
       "curva_abc_acumulada_pct": 96.6,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 277,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-47119237",
@@ -7303,7 +7761,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-47119238",
@@ -7331,7 +7791,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-47119239",
@@ -7359,7 +7821,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-139",
@@ -7387,7 +7851,9 @@
       "valor_total_venda": 9095.78,
       "lucro_potencial": 4939.14,
       "curva_abc_acumulada_pct": 21.03,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 626,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-37",
@@ -7415,7 +7881,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-24",
@@ -7443,7 +7911,9 @@
       "valor_total_venda": 374.0,
       "lucro_potencial": 170.0,
       "curva_abc_acumulada_pct": 96.23,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 17,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-238",
@@ -7471,7 +7941,9 @@
       "valor_total_venda": 1223.6,
       "lucro_potencial": 614.1,
       "curva_abc_acumulada_pct": 79.74,
-      "curva_abc": "A"
+      "curva_abc": "A",
+      "baseline_estoque": 115,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-6",
@@ -7499,7 +7971,9 @@
       "valor_total_venda": 453.6,
       "lucro_potencial": 202.5,
       "curva_abc_acumulada_pct": 94.35,
-      "curva_abc": "B"
+      "curva_abc": "B",
+      "baseline_estoque": 405,
+      "baseline_at": "2026-11-20T18:30:55Z"
     },
     {
       "id": "prod-143",
@@ -7527,7 +8001,9 @@
       "valor_total_venda": 0.0,
       "lucro_potencial": 0.0,
       "curva_abc_acumulada_pct": 100.0,
-      "curva_abc": "C"
+      "curva_abc": "C",
+      "baseline_estoque": 0,
+      "baseline_at": "2026-11-20T18:30:55Z"
     }
   ]
 }

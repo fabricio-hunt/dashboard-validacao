@@ -274,6 +274,34 @@ export class SmartPosClient {
     return { sales, items }
   }
 
+  /**
+   * Flattens sold quantities per product since `startDate`, each tagged with the sale's own
+   * date — used to decrement stock only by sales that happened after a product's own physical
+   * count baseline (baselines differ per product, so a single cutoff date isn't enough).
+   */
+  async getSoldQuantitiesSince(
+    startDate: string,
+    endDate: string = new Date().toISOString().slice(0, 10)
+  ): Promise<Array<{ codigo: string; quantity: number; saleDate: string }>> {
+    const sales = await this.getSales(startDate, endDate)
+    const records: Array<{ codigo: string; quantity: number; saleDate: string }> = []
+
+    for (let i = 0; i < sales.length; i += SALE_ITEMS_CONCURRENCY) {
+      const batch = sales.slice(i, i + SALE_ITEMS_CONCURRENCY)
+      const batchResults = await Promise.all(batch.map((sale) => this.getSaleItems(sale.uniqueIdentifier)))
+      batchResults.forEach((saleItems, idx) => {
+        const saleDate = batch[idx].creationDate
+        saleItems.forEach((item) => {
+          const codigo = String(item.product.alphaCode || item.product.id || '').trim()
+          if (!codigo) return
+          records.push({ codigo, quantity: item.quantity, saleDate })
+        })
+      })
+    }
+
+    return records
+  }
+
   static getDocumentationEndpoints() {
     return [
       {

@@ -32,6 +32,14 @@ export interface ProductItem {
   curva_abc_acumulada_pct: number
   curva_abc: AbcClass
   em_excesso?: boolean
+  /** Saldo da última contagem física manual (ponto de partida do decremento automático por vendas). */
+  baseline_estoque: number
+  /** Data/hora ISO da última contagem física manual que gerou `baseline_estoque`. */
+  baseline_at: string
+  /** Dias desde `baseline_at` até agora — calculado em tempo de leitura. */
+  dias_desde_contagem?: number
+  /** `true` quando `dias_desde_contagem` excede o limiar de confiança do decremento por vendas. */
+  recontagem_recomendada?: boolean
 }
 
 export interface CategorySummary {
@@ -122,6 +130,7 @@ export interface DashboardSummary {
   total_vence_180d: number
   total_sugestao_compra_qtd: number
   total_sugestao_compra_custo: number
+  total_recontagem_pendente: number
   contas_a_receber: number
   curva_abc: {
     A: AbcClassSummary
@@ -140,7 +149,7 @@ export interface DashboardSummary {
 export interface InventoryFilterOptions {
   searchQuery?: string
   categoria?: string
-  statusEstoque?: StockStatus | 'ALL' | 'RUPTURA_CRITICO' | 'EXCESSO'
+  statusEstoque?: StockStatus | 'ALL' | 'RUPTURA_CRITICO' | 'EXCESSO' | 'RECONTAGEM'
   statusValidade?: ExpirationStatus | 'ALL' | 'RISCO_VALIDADE'
   curvaAbc?: AbcClass | 'ALL'
   fabricante?: string

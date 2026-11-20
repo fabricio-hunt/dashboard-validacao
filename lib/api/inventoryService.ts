@@ -16,6 +16,7 @@ import {
   TOP_PRODUCT_FAMILIES,
 } from '@/lib/domain/familyClassifier'
 import { parseBrazilianExpirationDate } from '@/lib/domain/expirationDate'
+import { withFidelityFlags } from '@/lib/domain/stockFidelity'
 
 const DEFAULT_CONTAS_A_RECEBER = 51489.41
 
@@ -39,14 +40,18 @@ export class InventoryService {
 
   public static getAllProducts(excessMultiplier = 3): ProductItem[] {
     const mult = normalizeExcessMultiplier(excessMultiplier)
+    const now = new Date()
     return this.data.products.map((p) => {
       const parsedExp = parseBrazilianExpirationDate(p.validade_iso || p.validade)
-      return {
-        ...p,
-        validade_iso: parsedExp.valid ? parsedExp.iso : null,
-        validade: parsedExp.valid ? parsedExp.formatted : 'N/I',
-        em_excesso: isExcessStock(p, mult),
-      }
+      return withFidelityFlags(
+        {
+          ...p,
+          validade_iso: parsedExp.valid ? parsedExp.iso : null,
+          validade: parsedExp.valid ? parsedExp.formatted : 'N/I',
+          em_excesso: isExcessStock(p, mult),
+        },
+        now
+      )
     })
   }
 
@@ -126,10 +131,14 @@ export class InventoryService {
 
     const excessByCategory = new Map<string, number>()
     let totalExcesso = 0
+    let totalRecontagemPendente = 0
     for (const p of products) {
       if (p.em_excesso) {
         totalExcesso += 1
         excessByCategory.set(p.categoria, (excessByCategory.get(p.categoria) || 0) + 1)
+      }
+      if (p.recontagem_recomendada) {
+        totalRecontagemPendente += 1
       }
     }
 
@@ -148,6 +157,7 @@ export class InventoryService {
     return {
       ...this.data.summary,
       total_excesso: totalExcesso,
+      total_recontagem_pendente: totalRecontagemPendente,
       excess_multiplier: mult,
       contas_a_receber: Number.isFinite(rawReceber) ? round2(rawReceber) : DEFAULT_CONTAS_A_RECEBER,
       categorias,
@@ -267,6 +277,8 @@ export class InventoryService {
         )
       } else if (options.statusEstoque === 'EXCESSO') {
         filtered = filtered.filter((p) => Boolean(p.em_excesso))
+      } else if (options.statusEstoque === 'RECONTAGEM') {
+        filtered = filtered.filter((p) => Boolean(p.recontagem_recomendada))
       } else {
         filtered = filtered.filter((p) => p.status_estoque === options.statusEstoque)
       }

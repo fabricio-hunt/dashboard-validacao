@@ -95,7 +95,7 @@ def dedupe_legacy_transition_rows(products: list) -> list:
     produto são preservadas — presume-se que sejam lotes distintos ainda não conciliados.
     """
     live_lotes = {
-        p.get('lote') for p in products
+        p.get('lote', '').upper() for p in products
         if p.get('categoria') != LEGACY_TRANSITION_CATEGORY and p.get('lote') and p.get('lote') != 'N/I'
     }
 
@@ -104,7 +104,7 @@ def dedupe_legacy_transition_rows(products: list) -> list:
             return False
         if p.get('estoque') != 0:
             return False
-        return p.get('lote') in live_lotes
+        return p.get('lote', '').upper() in live_lotes
 
     return [p for p in products if not is_duplicate_ghost(p)]
 
@@ -131,16 +131,22 @@ def recompute_dataset(existing_data: dict, api_products: list, dry_run: bool = F
         api_min = api_item.get('minimumStock')
         minimo = float(api_min) if api_min is not None else None
 
-        # Saldo físico:
-        # Se na API SmartPOS noStock for True -> 0 unidades (ZERADO)
-        # Senão, se existia registro prévio no banco, preserva o saldo
-        # Senão (novo item cadastrado na SmartPOS), inicia com 0
+        # Saldo físico: este script (sync 2x/dia) não aplica o decremento automático por vendas
+        # (isso roda no Next.js, via /api/sync/refresh e no cron de decremento). Aqui só preserva
+        # o saldo e o baseline já calculados, ou zera quando a SmartPOS sinaliza noStock=True.
+        now_iso = ref_date.isoformat() + 'Z'
         if api_item.get('noStock') is True:
             estoque = 0
+            baseline_estoque = 0
+            baseline_at = now_iso
         elif existing_prod:
             estoque = int(existing_prod.get('estoque') or 0)
+            baseline_estoque = int(existing_prod.get('baseline_estoque', estoque) or 0)
+            baseline_at = existing_prod.get('baseline_at') or now_iso
         else:
             estoque = 0
+            baseline_estoque = 0
+            baseline_at = now_iso
 
         meta = extract_metadata(produto_nome, fallback_supplier=fabricante)
 
@@ -211,6 +217,8 @@ def recompute_dataset(existing_data: dict, api_products: list, dry_run: bool = F
             'markup_percentual': markup_perc,
             'estoque': estoque,
             'estoque_minimo': minimo,
+            'baseline_estoque': baseline_estoque,
+            'baseline_at': baseline_at,
             'status_estoque': status_estoque,
             'sugestao_compra_qtd': sugestao_qtd,
             'sugestao_compra_custo': sugestao_custo,
