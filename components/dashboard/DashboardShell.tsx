@@ -209,7 +209,7 @@ export function DashboardShell({
   }
 
   const handleSelectQuickFilter = (
-    type: 'ZERADO' | 'CRITICO' | 'EXCESSO' | 'RISCO_VALIDADE'
+    type: 'ZERADO' | 'CRITICO' | 'EXCESSO' | 'RISCO_VALIDADE' | 'RECONTAGEM'
   ) => {
     if (type === 'CRITICO') {
       setActiveTab('restock')

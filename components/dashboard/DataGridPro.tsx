@@ -19,6 +19,7 @@ import {
 import { DashboardSummary, ProductItem } from '@/types/inventory'
 import { formatCurrency, formatNumber, formatPercent } from '@/lib/utils'
 import { DocInfoTrigger } from '@/components/ui/DocInfoTrigger'
+import { RECONTAGEM_THRESHOLD_DAYS } from '@/lib/domain/stockFidelity'
 
 interface DataGridProProps {
   products: ProductItem[]
@@ -159,6 +160,8 @@ export function DataGridPro({
         )
       } else if (selectedStatus === 'EXCESSO') {
         result = result.filter((p) => Boolean(p.em_excesso))
+      } else if (selectedStatus === 'RECONTAGEM') {
+        result = result.filter((p) => Boolean(p.recontagem_recomendada))
       } else {
         result = result.filter((p) => p.status_estoque === selectedStatus)
       }
@@ -682,6 +685,32 @@ export function DataGridPro({
                   <AlertTriangle className="h-4 w-4" />
                   Necessidade de Reposição: +{selectedProduct.sugestao_compra_qtd} un (
                   {formatCurrency(selectedProduct.sugestao_compra_custo)})
+                </div>
+              )}
+
+              <div className="pt-2 border-t border-sap-hairline text-xs text-sap-ink-meta">
+                Última contagem física:{' '}
+                <strong className="text-sap-ink-body font-medium">
+                  {new Date(selectedProduct.baseline_at).toLocaleDateString('pt-BR')}
+                </strong>
+                {selectedProduct.dias_desde_contagem !== undefined && (
+                  <> ({selectedProduct.dias_desde_contagem} dias atrás)</>
+                )}
+                {' '}— estoque atual é a contagem acima, menos as vendas registradas na SmartPOS desde então.
+              </div>
+
+              {selectedProduct.recontagem_recomendada && (
+                <div className="flex items-center gap-1.5 text-xs text-violet-700 font-semibold">
+                  <AlertTriangle className="h-4 w-4" />
+                  Recontagem recomendada — mais de {RECONTAGEM_THRESHOLD_DAYS} dias sem confirmação física.
+                </div>
+              )}
+
+              {selectedProduct.status_estoque === 'NEGATIVO' && (
+                <div className="flex items-center gap-1.5 text-xs text-rose-700 font-semibold">
+                  <AlertOctagon className="h-4 w-4" />
+                  Saldo negativo: possível entrada de mercadoria não registrada na SmartPOS. Faça uma
+                  contagem física para corrigir.
                 </div>
               )}
 

@@ -7,14 +7,16 @@ import {
   Clock,
   Layers,
   ArrowRight,
+  RotateCcw,
 } from 'lucide-react'
 import { DashboardSummary } from '@/types/inventory'
 import { formatNumber } from '@/lib/utils'
 import { DocInfoTrigger } from '@/components/ui/DocInfoTrigger'
+import { RECONTAGEM_THRESHOLD_DAYS } from '@/lib/domain/stockFidelity'
 
 interface QuickAlertsBarProps {
   summary: DashboardSummary
-  onSelectFilter: (type: 'ZERADO' | 'CRITICO' | 'EXCESSO' | 'RISCO_VALIDADE') => void
+  onSelectFilter: (type: 'ZERADO' | 'CRITICO' | 'EXCESSO' | 'RISCO_VALIDADE' | 'RECONTAGEM') => void
 }
 
 export function QuickAlertsBar({ summary, onSelectFilter }: QuickAlertsBarProps) {
@@ -59,6 +61,16 @@ export function QuickAlertsBar({ summary, onSelectFilter }: QuickAlertsBarProps)
       accentClass: 'text-sap-primary-deep',
       borderAccent: 'border-l-4 border-l-sap-navy',
     },
+    {
+      key: 'RECONTAGEM' as const,
+      title: 'Recontagem Recomendada',
+      value: summary.total_recontagem_pendente,
+      unit: 'SKUs p/ recontar',
+      subtitle: `Sem contagem física há mais de ${RECONTAGEM_THRESHOLD_DAYS} dias — estoque é estimado por vendas.`,
+      icon: RotateCcw,
+      accentClass: 'text-violet-700',
+      borderAccent: 'border-l-4 border-l-violet-600',
+    },
   ]
 
   return (
@@ -75,7 +87,7 @@ export function QuickAlertsBar({ summary, onSelectFilter }: QuickAlertsBarProps)
         </span>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3">
         {alerts.map((item) => {
           const Icon = item.icon
           return (
