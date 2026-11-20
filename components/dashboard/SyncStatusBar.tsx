@@ -44,7 +44,8 @@ export function SyncStatusBar({
           <p className="text-[11px] text-sap-ink-meta mt-0.5">
             Última execução: <strong className="text-sap-ink-body font-medium">{syncTime}</strong> •{' '}
             <span>
-              {skusConciliados} SKUs catalogados e conciliados em tempo real (100% API SmartPOS)
+              {skusConciliados} SKUs com cadastro e preço sincronizados via API SmartPOS • saldo de
+              estoque sujeito a ajuste manual
             </span>
           </p>
         </div>
