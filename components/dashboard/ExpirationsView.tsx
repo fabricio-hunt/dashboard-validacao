@@ -87,7 +87,7 @@ export function ExpirationsView({ products, onSelectProduct }: ExpirationsViewPr
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
-        <div className="rounded-sap bg-sap-canvas border border-sap-hairline border-t-2 border-t-rose-700 p-4">
+        <div className="rounded-sap bg-sap-canvas border border-sap-hairline p-4">
           <div className="flex items-center justify-between text-rose-700">
             <span className="text-xs font-medium uppercase">Valor em Risco Sanitário</span>
             <ShieldAlert className="h-4 w-4" />
@@ -100,7 +100,7 @@ export function ExpirationsView({ products, onSelectProduct }: ExpirationsViewPr
           </p>
         </div>
 
-        <div className="rounded-sap bg-sap-canvas border border-sap-hairline border-t-2 border-t-amber-600 p-4">
+        <div className="rounded-sap bg-sap-canvas border border-sap-hairline p-4">
           <div className="flex items-center justify-between text-amber-700">
             <span className="text-xs font-medium uppercase">Vencendo em até 90 dias</span>
             <Clock className="h-4 w-4" />
@@ -113,7 +113,7 @@ export function ExpirationsView({ products, onSelectProduct }: ExpirationsViewPr
           </p>
         </div>
 
-        <div className="rounded-sap bg-sap-canvas border border-sap-hairline border-t-2 border-t-sap-primary p-4">
+        <div className="rounded-sap bg-sap-canvas border border-sap-hairline p-4">
           <div className="flex items-center justify-between text-sap-primary">
             <span className="text-xs font-medium uppercase">Janela de 91 a 180 dias</span>
             <Calendar className="h-4 w-4" />
@@ -126,7 +126,7 @@ export function ExpirationsView({ products, onSelectProduct }: ExpirationsViewPr
           </p>
         </div>
 
-        <div className="rounded-sap bg-sap-canvas border border-sap-hairline border-t-2 border-t-sap-navy p-4">
+        <div className="rounded-sap bg-sap-canvas border border-sap-hairline p-4">
           <div className="flex items-center justify-between text-sap-primary-deep">
             <span className="text-xs font-medium uppercase">Rastreabilidade de Lote</span>
             <Layers className="h-4 w-4" />
@@ -175,8 +175,8 @@ export function ExpirationsView({ products, onSelectProduct }: ExpirationsViewPr
                       entry.year <= '2026'
                         ? '#b91c1c'
                         : entry.year === '2027'
-                        ? '#d97706'
-                        : '#0057d2'
+                          ? '#d97706'
+                          : '#0057d2'
                     }
                   />
                 ))}
@@ -215,21 +215,19 @@ export function ExpirationsView({ products, onSelectProduct }: ExpirationsViewPr
             <div className="flex items-center gap-1 p-0.5 rounded-sap bg-sap-canvas border border-sap-hairline text-xs">
               <button
                 onClick={() => setFilterStatus('RISCO')}
-                className={`px-2.5 py-1 rounded-[6px] font-medium transition-colors ${
-                  filterStatus === 'RISCO'
-                    ? 'bg-sap-primary text-sap-on-primary'
-                    : 'text-sap-ink-nav hover:bg-sap-chrome'
-                }`}
+                className={`px-2.5 py-1 rounded-[6px] font-medium transition-colors ${filterStatus === 'RISCO'
+                  ? 'bg-sap-primary text-sap-on-primary'
+                  : 'text-sap-ink-nav hover:bg-sap-chrome'
+                  }`}
               >
                 Em Risco ({totalVencidos + total90d + total180d})
               </button>
               <button
                 onClick={() => setFilterStatus('COM_DATA')}
-                className={`px-2.5 py-1 rounded-[6px] font-medium transition-colors ${
-                  filterStatus === 'COM_DATA'
-                    ? 'bg-sap-primary text-sap-on-primary'
-                    : 'text-sap-ink-nav hover:bg-sap-chrome'
-                }`}
+                className={`px-2.5 py-1 rounded-[6px] font-medium transition-colors ${filterStatus === 'COM_DATA'
+                  ? 'bg-sap-primary text-sap-on-primary'
+                  : 'text-sap-ink-nav hover:bg-sap-chrome'
+                  }`}
               >
                 Todos com Data ({totalComData})
               </button>

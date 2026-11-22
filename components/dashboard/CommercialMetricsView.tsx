@@ -172,31 +172,26 @@ export function CommercialMetricsView() {
           label="Faturamento Bruto"
           value={formatCurrency(kpisData?.kpis.grossRevenue ?? 0)}
           detail={`Descontos: ${formatCurrency(kpisData?.kpis.discounts ?? 0)}`}
-          bandClassName="border-t-2 border-t-sap-navy"
         />
         <KpiCard
           label="Faturamento Líquido"
           value={formatCurrency(kpisData?.kpis.netRevenue ?? 0)}
           detail={formatDeltaPct(kpisData?.revenueGrowth.deltaPct ?? null)}
-          bandClassName="border-t-2 border-t-sap-primary"
         />
         <KpiCard
           label="Pedidos"
           value={formatNumber(kpisData?.kpis.ordersCount ?? 0)}
           detail={`${formatNumber(kpisData?.kpis.itemsSoldCount ?? 0)} itens vendidos`}
-          bandClassName="border-t-2 border-t-sap-primary-deep"
         />
         <KpiCard
           label="Ticket Médio"
           value={formatCurrency(kpisData?.kpis.averageTicket ?? 0)}
           detail={`Preço médio/item: ${formatCurrency(kpisData?.kpis.averageItemPrice ?? 0)}`}
-          bandClassName="border-t-2 border-t-sap-ink-meta"
         />
         <KpiCard
           label="Margem Bruta"
           value={formatPct2(kpisData?.kpis.grossMarginPct ?? null)}
           detail={`Lucro bruto: ${formatCurrency(kpisData?.kpis.grossProfit ?? 0)}`}
-          bandClassName="border-t-2 border-t-emerald-700"
           valueClassName="text-emerald-700"
         />
         <KpiCard
@@ -207,20 +202,17 @@ export function CommercialMetricsView() {
               ? `Meta incompleta — faltam ${kpisData.goal.monthsMissingGoal.join(', ')}`
               : 'Cadastrada abaixo'
           }
-          bandClassName="border-t-2 border-t-sap-navy"
         />
         <KpiCard
           label="Realizado vs. Meta"
           value={kpisData?.goalProgress?.progressPct != null ? formatPct2(kpisData.goalProgress.progressPct) : '—'}
           detail="% do faturamento líquido sobre a meta"
-          bandClassName="border-t-2 border-t-sap-primary"
           valueClassName="text-sap-primary-deep"
         />
         <KpiCard
           label="Crescimento (Líquido)"
           value={formatPct2(kpisData?.revenueGrowth.deltaPct ?? null)}
           detail={`Período anterior: ${formatCurrency(kpisData?.revenueGrowth.previousValue ?? 0)}`}
-          bandClassName="border-t-2 border-t-sap-primary"
         />
       </section>
 

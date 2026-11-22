@@ -89,7 +89,7 @@ export function RestockView({
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
-        <div className="rounded-sap bg-sap-canvas border border-sap-hairline border-t-2 border-t-sap-primary p-4">
+        <div className="rounded-sap bg-sap-canvas border border-sap-hairline p-4">
           <div className="flex items-center justify-between text-sap-ink-meta">
             <span className="text-xs font-medium uppercase">Investimento Nivelamento</span>
             <DollarSign className="h-4 w-4 text-sap-primary" />
@@ -102,7 +102,7 @@ export function RestockView({
           </p>
         </div>
 
-        <div className="rounded-sap bg-sap-canvas border border-sap-hairline border-t-2 border-t-sap-primary-deep p-4">
+        <div className="rounded-sap bg-sap-canvas border border-sap-hairline p-4">
           <div className="flex items-center justify-between text-sap-ink-meta">
             <span className="text-xs font-medium uppercase">Déficit Físico</span>
             <PackagePlus className="h-4 w-4 text-sap-primary-deep" />
@@ -116,7 +116,7 @@ export function RestockView({
           </p>
         </div>
 
-        <div className="rounded-sap bg-sap-canvas border border-sap-hairline border-t-2 border-t-rose-700 p-4">
+        <div className="rounded-sap bg-sap-canvas border border-sap-hairline p-4">
           <div className="flex items-center justify-between text-rose-700">
             <span className="text-xs font-medium uppercase">Ruptura Imediata</span>
             <AlertOctagon className="h-4 w-4" />
@@ -130,7 +130,7 @@ export function RestockView({
           </p>
         </div>
 
-        <div className="rounded-sap bg-sap-canvas border border-sap-hairline border-t-2 border-t-sap-navy p-4">
+        <div className="rounded-sap bg-sap-canvas border border-sap-hairline p-4">
           <div className="flex items-center justify-between text-sap-primary-deep">
             <span className="text-xs font-medium uppercase">Capital em Excesso</span>
             <Layers className="h-4 w-4" />

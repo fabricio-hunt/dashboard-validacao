@@ -57,51 +57,43 @@ export function ExecutiveView({
       label: 'SKUs',
       value: formatNumber(summary.total_skus),
       detail: `${summary.categorias.length} categorias ativas`,
-      bandClass: 'border-t-2 border-t-sap-navy',
     },
     {
       label: 'Unidades em estoque',
       value: formatNumber(summary.total_unidades),
       detail: 'Saldo físico consolidado',
-      bandClass: 'border-t-2 border-t-sap-primary',
     },
     {
       label: 'Estoque a custo',
       value: formatCurrency(summary.valor_total_custo),
       detail: 'Capital imobilizado de compra',
-      bandClass: 'border-t-2 border-t-emerald-700',
     },
     {
       label: 'Potencial de venda',
       value: formatCurrency(summary.valor_total_venda),
       detail: `Lucro bruto proj.: ${formatCurrency(summary.lucro_potencial_total)}`,
-      bandClass: 'border-t-2 border-t-sap-primary-deep',
     },
     {
       label: 'Margem média',
       value: formatPercent(summary.margem_media),
       detail: `Markup médio: ${formatPercent(summary.markup_medio)}`,
-      bandClass: 'border-t-2 border-t-sap-ink-meta',
     },
     {
       label: 'Sem estoque',
       value: formatNumber(summary.total_zerados),
       detail: `${summary.total_negativos} com saldo negativo`,
-      bandClass: 'border-t-2 border-t-rose-700',
       valueClass: 'text-rose-700',
     },
     {
       label: 'Abaixo do mínimo',
       value: formatNumber(summary.total_criticos),
       detail: `Repor ${formatNumber(summary.total_sugestao_compra_qtd)} un.`,
-      bandClass: 'border-t-2 border-t-amber-600',
       valueClass: 'text-amber-700',
     },
     {
       label: 'Estoque em excesso',
       value: formatNumber(summary.total_excesso),
       detail: `Acima de ${excessMultiplier}x estoque mínimo`,
-      bandClass: 'border-t-2 border-t-sap-primary',
       valueClass: 'text-sap-primary-deep',
     },
   ]
@@ -189,7 +181,6 @@ export function ExecutiveView({
             label={kpi.label}
             value={kpi.value}
             detail={kpi.detail}
-            bandClassName={kpi.bandClass}
             valueClassName={kpi.valueClass}
           />
         ))}
