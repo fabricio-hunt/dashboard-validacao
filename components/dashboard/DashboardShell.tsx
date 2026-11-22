@@ -8,10 +8,12 @@ import {
   ShoppingCart,
   Clock,
   Network,
+  LineChart,
 } from 'lucide-react'
 import { Header } from '@/components/layout/Header'
 import { QuickAlertsBar } from '@/components/dashboard/QuickAlertsBar'
 import { ExecutiveView } from '@/components/dashboard/ExecutiveView'
+import { CommercialMetricsView } from '@/components/dashboard/CommercialMetricsView'
 import { RankingsTop11View } from '@/components/dashboard/RankingsTop11View'
 import { DataGridPro } from '@/components/dashboard/DataGridPro'
 import { RestockView } from '@/components/dashboard/RestockView'
@@ -239,6 +241,7 @@ export function DashboardShell({
   const tabs = [
     { id: 'executive', label: 'BI Executivo', icon: BarChart3 },
     { id: 'rankings', label: 'Vendas & Rankings Top 11', icon: TrendingUp },
+    { id: 'commercial', label: 'Indicadores Comerciais', icon: LineChart },
     {
       id: 'datagrid',
       label: 'Catálogo & Estoque',
@@ -371,6 +374,8 @@ export function DashboardShell({
             onSalesSourceChange={setSalesSourceLabel}
           />
         )}
+
+        {activeTab === 'commercial' && <CommercialMetricsView />}
 
         {activeTab === 'datagrid' && (
           <DataGridPro
