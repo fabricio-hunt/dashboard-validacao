@@ -21,6 +21,7 @@ import {
 import { DashboardSummary, ProductItem } from '@/types/inventory'
 import { formatCurrency, formatNumber, formatPercent } from '@/lib/utils'
 import { DocInfoTrigger } from '@/components/ui/DocInfoTrigger'
+import { KpiCard } from '@/components/ui/KpiCard'
 
 interface ExecutiveViewProps {
   summary: DashboardSummary
@@ -183,24 +184,14 @@ export function ExecutiveView({
       {/* Grade 2x4 dos 8 KPIs Executivos */}
       <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
         {kpiRows.map((kpi) => (
-          <div
+          <KpiCard
             key={kpi.label}
-            className={`rounded-sap bg-sap-canvas border border-sap-hairline ${kpi.bandClass} p-4`}
-          >
-            <div className="text-xs font-medium text-sap-ink-meta uppercase tracking-wide">
-              {kpi.label}
-            </div>
-            <div
-              className={`mt-2 text-2xl sm:text-[26px] font-bold tracking-tight tabular-nums ${
-                kpi.valueClass || 'text-sap-ink'
-              }`}
-            >
-              {kpi.value}
-            </div>
-            <div className="mt-1.5 text-xs text-sap-ink-list tabular-nums">
-              {kpi.detail}
-            </div>
-          </div>
+            label={kpi.label}
+            value={kpi.value}
+            detail={kpi.detail}
+            bandClassName={kpi.bandClass}
+            valueClassName={kpi.valueClass}
+          />
         ))}
       </section>
 
