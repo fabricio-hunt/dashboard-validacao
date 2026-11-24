@@ -29,7 +29,6 @@ export function QuickAlertsBar({ summary, onSelectFilter }: QuickAlertsBarProps)
       subtitle: 'Demanda imediata sem saldo físico disponível.',
       icon: AlertOctagon,
       accentClass: 'text-rose-700',
-      borderAccent: 'border-l-4 border-l-rose-600',
     },
     {
       key: 'CRITICO' as const,
@@ -39,7 +38,6 @@ export function QuickAlertsBar({ summary, onSelectFilter }: QuickAlertsBarProps)
       subtitle: `Déficit total de ${formatNumber(summary.total_sugestao_compra_qtd)} un.`,
       icon: AlertTriangle,
       accentClass: 'text-amber-700',
-      borderAccent: 'border-l-4 border-l-amber-600',
     },
     {
       key: 'EXCESSO' as const,
@@ -49,7 +47,6 @@ export function QuickAlertsBar({ summary, onSelectFilter }: QuickAlertsBarProps)
       subtitle: 'Capital imobilizado acima da cobertura alvo.',
       icon: Layers,
       accentClass: 'text-sap-primary',
-      borderAccent: 'border-l-4 border-l-sap-primary',
     },
     {
       key: 'RISCO_VALIDADE' as const,
@@ -59,7 +56,6 @@ export function QuickAlertsBar({ summary, onSelectFilter }: QuickAlertsBarProps)
       subtitle: `${summary.total_vencidos} vencidos e ${summary.total_vence_90d} em até 90 dias.`,
       icon: Clock,
       accentClass: 'text-sap-primary-deep',
-      borderAccent: 'border-l-4 border-l-sap-navy',
     },
     {
       key: 'RECONTAGEM' as const,
@@ -69,7 +65,6 @@ export function QuickAlertsBar({ summary, onSelectFilter }: QuickAlertsBarProps)
       subtitle: `Sem contagem física há mais de ${RECONTAGEM_THRESHOLD_DAYS} dias — estoque é estimado por vendas.`,
       icon: RotateCcw,
       accentClass: 'text-violet-700',
-      borderAccent: 'border-l-4 border-l-violet-600',
     },
   ]
 
@@ -94,7 +89,7 @@ export function QuickAlertsBar({ summary, onSelectFilter }: QuickAlertsBarProps)
             <button
               key={item.key}
               onClick={() => onSelectFilter(item.key)}
-              className={`group rounded-sap bg-sap-canvas border border-sap-hairline ${item.borderAccent} p-4 text-left transition-colors hover:bg-sap-band-blue/60`}
+              className="group rounded-sap bg-sap-canvas border border-sap-hairline p-4 text-left transition-all hover:border-sap-hairline-strong hover:shadow-sm"
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">

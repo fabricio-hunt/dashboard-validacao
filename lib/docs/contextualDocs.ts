@@ -228,6 +228,67 @@ export const CONTEXTUAL_DOCS: Record<string, DocSection> = {
     ],
   },
 
+  commercial_metrics: {
+    id: 'commercial_metrics',
+    title: 'Indicadores Comerciais (Faturamento, Margem, Meta e Curva ABC de Vendas)',
+    shortSummary: 'KPIs comerciais do período, Curva ABC por faturamento realizado e evolução mensal/anual de vendas.',
+    purpose: 'Dar visibilidade executiva sobre o desempenho comercial realizado — faturamento, ticket médio, margem e meta —, além de identificar quais produtos concentram o faturamento e como a receita evolui mês a mês e ano a ano.',
+    indicators: [
+      {
+        name: 'Faturamento Líquido',
+        description: 'Faturamento bruto do período menos os descontos concedidos.',
+        unit: 'R$',
+      },
+      {
+        name: 'Margem Bruta (%)',
+        description: 'Lucro bruto (já líquido do custo histórico da mercadoria vendida) sobre o faturamento líquido do período.',
+        unit: '%',
+      },
+      {
+        name: 'Meta x Realizado',
+        description: 'Faturamento líquido realizado comparado à meta mensal cadastrada para os meses tocados pelo período.',
+        unit: '%',
+      },
+      {
+        name: 'Curva ABC de Vendas',
+        description: 'Classificação dos produtos pelo faturamento líquido realizado no período (distinta da Curva ABC de estoque do BI Executivo).',
+        unit: 'Classe A/B/C',
+      },
+    ],
+    calculationMemory: [
+      {
+        title: 'Faturamento Líquido',
+        formula: 'Faturamento Líquido = Faturamento Bruto − Descontos',
+        rules: [
+          'A API SmartPOS não disponibiliza devoluções/estornos pós-venda — apenas o cancelamento no ato da venda, que já é excluído na origem.',
+          'Vendas canceladas e orçamentos não efetivados nunca entram nesta conta.',
+        ],
+      },
+      {
+        title: 'Margem Bruta Realizada',
+        formula: 'Margem Bruta (%) = Lucro Bruto ÷ Faturamento Líquido × 100',
+        rules: ['Lucro Bruto já vem calculado pela SmartPOS com base no custo histórico registrado no momento da venda.'],
+      },
+      {
+        title: 'Meta Comercial',
+        formula: 'Meta do Período = soma das metas mensais cadastradas para cada mês tocado pelo período selecionado',
+        rules: [
+          'Não há rateio por dia: um período parcial dentro de um mês ainda considera a meta mensal cheia daquele mês.',
+          'Meses sem meta cadastrada são sinalizados e não entram na soma.',
+        ],
+      },
+      {
+        title: 'Curva ABC de Vendas',
+        formula: 'Classe A até 80% do faturamento acumulado, B até 95%, C no restante',
+        rules: ['Cortes configuráveis em lib/metrics/abcSales.ts (ABC_SALES_CUTOFFS).'],
+      },
+    ],
+    guidelines: [
+      'Sem credenciais SmartPOS configuradas, os indicadores desta aba aparecem zerados com um aviso explícito — nunca com números fictícios.',
+      'Cadastre as metas mensais na própria aba para habilitar a comparação de Meta x Realizado.',
+    ],
+  },
+
   restock_plan: {
     id: 'restock_plan',
     title: 'Plano de Ação (Sugestão de Reposição e Gestão de Excesso)',

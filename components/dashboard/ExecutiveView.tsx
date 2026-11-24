@@ -17,10 +17,12 @@ import {
   Tooltip,
   CartesianGrid,
   Cell,
+  LabelList,
 } from 'recharts'
 import { DashboardSummary, ProductItem } from '@/types/inventory'
-import { formatCurrency, formatNumber, formatPercent } from '@/lib/utils'
+import { formatCurrency, formatCompactCurrency, formatNumber, formatPercent } from '@/lib/utils'
 import { DocInfoTrigger } from '@/components/ui/DocInfoTrigger'
+import { KpiCard } from '@/components/ui/KpiCard'
 
 interface ExecutiveViewProps {
   summary: DashboardSummary
@@ -56,51 +58,43 @@ export function ExecutiveView({
       label: 'SKUs',
       value: formatNumber(summary.total_skus),
       detail: `${summary.categorias.length} categorias ativas`,
-      bandClass: 'border-t-2 border-t-sap-navy',
     },
     {
       label: 'Unidades em estoque',
       value: formatNumber(summary.total_unidades),
       detail: 'Saldo físico consolidado',
-      bandClass: 'border-t-2 border-t-sap-primary',
     },
     {
       label: 'Estoque a custo',
       value: formatCurrency(summary.valor_total_custo),
       detail: 'Capital imobilizado de compra',
-      bandClass: 'border-t-2 border-t-emerald-700',
     },
     {
       label: 'Potencial de venda',
       value: formatCurrency(summary.valor_total_venda),
       detail: `Lucro bruto proj.: ${formatCurrency(summary.lucro_potencial_total)}`,
-      bandClass: 'border-t-2 border-t-sap-primary-deep',
     },
     {
       label: 'Margem média',
       value: formatPercent(summary.margem_media),
       detail: `Markup médio: ${formatPercent(summary.markup_medio)}`,
-      bandClass: 'border-t-2 border-t-sap-ink-meta',
     },
     {
       label: 'Sem estoque',
       value: formatNumber(summary.total_zerados),
       detail: `${summary.total_negativos} com saldo negativo`,
-      bandClass: 'border-t-2 border-t-rose-700',
       valueClass: 'text-rose-700',
     },
     {
       label: 'Abaixo do mínimo',
       value: formatNumber(summary.total_criticos),
       detail: `Repor ${formatNumber(summary.total_sugestao_compra_qtd)} un.`,
-      bandClass: 'border-t-2 border-t-amber-600',
       valueClass: 'text-amber-700',
     },
     {
       label: 'Estoque em excesso',
       value: formatNumber(summary.total_excesso),
       detail: `Acima de ${excessMultiplier}x estoque mínimo`,
-      bandClass: 'border-t-2 border-t-sap-primary',
       valueClass: 'text-sap-primary-deep',
     },
   ]
@@ -183,24 +177,13 @@ export function ExecutiveView({
       {/* Grade 2x4 dos 8 KPIs Executivos */}
       <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
         {kpiRows.map((kpi) => (
-          <div
+          <KpiCard
             key={kpi.label}
-            className={`rounded-sap bg-sap-canvas border border-sap-hairline ${kpi.bandClass} p-4`}
-          >
-            <div className="text-xs font-medium text-sap-ink-meta uppercase tracking-wide">
-              {kpi.label}
-            </div>
-            <div
-              className={`mt-2 text-2xl sm:text-[26px] font-bold tracking-tight tabular-nums ${
-                kpi.valueClass || 'text-sap-ink'
-              }`}
-            >
-              {kpi.value}
-            </div>
-            <div className="mt-1.5 text-xs text-sap-ink-list tabular-nums">
-              {kpi.detail}
-            </div>
-          </div>
+            label={kpi.label}
+            value={kpi.value}
+            detail={kpi.detail}
+            valueClassName={kpi.valueClass}
+          />
         ))}
       </section>
 
@@ -351,7 +334,7 @@ export function ExecutiveView({
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
                 data={categoryChartData}
-                margin={{ top: 10, right: 12, left: 0, bottom: 52 }}
+                margin={{ top: 20, right: 12, left: 0, bottom: 52 }}
               >
                 <CartesianGrid strokeDasharray="3 3" stroke="#eaecee" vertical={false} />
                 <XAxis
@@ -384,7 +367,14 @@ export function ExecutiveView({
                     fontSize: '12px',
                   }}
                 />
-                <Bar dataKey="valor_custo" fill="#0057d2" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="valor_custo" fill="#0057d2" radius={[4, 4, 0, 0]}>
+                  <LabelList
+                    dataKey="valor_custo"
+                    position="top"
+                    formatter={(v: number) => formatCompactCurrency(v)}
+                    style={{ fontSize: 9, fontWeight: 600, fill: '#223548' }}
+                  />
+                </Bar>
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -411,7 +401,7 @@ export function ExecutiveView({
 
           <div className="h-52 mt-4">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={abcData} margin={{ top: 10, right: 16, left: 0, bottom: 0 }}>
+              <BarChart data={abcData} margin={{ top: 24, right: 16, left: 0, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#eaecee" vertical={false} />
                 <XAxis dataKey="classe" stroke="#475e75" fontSize={12} />
                 <YAxis
@@ -430,6 +420,12 @@ export function ExecutiveView({
                   }}
                 />
                 <Bar dataKey="valor" radius={[4, 4, 0, 0]}>
+                  <LabelList
+                    dataKey="valor"
+                    position="top"
+                    formatter={(v: number) => formatCompactCurrency(v)}
+                    style={{ fontSize: 11, fontWeight: 600, fill: '#223548' }}
+                  />
                   {abcData.map((entry, index) => (
                     <Cell key={`abc-${index}`} fill={entry.color} />
                   ))}
