@@ -19,6 +19,7 @@ import {
   Tooltip,
   CartesianGrid,
   Cell,
+  LabelList,
 } from 'recharts'
 import { ProductItem } from '@/types/inventory'
 import { formatCurrency, formatNumber } from '@/lib/utils'
@@ -153,7 +154,7 @@ export function ExpirationsView({ products, onSelectProduct }: ExpirationsViewPr
 
         <div className="h-52 mt-4">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={yearChartData} margin={{ top: 10, right: 20, left: 0, bottom: 5 }}>
+            <BarChart data={yearChartData} margin={{ top: 24, right: 20, left: 0, bottom: 5 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#eaecee" vertical={false} />
               <XAxis dataKey="year" stroke="#475e75" fontSize={12} />
               <YAxis stroke="#475e75" fontSize={11} />
@@ -168,6 +169,11 @@ export function ExpirationsView({ products, onSelectProduct }: ExpirationsViewPr
                 }}
               />
               <Bar dataKey="count" radius={[4, 4, 0, 0]}>
+                <LabelList
+                  dataKey="count"
+                  position="top"
+                  style={{ fontSize: 11, fontWeight: 600, fill: '#223548' }}
+                />
                 {yearChartData.map((entry, index) => (
                   <Cell
                     key={`cell-${index}`}

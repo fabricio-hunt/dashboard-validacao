@@ -17,9 +17,10 @@ import {
   Tooltip,
   CartesianGrid,
   Cell,
+  LabelList,
 } from 'recharts'
 import { DashboardSummary, ProductItem } from '@/types/inventory'
-import { formatCurrency, formatNumber, formatPercent } from '@/lib/utils'
+import { formatCurrency, formatCompactCurrency, formatNumber, formatPercent } from '@/lib/utils'
 import { DocInfoTrigger } from '@/components/ui/DocInfoTrigger'
 import { KpiCard } from '@/components/ui/KpiCard'
 
@@ -333,7 +334,7 @@ export function ExecutiveView({
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
                 data={categoryChartData}
-                margin={{ top: 10, right: 12, left: 0, bottom: 52 }}
+                margin={{ top: 20, right: 12, left: 0, bottom: 52 }}
               >
                 <CartesianGrid strokeDasharray="3 3" stroke="#eaecee" vertical={false} />
                 <XAxis
@@ -366,7 +367,14 @@ export function ExecutiveView({
                     fontSize: '12px',
                   }}
                 />
-                <Bar dataKey="valor_custo" fill="#0057d2" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="valor_custo" fill="#0057d2" radius={[4, 4, 0, 0]}>
+                  <LabelList
+                    dataKey="valor_custo"
+                    position="top"
+                    formatter={(v: number) => formatCompactCurrency(v)}
+                    style={{ fontSize: 9, fontWeight: 600, fill: '#223548' }}
+                  />
+                </Bar>
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -393,7 +401,7 @@ export function ExecutiveView({
 
           <div className="h-52 mt-4">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={abcData} margin={{ top: 10, right: 16, left: 0, bottom: 0 }}>
+              <BarChart data={abcData} margin={{ top: 24, right: 16, left: 0, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#eaecee" vertical={false} />
                 <XAxis dataKey="classe" stroke="#475e75" fontSize={12} />
                 <YAxis
@@ -412,6 +420,12 @@ export function ExecutiveView({
                   }}
                 />
                 <Bar dataKey="valor" radius={[4, 4, 0, 0]}>
+                  <LabelList
+                    dataKey="valor"
+                    position="top"
+                    formatter={(v: number) => formatCompactCurrency(v)}
+                    style={{ fontSize: 11, fontWeight: 600, fill: '#223548' }}
+                  />
                   {abcData.map((entry, index) => (
                     <Cell key={`abc-${index}`} fill={entry.color} />
                   ))}

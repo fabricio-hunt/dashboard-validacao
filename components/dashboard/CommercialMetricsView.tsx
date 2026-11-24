@@ -12,9 +12,10 @@ import {
   XAxis,
   YAxis,
   BarChart,
+  LabelList,
 } from 'recharts'
 import { Info, Target, TrendingUp } from 'lucide-react'
-import { formatCurrency, formatNumber } from '@/lib/utils'
+import { formatCurrency, formatCompactCurrency, formatNumber } from '@/lib/utils'
 import { currentMonthRange } from '@/lib/domain/periodRanges'
 import { DocInfoTrigger } from '@/components/ui/DocInfoTrigger'
 import { KpiCard } from '@/components/ui/KpiCard'
@@ -323,14 +324,28 @@ export function CommercialMetricsView() {
             <div className="h-full flex items-center justify-center text-xs text-sap-ink-meta">Carregando...</div>
           ) : (
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={monthlyChartData} margin={{ top: 10, right: 10, left: 0, bottom: 10 }}>
+              <BarChart data={monthlyChartData} margin={{ top: 24, right: 10, left: 0, bottom: 10 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e5e9ef" />
                 <XAxis dataKey="mes" tick={{ fontSize: 11 }} />
                 <YAxis tick={{ fontSize: 10 }} />
                 <Tooltip formatter={(v: number) => formatCurrency(v)} />
                 <Legend />
-                <Bar dataKey="bruto" name="Bruto" fill="#475e75" />
-                <Bar dataKey="liquido" name="Líquido" fill="#0057d2" />
+                <Bar dataKey="bruto" name="Bruto" fill="#475e75">
+                  <LabelList
+                    dataKey="bruto"
+                    position="top"
+                    formatter={(v: number) => (v > 0 ? formatCompactCurrency(v) : '')}
+                    style={{ fontSize: 9, fontWeight: 600, fill: '#475e75' }}
+                  />
+                </Bar>
+                <Bar dataKey="liquido" name="Líquido" fill="#0057d2">
+                  <LabelList
+                    dataKey="liquido"
+                    position="top"
+                    formatter={(v: number) => (v > 0 ? formatCompactCurrency(v) : '')}
+                    style={{ fontSize: 9, fontWeight: 600, fill: '#0057d2' }}
+                  />
+                </Bar>
               </BarChart>
             </ResponsiveContainer>
           )}
