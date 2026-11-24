@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useCallback } from 'react'
+import Link from 'next/link'
 import {
   BarChart3,
   TrendingUp,
@@ -9,11 +10,11 @@ import {
   Clock,
   Network,
   LineChart,
+  ArrowUpRight,
 } from 'lucide-react'
 import { Header } from '@/components/layout/Header'
 import { QuickAlertsBar } from '@/components/dashboard/QuickAlertsBar'
 import { ExecutiveView } from '@/components/dashboard/ExecutiveView'
-import { CommercialMetricsView } from '@/components/dashboard/CommercialMetricsView'
 import { RankingsTop11View } from '@/components/dashboard/RankingsTop11View'
 import { DataGridPro } from '@/components/dashboard/DataGridPro'
 import { RestockView } from '@/components/dashboard/RestockView'
@@ -241,7 +242,6 @@ export function DashboardShell({
   const tabs = [
     { id: 'executive', label: 'BI Executivo', icon: BarChart3 },
     { id: 'rankings', label: 'Vendas & Rankings Top 11', icon: TrendingUp },
-    { id: 'commercial', label: 'Indicadores Comerciais', icon: LineChart },
     {
       id: 'datagrid',
       label: 'Catálogo & Estoque',
@@ -316,6 +316,18 @@ export function DashboardShell({
                 </button>
               )
             })}
+
+            <span className="hidden sm:block h-5 w-px bg-sap-hairline-strong mx-1 self-center" />
+
+            <Link
+              href="/comercial"
+              className="flex items-center gap-2 h-11 px-1 text-xs sm:text-sm whitespace-nowrap text-sap-ink-nav font-normal hover:text-sap-primary transition-colors"
+              title="Abre em uma página separada do dashboard"
+            >
+              <LineChart className="h-4 w-4" />
+              <span>Indicadores Comerciais</span>
+              <ArrowUpRight className="h-3.5 w-3.5 opacity-60" />
+            </Link>
           </nav>
         </div>
       </div>
@@ -374,8 +386,6 @@ export function DashboardShell({
             onSalesSourceChange={setSalesSourceLabel}
           />
         )}
-
-        {activeTab === 'commercial' && <CommercialMetricsView />}
 
         {activeTab === 'datagrid' && (
           <DataGridPro
