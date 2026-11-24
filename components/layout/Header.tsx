@@ -1,7 +1,8 @@
 'use client'
 
 import React from 'react'
-import { Activity, Database, Network, Download, RefreshCw, Loader2 } from 'lucide-react'
+import Link from 'next/link'
+import { Activity, Database, Network, Download, RefreshCw, Loader2, BookOpen } from 'lucide-react'
 
 interface HeaderProps {
   activeTab: string
@@ -115,6 +116,15 @@ export function Header({
             <Download className="h-3.5 w-3.5" />
             <span className="hidden md:inline">Exportar CSV</span>
           </button>
+
+          <Link
+            href="/documentacao"
+            className="flex items-center gap-1.5 px-3 py-2 rounded-sap text-xs font-medium border border-sap-hairline-strong bg-sap-canvas hover:bg-sap-band-blue text-sap-ink-body transition-colors"
+            title="Documentação completa dos indicadores, fórmulas e limitações da API"
+          >
+            <BookOpen className="h-3.5 w-3.5 text-sap-primary" />
+            <span className="hidden sm:inline">Documentação</span>
+          </Link>
         </div>
       </div>
     </header>
