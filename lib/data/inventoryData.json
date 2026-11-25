@@ -1,4 +1,444 @@
 {
+  "summary": {
+    "total_skus": 259,
+    "total_unidades": 65695,
+    "valor_total_custo": 166714.58,
+    "valor_total_venda": 305997.33,
+    "lucro_potencial_total": 139282.75,
+    "margem_media": 45.21,
+    "markup_medio": 87.34,
+    "total_zerados": 52,
+    "total_criticos": 12,
+    "total_negativos": 6,
+    "total_alertas": 70,
+    "total_vencidos": 11,
+    "total_vence_90d": 1,
+    "total_vence_180d": 7,
+    "total_sugestao_compra_qtd": 24907,
+    "total_sugestao_compra_custo": 17640.08,
+    "curva_abc": {
+      "A": {
+        "classe": "A",
+        "skus": 60,
+        "valor_venda": 244593.68,
+        "descricao": "80% do valor imobilizado (Alta Prioridade de Gestão)"
+      },
+      "B": {
+        "classe": "B",
+        "skus": 63,
+        "valor_venda": 46175.97,
+        "descricao": "15% do valor imobilizado (Média Prioridade)"
+      },
+      "C": {
+        "classe": "C",
+        "skus": 136,
+        "valor_venda": 15227.68,
+        "descricao": "5% do valor imobilizado (Cauda Longa / Giro Pontual)"
+      }
+    },
+    "categorias": [
+      {
+        "categoria": "Paramentação e Descartáveis",
+        "skus": 24,
+        "unidades": 6162,
+        "valor_custo": 35336.52,
+        "valor_venda": 64752.78,
+        "lucro_potencial": 29416.26,
+        "itens_zerados": 6,
+        "itens_criticos": 1,
+        "itens_excesso": 0,
+        "participacao_venda_pct": 21.16
+      },
+      {
+        "categoria": "Limpeza em Geral",
+        "skus": 15,
+        "unidades": 5818,
+        "valor_custo": 30859.94,
+        "valor_venda": 55268.94,
+        "lucro_potencial": 24409,
+        "itens_zerados": 1,
+        "itens_criticos": 0,
+        "itens_excesso": 0,
+        "participacao_venda_pct": 18.06
+      },
+      {
+        "categoria": "Sondas",
+        "skus": 75,
+        "unidades": 9207,
+        "valor_custo": 22973.88,
+        "valor_venda": 44087,
+        "lucro_potencial": 21113.12,
+        "itens_zerados": 18,
+        "itens_criticos": 0,
+        "itens_excesso": 0,
+        "participacao_venda_pct": 14.41
+      },
+      {
+        "categoria": "Uso Médico",
+        "skus": 9,
+        "unidades": 4553,
+        "valor_custo": 17763.35,
+        "valor_venda": 29787.2,
+        "lucro_potencial": 12023.85,
+        "itens_zerados": 0,
+        "itens_criticos": 0,
+        "itens_excesso": 0,
+        "participacao_venda_pct": 9.73
+      },
+      {
+        "categoria": "Agulhas e Seringas",
+        "skus": 28,
+        "unidades": 18762,
+        "valor_custo": 13729.8,
+        "valor_venda": 24874.48,
+        "lucro_potencial": 11144.68,
+        "itens_zerados": 7,
+        "itens_criticos": 4,
+        "itens_excesso": 0,
+        "participacao_venda_pct": 8.13
+      },
+      {
+        "categoria": "Dispositivo e Acessorios",
+        "skus": 14,
+        "unidades": 5845,
+        "valor_custo": 6869.6,
+        "valor_venda": 13090.6,
+        "lucro_potencial": 6221,
+        "itens_zerados": 2,
+        "itens_criticos": 1,
+        "itens_excesso": 0,
+        "participacao_venda_pct": 4.28
+      },
+      {
+        "categoria": "Sutura",
+        "skus": 27,
+        "unidades": 693,
+        "valor_custo": 6386.51,
+        "valor_venda": 11656.42,
+        "lucro_potencial": 5269.91,
+        "itens_zerados": 6,
+        "itens_criticos": 0,
+        "itens_excesso": 0,
+        "participacao_venda_pct": 3.81
+      },
+      {
+        "categoria": "Cateter",
+        "skus": 8,
+        "unidades": 97,
+        "valor_custo": 5608.06,
+        "valor_venda": 11445.98,
+        "lucro_potencial": 5837.92,
+        "itens_zerados": 2,
+        "itens_criticos": 0,
+        "itens_excesso": 0,
+        "participacao_venda_pct": 3.74
+      },
+      {
+        "categoria": "Descartáveis Médicos",
+        "skus": 2,
+        "unidades": 597,
+        "valor_custo": 5276.1,
+        "valor_venda": 9496.98,
+        "lucro_potencial": 4220.88,
+        "itens_zerados": 0,
+        "itens_criticos": 0,
+        "itens_excesso": 0,
+        "participacao_venda_pct": 3.1
+      },
+      {
+        "categoria": "Coletores",
+        "skus": 18,
+        "unidades": 2871,
+        "valor_custo": 5038.08,
+        "valor_venda": 9396.77,
+        "lucro_potencial": 4358.69,
+        "itens_zerados": 3,
+        "itens_criticos": 3,
+        "itens_excesso": 0,
+        "participacao_venda_pct": 3.07
+      },
+      {
+        "categoria": "Fitas e Esparadrapos",
+        "skus": 2,
+        "unidades": 362,
+        "valor_custo": 3220.31,
+        "valor_venda": 6117.85,
+        "lucro_potencial": 2897.54,
+        "itens_zerados": 0,
+        "itens_criticos": 0,
+        "itens_excesso": 0,
+        "participacao_venda_pct": 2
+      },
+      {
+        "categoria": "Geral",
+        "skus": 1,
+        "unidades": 749,
+        "valor_custo": 3070.9,
+        "valor_venda": 5527.62,
+        "lucro_potencial": 2456.72,
+        "itens_zerados": 0,
+        "itens_criticos": 0,
+        "itens_excesso": 0,
+        "participacao_venda_pct": 1.81
+      },
+      {
+        "categoria": "Terapia de Infusão",
+        "skus": 5,
+        "unidades": 3468,
+        "valor_custo": 2159.24,
+        "valor_venda": 4537.09,
+        "lucro_potencial": 2377.85,
+        "itens_zerados": 2,
+        "itens_criticos": 0,
+        "itens_excesso": 0,
+        "participacao_venda_pct": 1.48
+      },
+      {
+        "categoria": "Gaze",
+        "skus": 6,
+        "unidades": 277,
+        "valor_custo": 2298.8,
+        "valor_venda": 4387.2,
+        "lucro_potencial": 2088.4,
+        "itens_zerados": 2,
+        "itens_criticos": 0,
+        "itens_excesso": 0,
+        "participacao_venda_pct": 1.43
+      },
+      {
+        "categoria": "Esterilização",
+        "skus": 3,
+        "unidades": 24,
+        "valor_custo": 1982.56,
+        "valor_venda": 3568.4,
+        "lucro_potencial": 1585.84,
+        "itens_zerados": 1,
+        "itens_criticos": 0,
+        "itens_excesso": 0,
+        "participacao_venda_pct": 1.17
+      },
+      {
+        "categoria": "Atadura",
+        "skus": 7,
+        "unidades": 1651,
+        "valor_custo": 1202.47,
+        "valor_venda": 2459.04,
+        "lucro_potencial": 1256.57,
+        "itens_zerados": 1,
+        "itens_criticos": 0,
+        "itens_excesso": 0,
+        "participacao_venda_pct": 0.8
+      },
+      {
+        "categoria": "Descarte de Resíduos",
+        "skus": 2,
+        "unidades": 192,
+        "valor_custo": 911.58,
+        "valor_venda": 1735.16,
+        "lucro_potencial": 823.58,
+        "itens_zerados": 0,
+        "itens_criticos": 1,
+        "itens_excesso": 0,
+        "participacao_venda_pct": 0.57
+      },
+      {
+        "categoria": "Algodão",
+        "skus": 2,
+        "unidades": 54,
+        "valor_custo": 808,
+        "valor_venda": 1428.8,
+        "lucro_potencial": 620.8,
+        "itens_zerados": 0,
+        "itens_criticos": 0,
+        "itens_excesso": 0,
+        "participacao_venda_pct": 0.47
+      },
+      {
+        "categoria": "Scalps",
+        "skus": 7,
+        "unidades": 4213,
+        "valor_custo": 650.62,
+        "valor_venda": 1348.16,
+        "lucro_potencial": 697.54,
+        "itens_zerados": 1,
+        "itens_criticos": 2,
+        "itens_excesso": 0,
+        "participacao_venda_pct": 0.44
+      },
+      {
+        "categoria": "Laminas e Bisturi",
+        "skus": 2,
+        "unidades": 11,
+        "valor_custo": 301.2,
+        "valor_venda": 542.5,
+        "lucro_potencial": 241.3,
+        "itens_zerados": 0,
+        "itens_criticos": 0,
+        "itens_excesso": 0,
+        "participacao_venda_pct": 0.18
+      },
+      {
+        "categoria": "Equipos",
+        "skus": 1,
+        "unidades": 88,
+        "valor_custo": 230.56,
+        "valor_venda": 415.36,
+        "lucro_potencial": 184.8,
+        "itens_zerados": 0,
+        "itens_criticos": 0,
+        "itens_excesso": 0,
+        "participacao_venda_pct": 0.14
+      },
+      {
+        "categoria": "Curativos",
+        "skus": 1,
+        "unidades": 1,
+        "valor_custo": 36.5,
+        "valor_venda": 73,
+        "lucro_potencial": 36.5,
+        "itens_zerados": 0,
+        "itens_criticos": 0,
+        "itens_excesso": 0,
+        "participacao_venda_pct": 0.02
+      }
+    ],
+    "data_base": "2026-11-25",
+    "origem": "SmartPOS API Sync (259 SKUs 100% integrados via API)",
+    "last_sync_at": "2026-11-25T23:22:49.305Z",
+    "last_sync_brt": "25/11/2026 às 20:22 (BRT)",
+    "sync_metadata": {
+      "last_sync_at": "2026-11-25T23:22:49.305Z",
+      "last_sync_brt": "25/11/2026 às 20:22 (BRT)",
+      "sync_status": "SUCCESS",
+      "produtos_api": 261,
+      "skus_conciliados": 259,
+      "origem": "SmartPOS API Oficial v1 (cron)"
+    },
+    "total_recontagem_pendente": 0,
+    "estoque_top11": {
+      "top11": [
+        {
+          "rank": 1,
+          "produto": "SORO",
+          "precoCusto": 16215.15,
+          "precoVenda": 27311.2,
+          "pctCusto": 9.71,
+          "pctVenda": 8.91,
+          "skus": 7
+        },
+        {
+          "rank": 2,
+          "produto": "LUVAS",
+          "precoCusto": 15155.8,
+          "precoVenda": 27952.7,
+          "pctCusto": 9.08,
+          "pctVenda": 9.12,
+          "skus": 14
+        },
+        {
+          "rank": 3,
+          "produto": "SERINGAS",
+          "precoCusto": 8974.26,
+          "precoVenda": 15197.58,
+          "pctCusto": 5.38,
+          "pctVenda": 4.96,
+          "skus": 16
+        },
+        {
+          "rank": 4,
+          "produto": "CATETER",
+          "precoCusto": 6352.93,
+          "precoVenda": 12988.34,
+          "pctCusto": 3.81,
+          "pctVenda": 4.24,
+          "skus": 15
+        },
+        {
+          "rank": 5,
+          "produto": "SONDA TOM CAT",
+          "precoCusto": 4156.64,
+          "precoVenda": 9095.78,
+          "pctCusto": 2.49,
+          "pctVenda": 2.97,
+          "skus": 2
+        },
+        {
+          "rank": 6,
+          "produto": "POLIGLACTINA",
+          "precoCusto": 3415.19,
+          "precoVenda": 6148.22,
+          "pctCusto": 2.05,
+          "pctVenda": 2.01,
+          "skus": 10
+        },
+        {
+          "rank": 7,
+          "produto": "ESPARADRAPO",
+          "precoCusto": 3220.31,
+          "precoVenda": 6117.85,
+          "pctCusto": 1.93,
+          "pctVenda": 2,
+          "skus": 2
+        },
+        {
+          "rank": 8,
+          "produto": "TUBOS COLETA",
+          "precoCusto": 2915.54,
+          "precoVenda": 5558.91,
+          "pctCusto": 1.75,
+          "pctVenda": 1.81,
+          "skus": 8
+        },
+        {
+          "rank": 9,
+          "produto": "FIO NYLON",
+          "precoCusto": 2313.92,
+          "precoVenda": 4395.4,
+          "pctCusto": 1.39,
+          "pctVenda": 1.43,
+          "skus": 14
+        },
+        {
+          "rank": 10,
+          "produto": "COMPRESSA GAZE",
+          "precoCusto": 2298.8,
+          "precoVenda": 4387.2,
+          "pctCusto": 1.38,
+          "pctVenda": 1.43,
+          "skus": 6
+        },
+        {
+          "rank": 11,
+          "produto": "EQUIPO TRANSFUSÃO",
+          "precoCusto": 1801.21,
+          "precoVenda": 3492.39,
+          "pctCusto": 1.08,
+          "pctVenda": 1.14,
+          "skus": 2
+        }
+      ],
+      "demais": {
+        "rank": null,
+        "produto": "DEMAIS",
+        "precoCusto": 100117.36,
+        "precoVenda": 183762.08,
+        "pctCusto": 59.97,
+        "pctVenda": 59.97,
+        "skus": 163
+      },
+      "total": {
+        "rank": null,
+        "produto": "TOTAL",
+        "precoCusto": 166937.11,
+        "precoVenda": 306407.65,
+        "pctCusto": 100,
+        "pctVenda": 100,
+        "skus": 259
+      },
+      "top11ShareCustoPct": 40,
+      "top11ShareVendaPct": 40
+    }
+  },
   "products": [
     {
       "id": "prod-172",
@@ -137,7 +577,7 @@
       "estoque": 0,
       "estoque_minimo": null,
       "baseline_estoque": 0,
-      "baseline_at": "2026-11-25T22:54:58.147Z",
+      "baseline_at": "2026-11-25T23:22:49.305Z",
       "lucro_unitario": 9.8,
       "margem_percentual": 64.05,
       "markup_percentual": 178.18,
@@ -677,7 +1117,7 @@
       "estoque": 0,
       "estoque_minimo": null,
       "baseline_estoque": 0,
-      "baseline_at": "2026-11-25T22:54:58.147Z",
+      "baseline_at": "2026-11-25T23:22:49.305Z",
       "lucro_unitario": 0.85,
       "margem_percentual": 44.5,
       "markup_percentual": 80.19,
@@ -1727,7 +2167,7 @@
       "estoque": 0,
       "estoque_minimo": null,
       "baseline_estoque": 0,
-      "baseline_at": "2026-11-25T22:54:58.147Z",
+      "baseline_at": "2026-11-25T23:22:49.305Z",
       "lucro_unitario": 0,
       "margem_percentual": 0,
       "markup_percentual": 0,
@@ -2477,7 +2917,7 @@
       "estoque": 0,
       "estoque_minimo": null,
       "baseline_estoque": 0,
-      "baseline_at": "2026-11-25T22:54:58.147Z",
+      "baseline_at": "2026-11-25T23:22:49.305Z",
       "lucro_unitario": 23.9,
       "margem_percentual": 50,
       "markup_percentual": 100,
@@ -2507,7 +2947,7 @@
       "estoque": 0,
       "estoque_minimo": null,
       "baseline_estoque": 0,
-      "baseline_at": "2026-11-25T22:54:58.147Z",
+      "baseline_at": "2026-11-25T23:22:49.305Z",
       "lucro_unitario": 23.9,
       "margem_percentual": 50,
       "markup_percentual": 100,
@@ -2867,7 +3307,7 @@
       "estoque": 0,
       "estoque_minimo": null,
       "baseline_estoque": 0,
-      "baseline_at": "2026-11-25T22:54:58.147Z",
+      "baseline_at": "2026-11-25T23:22:49.305Z",
       "lucro_unitario": 0.77,
       "margem_percentual": 7.46,
       "markup_percentual": 8.06,
@@ -4367,7 +4807,7 @@
       "estoque": 0,
       "estoque_minimo": null,
       "baseline_estoque": 0,
-      "baseline_at": "2026-11-25T22:54:58.147Z",
+      "baseline_at": "2026-11-25T23:22:49.305Z",
       "lucro_unitario": 0.26,
       "margem_percentual": 50,
       "markup_percentual": 100,
@@ -4487,7 +4927,7 @@
       "estoque": 0,
       "estoque_minimo": null,
       "baseline_estoque": 0,
-      "baseline_at": "2026-11-25T22:54:58.147Z",
+      "baseline_at": "2026-11-25T23:22:49.305Z",
       "lucro_unitario": 0.13,
       "margem_percentual": 34.21,
       "markup_percentual": 52,
@@ -4517,7 +4957,7 @@
       "estoque": 0,
       "estoque_minimo": null,
       "baseline_estoque": 0,
-      "baseline_at": "2026-11-25T22:54:58.147Z",
+      "baseline_at": "2026-11-25T23:22:49.305Z",
       "lucro_unitario": 0.17,
       "margem_percentual": 51.52,
       "markup_percentual": 106.25,
@@ -5087,7 +5527,7 @@
       "estoque": 0,
       "estoque_minimo": null,
       "baseline_estoque": 0,
-      "baseline_at": "2026-11-25T22:54:58.147Z",
+      "baseline_at": "2026-11-25T23:22:49.305Z",
       "lucro_unitario": 2.49,
       "margem_percentual": 47.34,
       "markup_percentual": 89.89,
@@ -7770,445 +8210,5 @@
       "curva_abc": "C",
       "curva_abc_acumulada_pct": 99.13
     }
-  ],
-  "summary": {
-    "total_skus": 259,
-    "total_unidades": 65695,
-    "valor_total_custo": 166714.58,
-    "valor_total_venda": 305997.33,
-    "lucro_potencial_total": 139282.75,
-    "margem_media": 45.21,
-    "markup_medio": 87.34,
-    "total_zerados": 52,
-    "total_criticos": 12,
-    "total_negativos": 6,
-    "total_alertas": 70,
-    "total_vencidos": 11,
-    "total_vence_90d": 1,
-    "total_vence_180d": 7,
-    "total_sugestao_compra_qtd": 24907,
-    "total_sugestao_compra_custo": 17640.08,
-    "curva_abc": {
-      "A": {
-        "classe": "A",
-        "skus": 60,
-        "valor_venda": 244593.68,
-        "descricao": "80% do valor imobilizado (Alta Prioridade de Gestão)"
-      },
-      "B": {
-        "classe": "B",
-        "skus": 63,
-        "valor_venda": 46175.97,
-        "descricao": "15% do valor imobilizado (Média Prioridade)"
-      },
-      "C": {
-        "classe": "C",
-        "skus": 136,
-        "valor_venda": 15227.68,
-        "descricao": "5% do valor imobilizado (Cauda Longa / Giro Pontual)"
-      }
-    },
-    "categorias": [
-      {
-        "categoria": "Paramentação e Descartáveis",
-        "skus": 24,
-        "unidades": 6162,
-        "valor_custo": 35336.52,
-        "valor_venda": 64752.78,
-        "lucro_potencial": 29416.26,
-        "itens_zerados": 6,
-        "itens_criticos": 1,
-        "itens_excesso": 0,
-        "participacao_venda_pct": 21.16
-      },
-      {
-        "categoria": "Limpeza em Geral",
-        "skus": 15,
-        "unidades": 5818,
-        "valor_custo": 30859.94,
-        "valor_venda": 55268.94,
-        "lucro_potencial": 24409,
-        "itens_zerados": 1,
-        "itens_criticos": 0,
-        "itens_excesso": 0,
-        "participacao_venda_pct": 18.06
-      },
-      {
-        "categoria": "Sondas",
-        "skus": 75,
-        "unidades": 9207,
-        "valor_custo": 22973.88,
-        "valor_venda": 44087,
-        "lucro_potencial": 21113.12,
-        "itens_zerados": 18,
-        "itens_criticos": 0,
-        "itens_excesso": 0,
-        "participacao_venda_pct": 14.41
-      },
-      {
-        "categoria": "Uso Médico",
-        "skus": 9,
-        "unidades": 4553,
-        "valor_custo": 17763.35,
-        "valor_venda": 29787.2,
-        "lucro_potencial": 12023.85,
-        "itens_zerados": 0,
-        "itens_criticos": 0,
-        "itens_excesso": 0,
-        "participacao_venda_pct": 9.73
-      },
-      {
-        "categoria": "Agulhas e Seringas",
-        "skus": 28,
-        "unidades": 18762,
-        "valor_custo": 13729.8,
-        "valor_venda": 24874.48,
-        "lucro_potencial": 11144.68,
-        "itens_zerados": 7,
-        "itens_criticos": 4,
-        "itens_excesso": 0,
-        "participacao_venda_pct": 8.13
-      },
-      {
-        "categoria": "Dispositivo e Acessorios",
-        "skus": 14,
-        "unidades": 5845,
-        "valor_custo": 6869.6,
-        "valor_venda": 13090.6,
-        "lucro_potencial": 6221,
-        "itens_zerados": 2,
-        "itens_criticos": 1,
-        "itens_excesso": 0,
-        "participacao_venda_pct": 4.28
-      },
-      {
-        "categoria": "Sutura",
-        "skus": 27,
-        "unidades": 693,
-        "valor_custo": 6386.51,
-        "valor_venda": 11656.42,
-        "lucro_potencial": 5269.91,
-        "itens_zerados": 6,
-        "itens_criticos": 0,
-        "itens_excesso": 0,
-        "participacao_venda_pct": 3.81
-      },
-      {
-        "categoria": "Cateter",
-        "skus": 8,
-        "unidades": 97,
-        "valor_custo": 5608.06,
-        "valor_venda": 11445.98,
-        "lucro_potencial": 5837.92,
-        "itens_zerados": 2,
-        "itens_criticos": 0,
-        "itens_excesso": 0,
-        "participacao_venda_pct": 3.74
-      },
-      {
-        "categoria": "Descartáveis Médicos",
-        "skus": 2,
-        "unidades": 597,
-        "valor_custo": 5276.1,
-        "valor_venda": 9496.98,
-        "lucro_potencial": 4220.88,
-        "itens_zerados": 0,
-        "itens_criticos": 0,
-        "itens_excesso": 0,
-        "participacao_venda_pct": 3.1
-      },
-      {
-        "categoria": "Coletores",
-        "skus": 18,
-        "unidades": 2871,
-        "valor_custo": 5038.08,
-        "valor_venda": 9396.77,
-        "lucro_potencial": 4358.69,
-        "itens_zerados": 3,
-        "itens_criticos": 3,
-        "itens_excesso": 0,
-        "participacao_venda_pct": 3.07
-      },
-      {
-        "categoria": "Fitas e Esparadrapos",
-        "skus": 2,
-        "unidades": 362,
-        "valor_custo": 3220.31,
-        "valor_venda": 6117.85,
-        "lucro_potencial": 2897.54,
-        "itens_zerados": 0,
-        "itens_criticos": 0,
-        "itens_excesso": 0,
-        "participacao_venda_pct": 2
-      },
-      {
-        "categoria": "Geral",
-        "skus": 1,
-        "unidades": 749,
-        "valor_custo": 3070.9,
-        "valor_venda": 5527.62,
-        "lucro_potencial": 2456.72,
-        "itens_zerados": 0,
-        "itens_criticos": 0,
-        "itens_excesso": 0,
-        "participacao_venda_pct": 1.81
-      },
-      {
-        "categoria": "Terapia de Infusão",
-        "skus": 5,
-        "unidades": 3468,
-        "valor_custo": 2159.24,
-        "valor_venda": 4537.09,
-        "lucro_potencial": 2377.85,
-        "itens_zerados": 2,
-        "itens_criticos": 0,
-        "itens_excesso": 0,
-        "participacao_venda_pct": 1.48
-      },
-      {
-        "categoria": "Gaze",
-        "skus": 6,
-        "unidades": 277,
-        "valor_custo": 2298.8,
-        "valor_venda": 4387.2,
-        "lucro_potencial": 2088.4,
-        "itens_zerados": 2,
-        "itens_criticos": 0,
-        "itens_excesso": 0,
-        "participacao_venda_pct": 1.43
-      },
-      {
-        "categoria": "Esterilização",
-        "skus": 3,
-        "unidades": 24,
-        "valor_custo": 1982.56,
-        "valor_venda": 3568.4,
-        "lucro_potencial": 1585.84,
-        "itens_zerados": 1,
-        "itens_criticos": 0,
-        "itens_excesso": 0,
-        "participacao_venda_pct": 1.17
-      },
-      {
-        "categoria": "Atadura",
-        "skus": 7,
-        "unidades": 1651,
-        "valor_custo": 1202.47,
-        "valor_venda": 2459.04,
-        "lucro_potencial": 1256.57,
-        "itens_zerados": 1,
-        "itens_criticos": 0,
-        "itens_excesso": 0,
-        "participacao_venda_pct": 0.8
-      },
-      {
-        "categoria": "Descarte de Resíduos",
-        "skus": 2,
-        "unidades": 192,
-        "valor_custo": 911.58,
-        "valor_venda": 1735.16,
-        "lucro_potencial": 823.58,
-        "itens_zerados": 0,
-        "itens_criticos": 1,
-        "itens_excesso": 0,
-        "participacao_venda_pct": 0.57
-      },
-      {
-        "categoria": "Algodão",
-        "skus": 2,
-        "unidades": 54,
-        "valor_custo": 808,
-        "valor_venda": 1428.8,
-        "lucro_potencial": 620.8,
-        "itens_zerados": 0,
-        "itens_criticos": 0,
-        "itens_excesso": 0,
-        "participacao_venda_pct": 0.47
-      },
-      {
-        "categoria": "Scalps",
-        "skus": 7,
-        "unidades": 4213,
-        "valor_custo": 650.62,
-        "valor_venda": 1348.16,
-        "lucro_potencial": 697.54,
-        "itens_zerados": 1,
-        "itens_criticos": 2,
-        "itens_excesso": 0,
-        "participacao_venda_pct": 0.44
-      },
-      {
-        "categoria": "Laminas e Bisturi",
-        "skus": 2,
-        "unidades": 11,
-        "valor_custo": 301.2,
-        "valor_venda": 542.5,
-        "lucro_potencial": 241.3,
-        "itens_zerados": 0,
-        "itens_criticos": 0,
-        "itens_excesso": 0,
-        "participacao_venda_pct": 0.18
-      },
-      {
-        "categoria": "Equipos",
-        "skus": 1,
-        "unidades": 88,
-        "valor_custo": 230.56,
-        "valor_venda": 415.36,
-        "lucro_potencial": 184.8,
-        "itens_zerados": 0,
-        "itens_criticos": 0,
-        "itens_excesso": 0,
-        "participacao_venda_pct": 0.14
-      },
-      {
-        "categoria": "Curativos",
-        "skus": 1,
-        "unidades": 1,
-        "valor_custo": 36.5,
-        "valor_venda": 73,
-        "lucro_potencial": 36.5,
-        "itens_zerados": 0,
-        "itens_criticos": 0,
-        "itens_excesso": 0,
-        "participacao_venda_pct": 0.02
-      }
-    ],
-    "data_base": "2026-11-25",
-    "origem": "SmartPOS API Sync (259 SKUs 100% integrados via API)",
-    "last_sync_at": "2026-11-25T22:54:58.147Z",
-    "last_sync_brt": "25/11/2026 às 19:54 (BRT)",
-    "sync_metadata": {
-      "last_sync_at": "2026-11-25T22:54:58.147Z",
-      "last_sync_brt": "25/11/2026 às 19:54 (BRT)",
-      "sync_status": "SUCCESS",
-      "produtos_api": 261,
-      "skus_conciliados": 259,
-      "origem": "SmartPOS API Oficial v1"
-    },
-    "total_recontagem_pendente": 0,
-    "estoque_top11": {
-      "top11": [
-        {
-          "rank": 1,
-          "produto": "SORO",
-          "precoCusto": 16215.15,
-          "precoVenda": 27311.2,
-          "pctCusto": 9.71,
-          "pctVenda": 8.91,
-          "skus": 7
-        },
-        {
-          "rank": 2,
-          "produto": "LUVAS",
-          "precoCusto": 15155.8,
-          "precoVenda": 27952.7,
-          "pctCusto": 9.08,
-          "pctVenda": 9.12,
-          "skus": 14
-        },
-        {
-          "rank": 3,
-          "produto": "SERINGAS",
-          "precoCusto": 8974.26,
-          "precoVenda": 15197.58,
-          "pctCusto": 5.38,
-          "pctVenda": 4.96,
-          "skus": 16
-        },
-        {
-          "rank": 4,
-          "produto": "CATETER",
-          "precoCusto": 6352.93,
-          "precoVenda": 12988.34,
-          "pctCusto": 3.81,
-          "pctVenda": 4.24,
-          "skus": 15
-        },
-        {
-          "rank": 5,
-          "produto": "SONDA TOM CAT",
-          "precoCusto": 4156.64,
-          "precoVenda": 9095.78,
-          "pctCusto": 2.49,
-          "pctVenda": 2.97,
-          "skus": 2
-        },
-        {
-          "rank": 6,
-          "produto": "POLIGLACTINA",
-          "precoCusto": 3415.19,
-          "precoVenda": 6148.22,
-          "pctCusto": 2.05,
-          "pctVenda": 2.01,
-          "skus": 10
-        },
-        {
-          "rank": 7,
-          "produto": "ESPARADRAPO",
-          "precoCusto": 3220.31,
-          "precoVenda": 6117.85,
-          "pctCusto": 1.93,
-          "pctVenda": 2,
-          "skus": 2
-        },
-        {
-          "rank": 8,
-          "produto": "TUBOS COLETA",
-          "precoCusto": 2915.54,
-          "precoVenda": 5558.91,
-          "pctCusto": 1.75,
-          "pctVenda": 1.81,
-          "skus": 8
-        },
-        {
-          "rank": 9,
-          "produto": "FIO NYLON",
-          "precoCusto": 2313.92,
-          "precoVenda": 4395.4,
-          "pctCusto": 1.39,
-          "pctVenda": 1.43,
-          "skus": 14
-        },
-        {
-          "rank": 10,
-          "produto": "COMPRESSA GAZE",
-          "precoCusto": 2298.8,
-          "precoVenda": 4387.2,
-          "pctCusto": 1.38,
-          "pctVenda": 1.43,
-          "skus": 6
-        },
-        {
-          "rank": 11,
-          "produto": "EQUIPO TRANSFUSÃO",
-          "precoCusto": 1801.21,
-          "precoVenda": 3492.39,
-          "pctCusto": 1.08,
-          "pctVenda": 1.14,
-          "skus": 2
-        }
-      ],
-      "demais": {
-        "rank": null,
-        "produto": "DEMAIS",
-        "precoCusto": 100117.36,
-        "precoVenda": 183762.08,
-        "pctCusto": 59.97,
-        "pctVenda": 59.97,
-        "skus": 163
-      },
-      "total": {
-        "rank": null,
-        "produto": "TOTAL",
-        "precoCusto": 166937.11,
-        "precoVenda": 306407.65,
-        "pctCusto": 100,
-        "pctVenda": 100,
-        "skus": 259
-      },
-      "top11ShareCustoPct": 40,
-      "top11ShareVendaPct": 40
-    }
-  }
+  ]
 }
