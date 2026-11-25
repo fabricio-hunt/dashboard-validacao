@@ -88,7 +88,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 50.87
+      "curva_abc_acumulada_pct": 50.82
     },
     {
       "id": "prod-48",
@@ -118,7 +118,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 61.31
+      "curva_abc_acumulada_pct": 61.25
     },
     {
       "id": "prod-61",
@@ -178,7 +178,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 63.84
+      "curva_abc_acumulada_pct": 63.77
     },
     {
       "id": "prod-115",
@@ -238,7 +238,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 80.7
+      "curva_abc_acumulada_pct": 80.61
     },
     {
       "id": "prod-142",
@@ -298,7 +298,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 81.46
+      "curva_abc_acumulada_pct": 81.38
     },
     {
       "id": "prod-105",
@@ -358,7 +358,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 85.51
+      "curva_abc_acumulada_pct": 85.42
     },
     {
       "id": "prod-104",
@@ -418,7 +418,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 78.66
+      "curva_abc_acumulada_pct": 78.58
     },
     {
       "id": "prod-197",
@@ -448,7 +448,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 76.4
+      "curva_abc_acumulada_pct": 76.32
     },
     {
       "id": "prod-244",
@@ -478,7 +478,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 89.83
+      "curva_abc_acumulada_pct": 89.74
     },
     {
       "id": "prod-55",
@@ -508,7 +508,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 30.32
+      "curva_abc_acumulada_pct": 30.29
     },
     {
       "id": "prod-49",
@@ -538,7 +538,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 34.77
+      "curva_abc_acumulada_pct": 34.74
     },
     {
       "id": "prod-41",
@@ -568,7 +568,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "C",
-      "curva_abc_acumulada_pct": 96.86
+      "curva_abc_acumulada_pct": 96.76
     },
     {
       "id": "prod-234",
@@ -598,7 +598,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 82.91
+      "curva_abc_acumulada_pct": 82.82
     },
     {
       "id": "prod-95",
@@ -628,7 +628,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "C",
-      "curva_abc_acumulada_pct": 98.33
+      "curva_abc_acumulada_pct": 98.34
     },
     {
       "id": "prod-96",
@@ -718,7 +718,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 86.98
+      "curva_abc_acumulada_pct": 86.89
     },
     {
       "id": "prod-42",
@@ -748,7 +748,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 86.69
+      "curva_abc_acumulada_pct": 86.6
     },
     {
       "id": "prod-140",
@@ -808,7 +808,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 6.29
+      "curva_abc_acumulada_pct": 6.28
     },
     {
       "id": "prod-60",
@@ -838,7 +838,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 25.81
+      "curva_abc_acumulada_pct": 25.79
     },
     {
       "id": "prod-7",
@@ -898,7 +898,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 94.72
+      "curva_abc_acumulada_pct": 94.63
     },
     {
       "id": "prod-21",
@@ -928,7 +928,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 67.71
+      "curva_abc_acumulada_pct": 67.64
     },
     {
       "id": "prod-22",
@@ -958,7 +958,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 79.09
+      "curva_abc_acumulada_pct": 79.01
     },
     {
       "id": "prod-59",
@@ -988,7 +988,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 28.08
+      "curva_abc_acumulada_pct": 28.05
     },
     {
       "id": "prod-39",
@@ -1048,7 +1048,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 32.55
+      "curva_abc_acumulada_pct": 32.52
     },
     {
       "id": "prod-40",
@@ -1108,7 +1108,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 68.45
+      "curva_abc_acumulada_pct": 68.38
     },
     {
       "id": "prod-162",
@@ -1138,7 +1138,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 72.18
+      "curva_abc_acumulada_pct": 72.11
     },
     {
       "id": "prod-18",
@@ -1258,7 +1258,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 56.03
+      "curva_abc_acumulada_pct": 55.97
     },
     {
       "id": "prod-194",
@@ -1288,7 +1288,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 54.86
+      "curva_abc_acumulada_pct": 54.8
     },
     {
       "id": "prod-195",
@@ -1318,7 +1318,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "C",
-      "curva_abc_acumulada_pct": 97.08
+      "curva_abc_acumulada_pct": 96.98
     },
     {
       "id": "prod-47288034",
@@ -1378,7 +1378,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 62.18
+      "curva_abc_acumulada_pct": 62.12
     },
     {
       "id": "prod-149",
@@ -1408,7 +1408,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "C",
-      "curva_abc_acumulada_pct": 95.13
+      "curva_abc_acumulada_pct": 95.03
     },
     {
       "id": "prod-150",
@@ -1438,7 +1438,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 81.09
+      "curva_abc_acumulada_pct": 81
     },
     {
       "id": "prod-63",
@@ -1468,7 +1468,7 @@
       "sugestao_compra_qtd": 18,
       "sugestao_compra_custo": 70.92,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 90.26
+      "curva_abc_acumulada_pct": 90.16
     },
     {
       "id": "prod-64",
@@ -1498,7 +1498,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 82.56
+      "curva_abc_acumulada_pct": 82.47
     },
     {
       "id": "prod-214",
@@ -1528,7 +1528,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "C",
-      "curva_abc_acumulada_pct": 95.9
+      "curva_abc_acumulada_pct": 95.8
     },
     {
       "id": "prod-201",
@@ -1558,7 +1558,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 59.48
+      "curva_abc_acumulada_pct": 59.42
     },
     {
       "id": "prod-200",
@@ -1648,7 +1648,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 93.44
+      "curva_abc_acumulada_pct": 93.34
     },
     {
       "id": "prod-43",
@@ -1768,7 +1768,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "C",
-      "curva_abc_acumulada_pct": 97.7
+      "curva_abc_acumulada_pct": 97.71
     },
     {
       "id": "prod-23",
@@ -1828,7 +1828,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 58.33
+      "curva_abc_acumulada_pct": 58.27
     },
     {
       "id": "prod-47290287",
@@ -1888,7 +1888,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 94.86
+      "curva_abc_acumulada_pct": 94.76
     },
     {
       "id": "prod-127",
@@ -1918,7 +1918,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 84.23
+      "curva_abc_acumulada_pct": 84.15
     },
     {
       "id": "prod-2",
@@ -2008,7 +2008,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 64.64
+      "curva_abc_acumulada_pct": 64.57
     },
     {
       "id": "prod-106",
@@ -2038,7 +2038,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 83.25
+      "curva_abc_acumulada_pct": 83.16
     },
     {
       "id": "prod-56",
@@ -2068,7 +2068,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 47.8
+      "curva_abc_acumulada_pct": 47.76
     },
     {
       "id": "prod-50",
@@ -2098,7 +2098,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 23.41
+      "curva_abc_acumulada_pct": 23.39
     },
     {
       "id": "prod-38",
@@ -2158,7 +2158,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 38.97
+      "curva_abc_acumulada_pct": 38.93
     },
     {
       "id": "prod-178",
@@ -2188,7 +2188,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 75.93
+      "curva_abc_acumulada_pct": 75.85
     },
     {
       "id": "prod-216",
@@ -2218,7 +2218,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 92.33
+      "curva_abc_acumulada_pct": 92.24
     },
     {
       "id": "prod-47362521",
@@ -2248,7 +2248,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 88.6
+      "curva_abc_acumulada_pct": 88.51
     },
     {
       "id": "prod-141",
@@ -2308,7 +2308,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 69.15
+      "curva_abc_acumulada_pct": 69.08
     },
     {
       "id": "prod-132",
@@ -2338,7 +2338,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 90.46
+      "curva_abc_acumulada_pct": 90.37
     },
     {
       "id": "prod-131",
@@ -2368,7 +2368,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 77.78
+      "curva_abc_acumulada_pct": 77.7
     },
     {
       "id": "prod-138",
@@ -2608,7 +2608,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 91.44
+      "curva_abc_acumulada_pct": 91.35
     },
     {
       "id": "prod-228",
@@ -2668,7 +2668,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 94.17
+      "curva_abc_acumulada_pct": 94.07
     },
     {
       "id": "prod-221",
@@ -2728,7 +2728,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 91.63
+      "curva_abc_acumulada_pct": 91.53
     },
     {
       "id": "prod-52",
@@ -2758,7 +2758,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 10.59
+      "curva_abc_acumulada_pct": 10.58
     },
     {
       "id": "prod-47",
@@ -2788,7 +2788,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 91.8
+      "curva_abc_acumulada_pct": 91.71
     },
     {
       "id": "prod-233",
@@ -2818,7 +2818,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "C",
-      "curva_abc_acumulada_pct": 95.26
+      "curva_abc_acumulada_pct": 95.17
     },
     {
       "id": "prod-128",
@@ -2938,7 +2938,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 63.02
+      "curva_abc_acumulada_pct": 62.96
     },
     {
       "id": "prod-177",
@@ -2998,7 +2998,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 85.19
+      "curva_abc_acumulada_pct": 85.11
     },
     {
       "id": "prod-204",
@@ -3028,7 +3028,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 84.88
+      "curva_abc_acumulada_pct": 84.79
     },
     {
       "id": "prod-205",
@@ -3058,7 +3058,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 85.81
+      "curva_abc_acumulada_pct": 85.73
     },
     {
       "id": "prod-70",
@@ -3088,7 +3088,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 60.42
+      "curva_abc_acumulada_pct": 60.36
     },
     {
       "id": "prod-71",
@@ -3118,7 +3118,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 66.97
+      "curva_abc_acumulada_pct": 66.9
     },
     {
       "id": "prod-251",
@@ -3148,7 +3148,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 53.67
+      "curva_abc_acumulada_pct": 53.62
     },
     {
       "id": "prod-218",
@@ -3178,7 +3178,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 94.03
+      "curva_abc_acumulada_pct": 93.93
     },
     {
       "id": "prod-223",
@@ -3208,7 +3208,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 52.35
+      "curva_abc_acumulada_pct": 52.3
     },
     {
       "id": "prod-250",
@@ -3238,7 +3238,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 36.98
+      "curva_abc_acumulada_pct": 36.94
     },
     {
       "id": "prod-213",
@@ -3268,7 +3268,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 87.8
+      "curva_abc_acumulada_pct": 87.71
     },
     {
       "id": "prod-72",
@@ -3298,7 +3298,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 71.02
+      "curva_abc_acumulada_pct": 70.94
     },
     {
       "id": "prod-73",
@@ -3358,7 +3358,7 @@
       "sugestao_compra_qtd": 5,
       "sugestao_compra_custo": 84,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 78.23
+      "curva_abc_acumulada_pct": 78.15
     },
     {
       "id": "prod-220",
@@ -3388,7 +3388,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 66.2
+      "curva_abc_acumulada_pct": 66.13
     },
     {
       "id": "prod-44",
@@ -3418,7 +3418,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 76.87
+      "curva_abc_acumulada_pct": 76.79
     },
     {
       "id": "prod-143",
@@ -3478,7 +3478,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 92.82
+      "curva_abc_acumulada_pct": 92.73
     },
     {
       "id": "prod-181",
@@ -3508,7 +3508,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 90.67
+      "curva_abc_acumulada_pct": 90.57
     },
     {
       "id": "prod-51",
@@ -3538,7 +3538,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 44.51
+      "curva_abc_acumulada_pct": 44.46
     },
     {
       "id": "prod-54",
@@ -3568,7 +3568,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 81.84
+      "curva_abc_acumulada_pct": 81.75
     },
     {
       "id": "prod-107",
@@ -3598,7 +3598,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 73.32
+      "curva_abc_acumulada_pct": 73.24
     },
     {
       "id": "prod-145",
@@ -3688,7 +3688,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 87.26
+      "curva_abc_acumulada_pct": 87.17
     },
     {
       "id": "prod-34",
@@ -3718,7 +3718,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 91.06
+      "curva_abc_acumulada_pct": 90.97
     },
     {
       "id": "prod-129",
@@ -3778,7 +3778,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 86.41
+      "curva_abc_acumulada_pct": 86.32
     },
     {
       "id": "prod-137",
@@ -3868,7 +3868,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 74.41
+      "curva_abc_acumulada_pct": 74.33
     },
     {
       "id": "prod-130",
@@ -3898,7 +3898,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 71.61
+      "curva_abc_acumulada_pct": 71.53
     },
     {
       "id": "prod-245",
@@ -3928,7 +3928,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 89.11
+      "curva_abc_acumulada_pct": 89.02
     },
     {
       "id": "prod-246",
@@ -3958,7 +3958,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "C",
-      "curva_abc_acumulada_pct": 96.62
+      "curva_abc_acumulada_pct": 96.52
     },
     {
       "id": "prod-247",
@@ -4018,7 +4018,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 88.86
+      "curva_abc_acumulada_pct": 88.77
     },
     {
       "id": "prod-232",
@@ -4048,7 +4048,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 69.8
+      "curva_abc_acumulada_pct": 69.73
     },
     {
       "id": "prod-230",
@@ -4078,7 +4078,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 93.73
+      "curva_abc_acumulada_pct": 93.64
     },
     {
       "id": "prod-231",
@@ -4108,7 +4108,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 82.2
+      "curva_abc_acumulada_pct": 82.12
     },
     {
       "id": "prod-222",
@@ -4138,7 +4138,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 89.59
+      "curva_abc_acumulada_pct": 89.5
     },
     {
       "id": "prod-75",
@@ -4198,7 +4198,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "C",
-      "curva_abc_acumulada_pct": 97.98
+      "curva_abc_acumulada_pct": 97.99
     },
     {
       "id": "prod-155",
@@ -4258,7 +4258,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "C",
-      "curva_abc_acumulada_pct": 97.6
+      "curva_abc_acumulada_pct": 97.5
     },
     {
       "id": "prod-74",
@@ -4348,7 +4348,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 91.25
+      "curva_abc_acumulada_pct": 91.16
     },
     {
       "id": "prod-78",
@@ -4408,7 +4408,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "C",
-      "curva_abc_acumulada_pct": 97.29
+      "curva_abc_acumulada_pct": 97.19
     },
     {
       "id": "prod-31",
@@ -4588,7 +4588,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 49.35
+      "curva_abc_acumulada_pct": 49.3
     },
     {
       "id": "prod-99",
@@ -4648,7 +4648,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 70.42
+      "curva_abc_acumulada_pct": 70.35
     },
     {
       "id": "prod-146",
@@ -4678,7 +4678,7 @@
       "sugestao_compra_qtd": 2040,
       "sugestao_compra_custo": 1489.2,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 88.07
+      "curva_abc_acumulada_pct": 87.98
     },
     {
       "id": "prod-199",
@@ -4708,7 +4708,7 @@
       "sugestao_compra_qtd": 1400,
       "sugestao_compra_custo": 350,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 77.32
+      "curva_abc_acumulada_pct": 77.25
     },
     {
       "id": "prod-210",
@@ -4738,7 +4738,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 72.75
+      "curva_abc_acumulada_pct": 72.68
     },
     {
       "id": "prod-147",
@@ -4768,7 +4768,7 @@
       "sugestao_compra_qtd": 4125,
       "sugestao_compra_custo": 1815,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 74.94
+      "curva_abc_acumulada_pct": 74.86
     },
     {
       "id": "prod-102",
@@ -4798,7 +4798,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 73.87
+      "curva_abc_acumulada_pct": 73.8
     },
     {
       "id": "prod-148",
@@ -4828,7 +4828,7 @@
       "sugestao_compra_qtd": 3482,
       "sugestao_compra_custo": 1009.78,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 84.56
+      "curva_abc_acumulada_pct": 84.47
     },
     {
       "id": "prod-9",
@@ -4858,7 +4858,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 46.26
+      "curva_abc_acumulada_pct": 46.21
     },
     {
       "id": "prod-8",
@@ -4888,7 +4888,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 40.84
+      "curva_abc_acumulada_pct": 40.8
     },
     {
       "id": "prod-10",
@@ -4918,7 +4918,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 42.7
+      "curva_abc_acumulada_pct": 42.66
     },
     {
       "id": "prod-11",
@@ -4948,7 +4948,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 83.58
+      "curva_abc_acumulada_pct": 83.49
     },
     {
       "id": "prod-12",
@@ -5008,7 +5008,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 83.91
+      "curva_abc_acumulada_pct": 83.82
     },
     {
       "id": "prod-15",
@@ -5038,7 +5038,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 87.53
+      "curva_abc_acumulada_pct": 87.44
     },
     {
       "id": "prod-16",
@@ -5338,7 +5338,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 93.29
+      "curva_abc_acumulada_pct": 93.19
     },
     {
       "id": "prod-81",
@@ -5368,7 +5368,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 92.66
+      "curva_abc_acumulada_pct": 92.57
     },
     {
       "id": "prod-82",
@@ -5398,7 +5398,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 93.58
+      "curva_abc_acumulada_pct": 93.49
     },
     {
       "id": "prod-83",
@@ -5428,7 +5428,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 92.5
+      "curva_abc_acumulada_pct": 92.4
     },
     {
       "id": "prod-5",
@@ -5458,7 +5458,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 89.36
+      "curva_abc_acumulada_pct": 89.26
     },
     {
       "id": "prod-45",
@@ -5548,7 +5548,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 93.14
+      "curva_abc_acumulada_pct": 93.04
     },
     {
       "id": "prod-85",
@@ -5578,7 +5578,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 92.16
+      "curva_abc_acumulada_pct": 92.06
     },
     {
       "id": "prod-86",
@@ -5668,7 +5668,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 90.05
+      "curva_abc_acumulada_pct": 89.95
     },
     {
       "id": "prod-190",
@@ -5728,7 +5728,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 90.87
+      "curva_abc_acumulada_pct": 90.77
     },
     {
       "id": "prod-183",
@@ -5908,7 +5908,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "C",
-      "curva_abc_acumulada_pct": 97.18
+      "curva_abc_acumulada_pct": 97.08
     },
     {
       "id": "prod-189",
@@ -5938,7 +5938,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "C",
-      "curva_abc_acumulada_pct": 96.39
+      "curva_abc_acumulada_pct": 96.29
     },
     {
       "id": "prod-123",
@@ -5968,7 +5968,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "C",
-      "curva_abc_acumulada_pct": 95.78
+      "curva_abc_acumulada_pct": 95.68
     },
     {
       "id": "prod-47119236",
@@ -6118,7 +6118,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "C",
-      "curva_abc_acumulada_pct": 95.53
+      "curva_abc_acumulada_pct": 95.43
     },
     {
       "id": "prod-47119237",
@@ -6268,7 +6268,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 20.69
+      "curva_abc_acumulada_pct": 20.67
     },
     {
       "id": "prod-88",
@@ -6298,7 +6298,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "C",
-      "curva_abc_acumulada_pct": 95.4
+      "curva_abc_acumulada_pct": 95.3
     },
     {
       "id": "prod-89",
@@ -6328,7 +6328,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 91.98
+      "curva_abc_acumulada_pct": 91.89
     },
     {
       "id": "prod-170",
@@ -6418,7 +6418,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 94.45
+      "curva_abc_acumulada_pct": 94.35
     },
     {
       "id": "prod-116",
@@ -6448,7 +6448,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 92.98
+      "curva_abc_acumulada_pct": 92.89
     },
     {
       "id": "prod-209",
@@ -6478,7 +6478,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 57.18
+      "curva_abc_acumulada_pct": 57.12
     },
     {
       "id": "prod-207",
@@ -6508,7 +6508,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 14.51
+      "curva_abc_acumulada_pct": 14.5
     },
     {
       "id": "prod-206",
@@ -6538,7 +6538,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 17.72
+      "curva_abc_acumulada_pct": 17.7
     },
     {
       "id": "prod-208",
@@ -6598,7 +6598,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 75.44
+      "curva_abc_acumulada_pct": 75.36
     },
     {
       "id": "prod-237",
@@ -6614,21 +6614,21 @@
       "categoria": "Uso Médico",
       "custo": 6.45,
       "valor_venda": 8.96,
-      "estoque": -9,
+      "estoque": 35,
       "estoque_minimo": null,
-      "baseline_estoque": 1,
-      "baseline_at": "2026-11-20T18:30:55Z",
+      "baseline_estoque": 35,
+      "baseline_at": "2026-11-25T23:16:11.289Z",
       "lucro_unitario": 2.51,
       "margem_percentual": 28.01,
       "markup_percentual": 38.91,
-      "valor_total_custo": -58.05,
-      "valor_total_venda": -80.64,
-      "lucro_potencial": -22.59,
-      "status_estoque": "NEGATIVO",
+      "valor_total_custo": 225.75,
+      "valor_total_venda": 313.6,
+      "lucro_potencial": 87.85,
+      "status_estoque": "NORMAL",
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "C",
-      "curva_abc_acumulada_pct": 100
+      "curva_abc_acumulada_pct": 97.61
     },
     {
       "id": "prod-125",
@@ -6658,7 +6658,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 94.31
+      "curva_abc_acumulada_pct": 94.21
     },
     {
       "id": "prod-164",
@@ -6718,7 +6718,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "C",
-      "curva_abc_acumulada_pct": 96.02
+      "curva_abc_acumulada_pct": 95.92
     },
     {
       "id": "prod-37",
@@ -6778,7 +6778,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "C",
-      "curva_abc_acumulada_pct": 97.4
+      "curva_abc_acumulada_pct": 97.3
     },
     {
       "id": "prod-91",
@@ -6808,7 +6808,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 79.51
+      "curva_abc_acumulada_pct": 79.43
     },
     {
       "id": "prod-6",
@@ -6838,7 +6838,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 93.88
+      "curva_abc_acumulada_pct": 93.79
     },
     {
       "id": "prod-238",
@@ -6868,7 +6868,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 79.91
+      "curva_abc_acumulada_pct": 79.83
     },
     {
       "id": "prod-92",
@@ -6928,7 +6928,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 80.3
+      "curva_abc_acumulada_pct": 80.22
     },
     {
       "id": "prod-165",
@@ -6958,7 +6958,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 86.12
+      "curva_abc_acumulada_pct": 86.03
     },
     {
       "id": "prod-243",
@@ -6988,7 +6988,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "A",
-      "curva_abc_acumulada_pct": 65.42
+      "curva_abc_acumulada_pct": 65.36
     },
     {
       "id": "prod-169",
@@ -7018,7 +7018,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 94.59
+      "curva_abc_acumulada_pct": 94.49
     },
     {
       "id": "prod-157",
@@ -7048,7 +7048,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "C",
-      "curva_abc_acumulada_pct": 96.14
+      "curva_abc_acumulada_pct": 96.05
     },
     {
       "id": "prod-167",
@@ -7168,7 +7168,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "C",
-      "curva_abc_acumulada_pct": 97.5
+      "curva_abc_acumulada_pct": 97.4
     },
     {
       "id": "prod-119",
@@ -7228,7 +7228,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "C",
-      "curva_abc_acumulada_pct": 96.97
+      "curva_abc_acumulada_pct": 96.87
     },
     {
       "id": "prod-120",
@@ -7288,7 +7288,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 94.99
+      "curva_abc_acumulada_pct": 94.9
     },
     {
       "id": "prod-168",
@@ -7318,7 +7318,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "C",
-      "curva_abc_acumulada_pct": 95.65
+      "curva_abc_acumulada_pct": 95.56
     },
     {
       "id": "prod-121",
@@ -7408,7 +7408,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "C",
-      "curva_abc_acumulada_pct": 96.5
+      "curva_abc_acumulada_pct": 96.41
     },
     {
       "id": "prod-158",
@@ -7498,7 +7498,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "C",
-      "curva_abc_acumulada_pct": 96.74
+      "curva_abc_acumulada_pct": 96.64
     },
     {
       "id": "prod-160",
@@ -7528,7 +7528,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "C",
-      "curva_abc_acumulada_pct": 98.16
+      "curva_abc_acumulada_pct": 98.17
     },
     {
       "id": "prod-161",
@@ -7558,7 +7558,7 @@
       "sugestao_compra_qtd": 0,
       "sugestao_compra_custo": 0,
       "curva_abc": "C",
-      "curva_abc_acumulada_pct": 96.27
+      "curva_abc_acumulada_pct": 96.17
     },
     {
       "id": "prod-117",
@@ -7738,7 +7738,7 @@
       "sugestao_compra_qtd": 7,
       "sugestao_compra_custo": 227.5,
       "curva_abc": "B",
-      "curva_abc_acumulada_pct": 88.34
+      "curva_abc_acumulada_pct": 88.25
     },
     {
       "id": "prod-144",
@@ -7773,16 +7773,16 @@
   ],
   "summary": {
     "total_skus": 259,
-    "total_unidades": 65651,
-    "valor_total_custo": 166430.78,
-    "valor_total_venda": 305603.09,
-    "lucro_potencial_total": 139172.31,
+    "total_unidades": 65695,
+    "valor_total_custo": 166714.58,
+    "valor_total_venda": 305997.33,
+    "lucro_potencial_total": 139282.75,
     "margem_media": 45.21,
     "markup_medio": 87.34,
     "total_zerados": 52,
     "total_criticos": 12,
-    "total_negativos": 7,
-    "total_alertas": 71,
+    "total_negativos": 6,
+    "total_alertas": 70,
     "total_vencidos": 11,
     "total_vence_90d": 1,
     "total_vence_180d": 7,
@@ -7804,7 +7804,7 @@
       "C": {
         "classe": "C",
         "skus": 136,
-        "valor_venda": 14833.44,
+        "valor_venda": 15227.68,
         "descricao": "5% do valor imobilizado (Cauda Longa / Giro Pontual)"
       }
     },
@@ -7819,7 +7819,7 @@
         "itens_zerados": 6,
         "itens_criticos": 1,
         "itens_excesso": 0,
-        "participacao_venda_pct": 21.19
+        "participacao_venda_pct": 21.16
       },
       {
         "categoria": "Limpeza em Geral",
@@ -7831,7 +7831,7 @@
         "itens_zerados": 1,
         "itens_criticos": 0,
         "itens_excesso": 0,
-        "participacao_venda_pct": 18.09
+        "participacao_venda_pct": 18.06
       },
       {
         "categoria": "Sondas",
@@ -7843,19 +7843,19 @@
         "itens_zerados": 18,
         "itens_criticos": 0,
         "itens_excesso": 0,
-        "participacao_venda_pct": 14.43
+        "participacao_venda_pct": 14.41
       },
       {
         "categoria": "Uso Médico",
         "skus": 9,
-        "unidades": 4509,
-        "valor_custo": 17479.55,
-        "valor_venda": 29392.96,
-        "lucro_potencial": 11913.41,
+        "unidades": 4553,
+        "valor_custo": 17763.35,
+        "valor_venda": 29787.2,
+        "lucro_potencial": 12023.85,
         "itens_zerados": 0,
         "itens_criticos": 0,
         "itens_excesso": 0,
-        "participacao_venda_pct": 9.62
+        "participacao_venda_pct": 9.73
       },
       {
         "categoria": "Agulhas e Seringas",
@@ -7867,7 +7867,7 @@
         "itens_zerados": 7,
         "itens_criticos": 4,
         "itens_excesso": 0,
-        "participacao_venda_pct": 8.14
+        "participacao_venda_pct": 8.13
       },
       {
         "categoria": "Dispositivo e Acessorios",
@@ -7903,7 +7903,7 @@
         "itens_zerados": 2,
         "itens_criticos": 0,
         "itens_excesso": 0,
-        "participacao_venda_pct": 3.75
+        "participacao_venda_pct": 3.74
       },
       {
         "categoria": "Descartáveis Médicos",
@@ -7915,7 +7915,7 @@
         "itens_zerados": 0,
         "itens_criticos": 0,
         "itens_excesso": 0,
-        "participacao_venda_pct": 3.11
+        "participacao_venda_pct": 3.1
       },
       {
         "categoria": "Coletores",
@@ -7975,7 +7975,7 @@
         "itens_zerados": 2,
         "itens_criticos": 0,
         "itens_excesso": 0,
-        "participacao_venda_pct": 1.44
+        "participacao_venda_pct": 1.43
       },
       {
         "categoria": "Esterilização",
@@ -8092,10 +8092,10 @@
         {
           "rank": 1,
           "produto": "SORO",
-          "precoCusto": 15989.4,
-          "precoVenda": 26997.6,
-          "pctCusto": 9.59,
-          "pctVenda": 8.82,
+          "precoCusto": 16215.15,
+          "precoVenda": 27311.2,
+          "pctCusto": 9.71,
+          "pctVenda": 8.91,
           "skus": 7
         },
         {
@@ -8103,8 +8103,8 @@
           "produto": "LUVAS",
           "precoCusto": 15155.8,
           "precoVenda": 27952.7,
-          "pctCusto": 9.09,
-          "pctVenda": 9.13,
+          "pctCusto": 9.08,
+          "pctVenda": 9.12,
           "skus": 14
         },
         {
@@ -8113,7 +8113,7 @@
           "precoCusto": 8974.26,
           "precoVenda": 15197.58,
           "pctCusto": 5.38,
-          "pctVenda": 4.97,
+          "pctVenda": 4.96,
           "skus": 16
         },
         {
@@ -8158,7 +8158,7 @@
           "precoCusto": 2915.54,
           "precoVenda": 5558.91,
           "pctCusto": 1.75,
-          "pctVenda": 1.82,
+          "pctVenda": 1.81,
           "skus": 8
         },
         {
@@ -8167,7 +8167,7 @@
           "precoCusto": 2313.92,
           "precoVenda": 4395.4,
           "pctCusto": 1.39,
-          "pctVenda": 1.44,
+          "pctVenda": 1.43,
           "skus": 14
         },
         {
@@ -8194,15 +8194,15 @@
         "produto": "DEMAIS",
         "precoCusto": 100117.36,
         "precoVenda": 183762.08,
-        "pctCusto": 60.05,
-        "pctVenda": 60.03,
+        "pctCusto": 59.97,
+        "pctVenda": 59.97,
         "skus": 163
       },
       "total": {
         "rank": null,
         "produto": "TOTAL",
-        "precoCusto": 166711.36,
-        "precoVenda": 306094.05,
+        "precoCusto": 166937.11,
+        "precoVenda": 306407.65,
         "pctCusto": 100,
         "pctVenda": 100,
         "skus": 259
