@@ -341,6 +341,7 @@ export const CONTEXTUAL_DOCS: Record<string, DocSection> = {
     guidelines: [
       'Fornecedores cadastrados na SmartPOS nunca aparecem nesta lista — apenas registros do tipo CLIENTE.',
       'Use a busca por nome para localizar um cliente específico; a tabela rola horizontalmente para os 13 meses.',
+      'A coluna "Tendência" e o painel "Top 10 Clientes" mostram a mesma série de 13 meses em formato gráfico (mini-linha); passe o mouse sobre o gráfico para ver o valor de cada mês.',
     ],
   },
 

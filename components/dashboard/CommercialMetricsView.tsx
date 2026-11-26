@@ -19,7 +19,9 @@ import { formatCurrency, formatCompactCurrency, formatNumber } from '@/lib/utils
 import { currentMonthRange } from '@/lib/domain/periodRanges'
 import { DocInfoTrigger } from '@/components/ui/DocInfoTrigger'
 import { KpiCard } from '@/components/ui/KpiCard'
+import { Sparkline } from '@/components/ui/Sparkline'
 import { PeriodFilter, PeriodFilterValue } from '@/components/dashboard/PeriodFilter'
+import { ClientPurchaseBehaviorRow, MonthBucket } from '@/lib/metrics/clientPurchaseBehavior'
 import {
   ClientPurchaseBehaviorResponse,
   CommercialKpisResponse,
@@ -49,6 +51,12 @@ function formatIsoDatePt(iso: string | null): string {
   if (!iso) return '—'
   const [year, month, day] = iso.split('-')
   return `${day}/${month}/${year.slice(-2)}`
+}
+
+function sparklineTitle(row: ClientPurchaseBehaviorRow, months: MonthBucket[]): string {
+  return months
+    .map((m, idx) => `${monthYearLabel(m.year, m.month)}: ${formatCurrency(row.monthlyAmounts[idx] ?? 0)}`)
+    .join('\n')
 }
 
 export function CommercialMetricsView() {
@@ -179,6 +187,9 @@ export function CommercialMetricsView() {
   const filteredClientRows = clientBehaviorRows.filter((row) =>
     row.clienteName.toLowerCase().includes(clientFilter.trim().toLowerCase())
   )
+  // Rows already arrive sorted by total desc (see buildClientPurchaseBehavior); the top 10 is
+  // just the head of that list, independent of the name-search filter above.
+  const top10ClientRows = clientBehaviorRows.slice(0, 10)
 
   return (
     <div className="space-y-6">
@@ -421,11 +432,44 @@ export function CommercialMetricsView() {
           />
         </div>
 
+        {top10ClientRows.length > 0 && (
+          <div className="px-5 py-4 border-b border-sap-hairline">
+            <h4 className="text-xs font-semibold text-sap-ink-meta uppercase tracking-wide mb-3">
+              Top 10 Clientes — Tendência nos 13 Meses
+            </h4>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+              {top10ClientRows.map((row, idx) => (
+                <div key={row.customerKey} className="rounded-sap bg-sap-chrome border border-sap-hairline p-2.5">
+                  <div className="flex items-center gap-1.5 text-[11px] text-sap-ink-meta">
+                    <span className="font-semibold text-sap-primary">{idx + 1}º</span>
+                    <span className="truncate" title={row.clienteName}>
+                      {row.clienteName}
+                    </span>
+                  </div>
+                  <div className="mt-1.5 flex items-center justify-center">
+                    <Sparkline
+                      values={row.monthlyAmounts}
+                      width={120}
+                      height={40}
+                      endDotRadius={3}
+                      title={sparklineTitle(row, clientBehaviorMonths)}
+                    />
+                  </div>
+                  <div className="mt-1 text-xs font-semibold text-sap-ink text-right tabular-nums">
+                    {formatCurrency(row.total)}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         <div className="overflow-x-auto max-h-[32rem]">
           <table className="w-full text-left text-xs border-collapse">
             <thead className="bg-sap-canvas border-b border-sap-hairline-strong text-sap-ink-meta sticky top-0 z-20">
               <tr>
                 <th className="py-2.5 px-3 font-semibold sticky left-0 bg-sap-canvas z-10 min-w-[180px]">CLIENTE</th>
+                <th className="py-2.5 px-3 font-semibold text-center min-w-[90px]">TENDÊNCIA</th>
                 <th className="py-2.5 px-3 font-semibold min-w-[120px]">CONTATO</th>
                 <th className="py-2.5 px-3 font-semibold text-center">DESDE</th>
                 <th className="py-2.5 px-3 font-semibold text-center">ÚLTIMA COMPRA</th>
@@ -443,6 +487,12 @@ export function CommercialMetricsView() {
                 <tr key={row.customerKey} className="hover:bg-sap-band-blue/50 transition-colors">
                   <td className="py-2 px-3 font-medium text-sap-ink-body sticky left-0 bg-sap-canvas z-10">
                     {row.clienteName}
+                  </td>
+                  <td className="py-1 px-3 text-center">
+                    <Sparkline
+                      values={row.monthlyAmounts}
+                      title={sparklineTitle(row, clientBehaviorMonths)}
+                    />
                   </td>
                   <td className="py-2 px-3 text-sap-ink-list">{row.contato || '—'}</td>
                   <td className="py-2 px-3 text-center tabular-nums text-sap-ink-list">{formatIsoDatePt(row.desde)}</td>
@@ -462,7 +512,7 @@ export function CommercialMetricsView() {
               ))}
               {!isLoadingClientBehavior && filteredClientRows.length === 0 && (
                 <tr>
-                  <td colSpan={6 + clientBehaviorMonths.length} className="py-8 text-center text-sap-ink-meta">
+                  <td colSpan={7 + clientBehaviorMonths.length} className="py-8 text-center text-sap-ink-meta">
                     {clientBehaviorRows.length === 0
                       ? 'Nenhum cliente com compras no período de 13 meses exibido.'
                       : 'Nenhum cliente encontrado para esta busca.'}
@@ -471,7 +521,7 @@ export function CommercialMetricsView() {
               )}
               {isLoadingClientBehavior && (
                 <tr>
-                  <td colSpan={6 + clientBehaviorMonths.length} className="py-8 text-center text-sap-ink-meta">
+                  <td colSpan={7 + clientBehaviorMonths.length} className="py-8 text-center text-sap-ink-meta">
                     Carregando...
                   </td>
                 </tr>
