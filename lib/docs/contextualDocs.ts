@@ -289,6 +289,61 @@ export const CONTEXTUAL_DOCS: Record<string, DocSection> = {
     ],
   },
 
+  client_purchase_behavior: {
+    id: 'client_purchase_behavior',
+    title: 'Comportamento de Compras por Cliente',
+    shortSummary: 'Valor comprado por cliente, mês a mês, nos últimos 13 meses — quem compra, quanto e com que frequência.',
+    purpose: 'Identificar os clientes que mais compram, detectar quedas de frequência de compra e dar visibilidade a contato/aniversário para ações comerciais, com base exclusivamente nas vendas e no cadastro de clientes da própria SmartPOS.',
+    indicators: [
+      {
+        name: 'Valor Mensal por Cliente',
+        description: 'Soma do faturamento líquido das vendas daquele cliente em cada um dos 13 meses mais recentes.',
+        unit: 'R$',
+      },
+      {
+        name: 'Total no Período',
+        description: 'Soma dos 13 meses exibidos para aquele cliente.',
+        unit: 'R$',
+      },
+      {
+        name: 'Desde (aproximado)',
+        description: 'Data da primeira compra do cliente encontrada dentro dos 13 meses exibidos — não é a data de cadastro real.',
+        unit: 'Data',
+      },
+      {
+        name: 'Última Compra (aproximado)',
+        description: 'Data da última compra do cliente encontrada dentro dos 13 meses exibidos.',
+        unit: 'Data',
+      },
+    ],
+    calculationMemory: [
+      {
+        title: 'Janela de 13 Meses',
+        formula: 'Mês mais recente (atual) + os 12 meses anteriores, sempre rolando mês a mês',
+        rules: [
+          'Clientes sem nenhuma compra dentro desta janela não aparecem na lista — evita poluir a tabela com clientes inativos há muito tempo.',
+        ],
+      },
+      {
+        title: 'Desde e Última Compra',
+        formula: 'Desde = data da venda mais antiga do cliente dentro da janela · Última Compra = data da venda mais recente dentro da janela',
+        rules: [
+          'A SmartPOS não possui um campo de data de cadastro do cliente — por isso "Desde" é uma aproximação baseada apenas no que está visível na janela de 13 meses, não o histórico de vida inteiro do cliente.',
+          'Um cliente que compra há 5 anos mas só aparece pela primeira vez dentro dos últimos 13 meses mostrará "Desde" igual à sua primeira compra recente, não à sua real primeira compra histórica.',
+        ],
+      },
+      {
+        title: 'Aniversário',
+        formula: 'Decodificado do cadastro do cliente na SmartPOS (mês e dia, sem ano)',
+        rules: ['A SmartPOS não armazena o ano de nascimento — apenas dia e mês.'],
+      },
+    ],
+    guidelines: [
+      'Fornecedores cadastrados na SmartPOS nunca aparecem nesta lista — apenas registros do tipo CLIENTE.',
+      'Use a busca por nome para localizar um cliente específico; a tabela rola horizontalmente para os 13 meses.',
+    ],
+  },
+
   restock_plan: {
     id: 'restock_plan',
     title: 'Plano de Ação (Sugestão de Reposição e Gestão de Excesso)',

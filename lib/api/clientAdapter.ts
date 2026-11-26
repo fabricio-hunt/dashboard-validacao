@@ -38,6 +38,19 @@ export interface SmartPosProduct {
   }
 }
 
+export interface SmartPosCustomer {
+  id: number
+  type: string
+  personType?: string
+  companyName?: string
+  fantasyName?: string
+  email?: string
+  phone?: string
+  cellphone?: string
+  birthday?: number
+  cpfCnpj?: string
+}
+
 export interface SmartPosSale {
   id: string
   uniqueIdentifier: string
@@ -48,6 +61,8 @@ export interface SmartPosSale {
   discountAmount: number
   netAmount: number
   profit: number
+  customer?: SmartPosCustomer
+  customerDocument?: string
 }
 
 export interface SmartPosSaleItem {
@@ -215,6 +230,34 @@ export class SmartPosClient {
     return allProducts
   }
 
+  async getCustomersPage(page = 1, size = 100): Promise<{ totalRecords: number; items: SmartPosCustomer[] }> {
+    const { status, data } = await this.requestJson<{ totalRecords: number; items: SmartPosCustomer[] }>(
+      `/customers?page=${page}&size=${size}`
+    )
+    if (status < 200 || status >= 300 || !data) {
+      throw new Error(`Falha ao consultar clientes SmartPOS (HTTP ${status})`)
+    }
+    return data
+  }
+
+  async getAllCustomers(): Promise<SmartPosCustomer[]> {
+    const allCustomers: SmartPosCustomer[] = []
+    let page = 1
+    const size = 100
+
+    while (true) {
+      const result = await this.getCustomersPage(page, size)
+      const items = result.items || []
+      allCustomers.push(...items)
+      if (items.length < size || allCustomers.length >= (result.totalRecords || 0)) {
+        break
+      }
+      page++
+    }
+
+    return allCustomers
+  }
+
   async getSales(startDate: string, endDate: string): Promise<SmartPosSale[]> {
     const start = new Date(`${startDate}T00:00:00-04:00`)
     const end = new Date(`${endDate}T23:59:59-04:00`)
@@ -339,6 +382,13 @@ export class SmartPosClient {
         path: '/products/stock/{id}',
         description: 'Altera o saldo de estoque físico do produto (operações ADD, REMOVE, SET).',
         params: ['productId', 'productVariantId', 'quantity', 'stockOperation'],
+      },
+      {
+        method: 'GET',
+        path: '/customers',
+        description:
+          'Lista o cadastro de clientes e fornecedores (campo "type" distingue CLIENTE de FORNECEDOR). Endpoint não documentado na referência pública da SmartPOS, mas confirmado funcional em produção.',
+        params: ['page', 'size'],
       },
     ]
   }

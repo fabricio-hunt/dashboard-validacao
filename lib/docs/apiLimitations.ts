@@ -32,6 +32,11 @@ export const API_LIMITATIONS: ApiLimitation[] = [
     currentBehavior: 'Cadastro de metas é uma funcionalidade própria deste dashboard (página "Indicadores Comerciais"), não vem do PDV.',
   },
   {
+    topic: 'Data de cadastro do cliente',
+    reason: 'A API não expõe esse campo — nem no cadastro de cliente (/customers) nem na venda.',
+    currentBehavior: '"Desde" é aproximado pela primeira compra encontrada dentro do próprio período de 13 meses exibido, na seção "Comportamento de Compras por Cliente".',
+  },
+  {
     topic: 'Entrada de mercadoria / compras',
     reason: 'A API não expõe nenhum endpoint de recebimento de estoque (compras de fornecedores).',
     currentBehavior: 'Reposição de estoque só é refletida corretamente após uma recontagem física manual.',

@@ -14,13 +14,19 @@ import {
   BarChart,
   LabelList,
 } from 'recharts'
-import { Info, Target, TrendingUp } from 'lucide-react'
+import { Info, Target, TrendingUp, Users } from 'lucide-react'
 import { formatCurrency, formatCompactCurrency, formatNumber } from '@/lib/utils'
 import { currentMonthRange } from '@/lib/domain/periodRanges'
 import { DocInfoTrigger } from '@/components/ui/DocInfoTrigger'
 import { KpiCard } from '@/components/ui/KpiCard'
 import { PeriodFilter, PeriodFilterValue } from '@/components/dashboard/PeriodFilter'
-import { CommercialKpisResponse, MonthlyRevenueResponse, SalesAbcResponse, SalesGoal } from '@/types/commercial'
+import {
+  ClientPurchaseBehaviorResponse,
+  CommercialKpisResponse,
+  MonthlyRevenueResponse,
+  SalesAbcResponse,
+  SalesGoal,
+} from '@/types/commercial'
 
 const MONTH_LABELS_PT = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
 
@@ -35,6 +41,16 @@ function formatDeltaPct(value: number | null): string {
   return `${sign}${value.toFixed(1).replace('.', ',')}% vs período anterior`
 }
 
+function monthYearLabel(year: number, month: number): string {
+  return `${MONTH_LABELS_PT[month - 1]}/${String(year).slice(-2)}`
+}
+
+function formatIsoDatePt(iso: string | null): string {
+  if (!iso) return '—'
+  const [year, month, day] = iso.split('-')
+  return `${day}/${month}/${year.slice(-2)}`
+}
+
 export function CommercialMetricsView() {
   const [period, setPeriod] = useState<PeriodFilterValue>(() => ({ mode: 'current_month', ...currentMonthRange() }))
   const [kpisData, setKpisData] = useState<CommercialKpisResponse | null>(null)
@@ -45,6 +61,10 @@ export function CommercialMetricsView() {
   const [year, setYear] = useState(() => new Date().getFullYear())
   const [monthlyData, setMonthlyData] = useState<MonthlyRevenueResponse | null>(null)
   const [isLoadingMonthly, setIsLoadingMonthly] = useState(true)
+
+  const [clientBehaviorData, setClientBehaviorData] = useState<ClientPurchaseBehaviorResponse | null>(null)
+  const [isLoadingClientBehavior, setIsLoadingClientBehavior] = useState(true)
+  const [clientFilter, setClientFilter] = useState('')
 
   const [goals, setGoals] = useState<SalesGoal[]>([])
   const [goalForm, setGoalForm] = useState({ yearMonth: '', amount: '', token: '' })
@@ -85,6 +105,18 @@ export function CommercialMetricsView() {
     }
   }, [])
 
+  const loadClientBehaviorData = useCallback(async () => {
+    setIsLoadingClientBehavior(true)
+    try {
+      const res = await fetch('/api/commercial/client-purchase-behavior', { cache: 'no-store' })
+      if (res.ok) setClientBehaviorData(await res.json())
+    } catch {
+      // Dado secundário; falha transitória não bloqueia o restante da aba
+    } finally {
+      setIsLoadingClientBehavior(false)
+    }
+  }, [])
+
   const loadGoals = useCallback(async () => {
     try {
       const res = await fetch('/api/commercial/goals', { cache: 'no-store' })
@@ -100,6 +132,7 @@ export function CommercialMetricsView() {
   useEffect(() => {
     loadPeriodData(period.startDate, period.endDate)
     loadMonthlyData(year)
+    loadClientBehaviorData()
     loadGoals()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -140,6 +173,12 @@ export function CommercialMetricsView() {
     bruto: row.grossRevenue,
     liquido: row.netRevenue,
   }))
+
+  const clientBehaviorMonths = clientBehaviorData?.months || []
+  const clientBehaviorRows = clientBehaviorData?.rows || []
+  const filteredClientRows = clientBehaviorRows.filter((row) =>
+    row.clienteName.toLowerCase().includes(clientFilter.trim().toLowerCase())
+  )
 
   return (
     <div className="space-y-6">
@@ -360,6 +399,90 @@ export function CommercialMetricsView() {
               {monthlyData.previousYear}: {formatCurrency((monthlyData.previousRows || []).reduce((acc, r) => acc + r.netRevenue, 0))}
             </span>
           )}
+        </div>
+      </section>
+
+      {/* Comportamento de Compras por Cliente */}
+      <section className="rounded-sap-lg bg-sap-canvas border border-sap-hairline overflow-hidden">
+        <div className="px-5 py-3.5 bg-sap-chrome border-b border-sap-hairline flex flex-col lg:flex-row lg:items-center gap-2.5">
+          <div className="flex items-center gap-2">
+            <Users className="h-4 w-4 text-sap-primary" />
+            <h3 className="text-sm font-semibold text-sap-ink uppercase tracking-wide">
+              Comportamento de Compras por Cliente
+            </h3>
+            <DocInfoTrigger docId="client_purchase_behavior" />
+          </div>
+          <input
+            type="text"
+            placeholder="Buscar cliente..."
+            value={clientFilter}
+            onChange={(e) => setClientFilter(e.target.value)}
+            className="lg:ml-auto px-2.5 py-1.5 rounded-sap bg-sap-canvas border border-sap-hairline text-xs w-full lg:w-56"
+          />
+        </div>
+
+        <div className="overflow-x-auto max-h-[32rem]">
+          <table className="w-full text-left text-xs border-collapse">
+            <thead className="bg-sap-canvas border-b border-sap-hairline-strong text-sap-ink-meta sticky top-0 z-20">
+              <tr>
+                <th className="py-2.5 px-3 font-semibold sticky left-0 bg-sap-canvas z-10 min-w-[180px]">CLIENTE</th>
+                <th className="py-2.5 px-3 font-semibold min-w-[120px]">CONTATO</th>
+                <th className="py-2.5 px-3 font-semibold text-center">DESDE</th>
+                <th className="py-2.5 px-3 font-semibold text-center">ÚLTIMA COMPRA</th>
+                <th className="py-2.5 px-3 font-semibold text-center">ANIV.</th>
+                {clientBehaviorMonths.map((m) => (
+                  <th key={`${m.year}-${m.month}`} className="py-2.5 px-3 font-semibold text-right min-w-[90px]">
+                    {monthYearLabel(m.year, m.month)}
+                  </th>
+                ))}
+                <th className="py-2.5 px-3 font-semibold text-right bg-sap-band-blue/40">TOTAL</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-sap-hairline">
+              {filteredClientRows.map((row) => (
+                <tr key={row.customerKey} className="hover:bg-sap-band-blue/50 transition-colors">
+                  <td className="py-2 px-3 font-medium text-sap-ink-body sticky left-0 bg-sap-canvas z-10">
+                    {row.clienteName}
+                  </td>
+                  <td className="py-2 px-3 text-sap-ink-list">{row.contato || '—'}</td>
+                  <td className="py-2 px-3 text-center tabular-nums text-sap-ink-list">{formatIsoDatePt(row.desde)}</td>
+                  <td className="py-2 px-3 text-center tabular-nums text-sap-ink-list">
+                    {formatIsoDatePt(row.ultimaCompra)}
+                  </td>
+                  <td className="py-2 px-3 text-center tabular-nums text-sap-ink-list">{row.aniversario || '—'}</td>
+                  {row.monthlyAmounts.map((amount, idx) => (
+                    <td key={idx} className="py-2 px-3 text-right tabular-nums text-sap-ink-list">
+                      {amount > 0 ? formatCurrency(amount) : '—'}
+                    </td>
+                  ))}
+                  <td className="py-2 px-3 text-right tabular-nums font-semibold text-sap-ink bg-sap-band-blue/20">
+                    {formatCurrency(row.total)}
+                  </td>
+                </tr>
+              ))}
+              {!isLoadingClientBehavior && filteredClientRows.length === 0 && (
+                <tr>
+                  <td colSpan={6 + clientBehaviorMonths.length} className="py-8 text-center text-sap-ink-meta">
+                    {clientBehaviorRows.length === 0
+                      ? 'Nenhum cliente com compras no período de 13 meses exibido.'
+                      : 'Nenhum cliente encontrado para esta busca.'}
+                  </td>
+                </tr>
+              )}
+              {isLoadingClientBehavior && (
+                <tr>
+                  <td colSpan={6 + clientBehaviorMonths.length} className="py-8 text-center text-sap-ink-meta">
+                    Carregando...
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="px-5 py-3 border-t border-sap-hairline text-xs text-sap-ink-meta">
+          Exibindo {filteredClientRows.length} de {clientBehaviorRows.length} clientes com compras no período · Desde
+          e Última Compra são aproximados pela primeira/última venda dentro dos 13 meses exibidos.
         </div>
       </section>
 

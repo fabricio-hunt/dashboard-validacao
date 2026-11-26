@@ -2,6 +2,7 @@ import { AveragePriceByProductRow, CommercialKpis, GoalProgress, GrowthCompariso
 import { MonthlyRevenueRow, MonthlyYoYRow } from '@/lib/metrics/monthlyRevenue'
 import { SalesAbcRow } from '@/lib/metrics/abcSales'
 import { GoalResolution } from '@/lib/metrics/salesGoalsResolution'
+import { ClientPurchaseBehaviorRow, MonthBucket } from '@/lib/metrics/clientPurchaseBehavior'
 
 export interface PeriodRange {
   startDate: string
@@ -41,6 +42,13 @@ export interface MonthlyRevenueResponse {
   previousYear?: number
   previousRows?: MonthlyRevenueRow[]
   yoy?: MonthlyYoYRow[]
+  origem: CommercialDataOrigin
+  notice?: string
+}
+
+export interface ClientPurchaseBehaviorResponse {
+  months: MonthBucket[]
+  rows: ClientPurchaseBehaviorRow[]
   origem: CommercialDataOrigin
   notice?: string
 }
