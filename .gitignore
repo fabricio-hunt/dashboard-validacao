@@ -33,6 +33,7 @@ pnpm-debug.log*
 
 # Operational exports (contagem física, planilhas de trabalho)
 /exports/
+*.xlsx
 
 # System & knowledge graphs
 .DS_Store
