@@ -345,6 +345,108 @@ export const CONTEXTUAL_DOCS: Record<string, DocSection> = {
     ],
   },
 
+  client_inactivity: {
+    id: 'client_inactivity',
+    title: 'Clientes com Mais de 60 Dias Sem Comprar',
+    shortSummary: 'Lista clientes cuja última compra (dentro dos 13 meses analisados) ocorreu há mais de 60 dias, para ação de recuperação/reativação.',
+    purpose: 'Dar visibilidade aos clientes em risco de abandono silencioso, permitindo ação comercial proativa (contato, oferta) antes da perda definitiva do cliente.',
+    indicators: [
+      {
+        name: 'Dias Sem Comprar',
+        description: 'Dias de calendário desde a última compra do cliente encontrada dentro dos 13 meses analisados.',
+        unit: 'dias',
+      },
+      {
+        name: 'Sem Compra no Período (13+ Meses)',
+        description: 'Clientes cadastrados sem nenhuma compra dentro da janela completa de 13 meses exibida — tratado como caso extremo, sem um número exato de dias.',
+        unit: 'status',
+      },
+    ],
+    calculationMemory: [
+      {
+        title: 'Dias Sem Comprar',
+        formula: 'Dias = Data de Referência − Última Compra (dentro dos 13 meses)',
+        rules: [
+          'Calculado em dias de calendário reais, não por mês cheio.',
+          'Usa a mesma janela de vendas de 13 meses e o mesmo cliente registrado em "Comportamento de Compras por Cliente" — mesma fonte de dados.',
+        ],
+      },
+      {
+        title: 'Sem Compra no Período',
+        formula: 'Cliente cadastrado como CLIENTE sem nenhuma venda dentro dos 13 meses exibidos',
+        rules: [
+          'Aparece como "sem compra há mais de 13 meses" em vez de um número exato de dias, pois vendas anteriores à janela de 13 meses não são lidas — é um piso, não uma métrica precisa.',
+          'Um cliente recém-cadastrado sem nenhuma venda ainda também cai neste grupo — verifique a data de cadastro antes de agir.',
+        ],
+      },
+    ],
+    guidelines: [
+      'Limiar padrão de 60 dias; a rota aceita um parâmetro de limiar diferente se necessário.',
+      'Fornecedores cadastrados na SmartPOS nunca aparecem nesta lista — apenas registros do tipo CLIENTE.',
+    ],
+  },
+
+  stock_projection_60d: {
+    id: 'stock_projection_60d',
+    title: 'Projeção de Reposição de Estoque (60 Dias)',
+    shortSummary: 'Sugestão de quantidade de compra para cobrir a demanda projetada dos próximos 60 dias, combinando velocidade de venda real e déficit estático do estoque mínimo.',
+    purpose: 'Antecipar rupturas de estoque antes que ocorram, priorizando compras por urgência, indo além da regra estática de "abaixo do mínimo" ao incorporar a velocidade de venda recente.',
+    indicators: [
+      {
+        name: 'Velocidade Diária',
+        description: 'Unidades vendidas por dia, calculada a partir das vendas reais dos últimos 60 dias.',
+        unit: 'unid/dia',
+      },
+      {
+        name: 'Dias para Ruptura',
+        description: 'Estoque atual dividido pela velocidade diária — quantos dias faltam até o estoque zerar no ritmo atual de vendas.',
+        unit: 'dias',
+      },
+      {
+        name: 'Sugestão de Compra',
+        description: 'Quantidade recomendada de compra para cobrir o maior entre o déficit atual do estoque mínimo e a demanda projetada dos próximos 60 dias.',
+        unit: 'unidades',
+      },
+      {
+        name: 'Prioridade',
+        description: 'Classificação de urgência da reposição com base nos dias para ruptura.',
+        unit: 'URGENTE/ALTA/MEDIA',
+      },
+    ],
+    calculationMemory: [
+      {
+        title: 'Velocidade Diária',
+        formula: 'Velocidade = Unidades Vendidas (últimos 60 dias) ÷ 60',
+        rules: ['Projeção linear, sem tendência/sazonalidade — assume que o ritmo dos últimos 60 dias se repete nos próximos 60.'],
+      },
+      {
+        title: 'Dias para Ruptura',
+        formula: 'Dias = Estoque Atual ÷ Velocidade Diária',
+        rules: [
+          'Quando a velocidade é zero (sem vendas nos últimos 60 dias), o indicador fica em branco (—), e não "infinito", para não confundir com giro lento legítimo.',
+        ],
+      },
+      {
+        title: 'Sugestão de Compra',
+        formula: 'Sugestão = máx(Déficit do Estoque Mínimo, Demanda Projetada 60D − Estoque Atual, 0)',
+        rules: [
+          'Nunca é negativa.',
+          'Inclui tanto produtos já abaixo do mínimo hoje quanto produtos que vão zerar dentro de 60 dias no ritmo atual de venda.',
+        ],
+      },
+      {
+        title: 'Prioridade',
+        formula: 'URGENTE se estoque <= 0 ou ruptura em até 15 dias; ALTA se ruptura em até 30 dias; MEDIA nos demais casos',
+        rules: ['Mesmas faixas usadas no painel de Reposição do BI Executivo, para consistência visual entre as telas.'],
+      },
+    ],
+    guidelines: [
+      'Estoque atual é reconstruído (última contagem física menos vendas registradas), não uma leitura em tempo real da SmartPOS — a SmartPOS não oferece esse endpoint.',
+      'Produtos com estoque zerado e zero vendas recentes continuam aparecendo pela regra estática, mas sem um prazo de ruptura calculado.',
+      'Lista apenas produtos em risco (ruptura projetada em até 60 dias ou já abaixo do mínimo hoje) — não é a lista completa de produtos com giro.',
+    ],
+  },
+
   restock_plan: {
     id: 'restock_plan',
     title: 'Plano de Ação (Sugestão de Reposição e Gestão de Excesso)',

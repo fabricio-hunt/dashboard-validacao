@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { currentMonthRange, previousEquivalentRange, specificMonthRange, yearRange } from './periodRanges'
+import { currentMonthRange, daysBetweenIso, previousEquivalentRange, specificMonthRange, subtractDaysIso, yearRange } from './periodRanges'
 
 test('currentMonthRange spans from day 1 of the month to the injected "now" day', () => {
   const range = currentMonthRange(new Date(2026, 10, 21)) // Nov 21, 2026 (month is 0-indexed in JS Date)
@@ -51,4 +51,28 @@ test('previousEquivalentRange crosses a year boundary correctly', () => {
     startDate: '2025-12-27',
     endDate: '2025-12-31',
   })
+})
+
+test('daysBetweenIso returns 0 for the same date', () => {
+  assert.equal(daysBetweenIso('2026-11-21', '2026-11-21'), 0)
+})
+
+test('daysBetweenIso returns a positive diff when toDate is later', () => {
+  assert.equal(daysBetweenIso('2026-11-01', '2026-11-21'), 20)
+})
+
+test('daysBetweenIso returns a negative diff when toDate is earlier', () => {
+  assert.equal(daysBetweenIso('2026-11-21', '2026-11-01'), -20)
+})
+
+test('daysBetweenIso crosses a year boundary correctly', () => {
+  assert.equal(daysBetweenIso('2025-12-27', '2026-01-05'), 9)
+})
+
+test('subtractDaysIso subtracts calendar days across a month boundary', () => {
+  assert.equal(subtractDaysIso('2026-11-05', 10), '2026-10-26')
+})
+
+test('subtractDaysIso subtracts calendar days across a year boundary', () => {
+  assert.equal(subtractDaysIso('2026-01-05', 10), '2025-12-26')
 })

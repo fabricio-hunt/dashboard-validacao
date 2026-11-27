@@ -3,6 +3,8 @@ import { MonthlyRevenueRow, MonthlyYoYRow } from '@/lib/metrics/monthlyRevenue'
 import { SalesAbcRow } from '@/lib/metrics/abcSales'
 import { GoalResolution } from '@/lib/metrics/salesGoalsResolution'
 import { ClientPurchaseBehaviorRow, MonthBucket } from '@/lib/metrics/clientPurchaseBehavior'
+import { ClientInactivityRow } from '@/lib/metrics/clientInactivity'
+import { StockProjectionRow } from '@/lib/metrics/stockProjection60d'
 
 export interface PeriodRange {
   startDate: string
@@ -49,6 +51,22 @@ export interface MonthlyRevenueResponse {
 export interface ClientPurchaseBehaviorResponse {
   months: MonthBucket[]
   rows: ClientPurchaseBehaviorRow[]
+  origem: CommercialDataOrigin
+  notice?: string
+}
+
+export interface ClientInactivityResponse {
+  referenceDate: string
+  thresholdDays: number
+  rows: ClientInactivityRow[]
+  origem: CommercialDataOrigin
+  notice?: string
+}
+
+export interface StockProjectionResponse {
+  referenceDate: string
+  windowDays: number
+  rows: StockProjectionRow[]
   origem: CommercialDataOrigin
   notice?: string
 }

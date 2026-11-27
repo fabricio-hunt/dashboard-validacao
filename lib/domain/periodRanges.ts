@@ -61,3 +61,13 @@ export function previousEquivalentRange(startDate: string, endDate: string): Per
 
   return { startDate: fromUtcTimestamp(previousStartTs), endDate: fromUtcTimestamp(previousEndTs) }
 }
+
+/** Real calendar-day difference between two ISO dates (`toDate` − `fromDate`), UTC-based. */
+export function daysBetweenIso(fromDate: string, toDate: string): number {
+  return Math.round((toUtcTimestamp(parseIsoDate(toDate)) - toUtcTimestamp(parseIsoDate(fromDate))) / DAY_MS)
+}
+
+/** `iso` minus `days` calendar days, UTC-based. */
+export function subtractDaysIso(iso: string, days: number): string {
+  return fromUtcTimestamp(toUtcTimestamp(parseIsoDate(iso)) - days * DAY_MS)
+}

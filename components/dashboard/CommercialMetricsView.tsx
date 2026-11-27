@@ -14,7 +14,7 @@ import {
   BarChart,
   LabelList,
 } from 'recharts'
-import { Info, Target, TrendingUp, Users } from 'lucide-react'
+import { Info, Package, Target, TrendingUp, UserX, Users } from 'lucide-react'
 import { formatCurrency, formatCompactCurrency, formatNumber } from '@/lib/utils'
 import { currentMonthRange } from '@/lib/domain/periodRanges'
 import { DocInfoTrigger } from '@/components/ui/DocInfoTrigger'
@@ -23,11 +23,13 @@ import { Sparkline } from '@/components/ui/Sparkline'
 import { PeriodFilter, PeriodFilterValue } from '@/components/dashboard/PeriodFilter'
 import { ClientPurchaseBehaviorRow, MonthBucket } from '@/lib/metrics/clientPurchaseBehavior'
 import {
+  ClientInactivityResponse,
   ClientPurchaseBehaviorResponse,
   CommercialKpisResponse,
   MonthlyRevenueResponse,
   SalesAbcResponse,
   SalesGoal,
+  StockProjectionResponse,
 } from '@/types/commercial'
 
 const MONTH_LABELS_PT = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
@@ -73,6 +75,13 @@ export function CommercialMetricsView() {
   const [clientBehaviorData, setClientBehaviorData] = useState<ClientPurchaseBehaviorResponse | null>(null)
   const [isLoadingClientBehavior, setIsLoadingClientBehavior] = useState(true)
   const [clientFilter, setClientFilter] = useState('')
+
+  const [inactivityData, setInactivityData] = useState<ClientInactivityResponse | null>(null)
+  const [isLoadingInactivity, setIsLoadingInactivity] = useState(true)
+  const [inactivityFilter, setInactivityFilter] = useState('')
+
+  const [stockProjectionData, setStockProjectionData] = useState<StockProjectionResponse | null>(null)
+  const [isLoadingStockProjection, setIsLoadingStockProjection] = useState(true)
 
   const [goals, setGoals] = useState<SalesGoal[]>([])
   const [goalForm, setGoalForm] = useState({ yearMonth: '', amount: '', token: '' })
@@ -125,6 +134,30 @@ export function CommercialMetricsView() {
     }
   }, [])
 
+  const loadInactivityData = useCallback(async () => {
+    setIsLoadingInactivity(true)
+    try {
+      const res = await fetch('/api/commercial/client-inactivity', { cache: 'no-store' })
+      if (res.ok) setInactivityData(await res.json())
+    } catch {
+      // Dado secundário; falha transitória não bloqueia o restante da aba
+    } finally {
+      setIsLoadingInactivity(false)
+    }
+  }, [])
+
+  const loadStockProjectionData = useCallback(async () => {
+    setIsLoadingStockProjection(true)
+    try {
+      const res = await fetch('/api/commercial/stock-projection', { cache: 'no-store' })
+      if (res.ok) setStockProjectionData(await res.json())
+    } catch {
+      // Dado secundário; falha transitória não bloqueia o restante da aba
+    } finally {
+      setIsLoadingStockProjection(false)
+    }
+  }, [])
+
   const loadGoals = useCallback(async () => {
     try {
       const res = await fetch('/api/commercial/goals', { cache: 'no-store' })
@@ -141,6 +174,8 @@ export function CommercialMetricsView() {
     loadPeriodData(period.startDate, period.endDate)
     loadMonthlyData(year)
     loadClientBehaviorData()
+    loadInactivityData()
+    loadStockProjectionData()
     loadGoals()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -190,6 +225,13 @@ export function CommercialMetricsView() {
   // Rows already arrive sorted by total desc (see buildClientPurchaseBehavior); the top 10 is
   // just the head of that list, independent of the name-search filter above.
   const top10ClientRows = clientBehaviorRows.slice(0, 10)
+
+  const inactivityRows = inactivityData?.rows || []
+  const filteredInactivityRows = inactivityRows.filter((row) =>
+    row.clienteName.toLowerCase().includes(inactivityFilter.trim().toLowerCase())
+  )
+
+  const stockProjectionRows = stockProjectionData?.rows || []
 
   return (
     <div className="space-y-6">
@@ -413,6 +455,91 @@ export function CommercialMetricsView() {
         </div>
       </section>
 
+      {/* Projeção de Reposição de Estoque (60 Dias) */}
+      <section className="rounded-sap-lg bg-sap-canvas border border-sap-hairline overflow-hidden">
+        <div className="px-5 py-3.5 bg-sap-chrome border-b border-sap-hairline flex items-center gap-2">
+          <Package className="h-4 w-4 text-sap-primary" />
+          <h3 className="text-sm font-semibold text-sap-ink uppercase tracking-wide">
+            Projeção de Reposição de Estoque (60 Dias)
+          </h3>
+          <DocInfoTrigger docId="stock_projection_60d" />
+        </div>
+
+        <div className="overflow-x-auto max-h-96">
+          <table className="w-full text-left text-xs border-collapse">
+            <thead className="bg-sap-canvas border-b border-sap-hairline-strong text-sap-ink-meta sticky top-0">
+              <tr>
+                <th className="py-2.5 px-3 font-semibold">PRODUTO</th>
+                <th className="py-2.5 px-3 font-semibold">CATEGORIA</th>
+                <th className="py-2.5 px-3 text-right font-semibold">ESTOQUE ATUAL</th>
+                <th className="py-2.5 px-3 text-right font-semibold">VENDIDO (60D)</th>
+                <th className="py-2.5 px-3 text-right font-semibold">VELOCIDADE/DIA</th>
+                <th className="py-2.5 px-3 text-right font-semibold">DIAS P/ RUPTURA</th>
+                <th className="py-2.5 px-3 text-right font-semibold">SUGESTÃO DE COMPRA</th>
+                <th className="py-2.5 px-3 text-right font-semibold">INVESTIMENTO</th>
+                <th className="py-2.5 px-3 text-center font-semibold">PRIORIDADE</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-sap-hairline">
+              {stockProjectionRows.map((row) => (
+                <tr key={row.codigo} className="hover:bg-sap-band-blue/50 transition-colors">
+                  <td className="py-2 px-3 font-medium text-sap-ink-body">{row.produto}</td>
+                  <td className="py-2 px-3 text-sap-ink-list">{row.categoria}</td>
+                  <td className="py-2 px-3 text-right tabular-nums text-sap-ink-list">{formatNumber(row.estoqueAtual)}</td>
+                  <td className="py-2 px-3 text-right tabular-nums text-sap-ink-list">
+                    {formatNumber(row.unitsSoldLast60Days)}
+                  </td>
+                  <td className="py-2 px-3 text-right tabular-nums text-sap-ink-list">
+                    {row.dailyVelocity.toFixed(2).replace('.', ',')}
+                  </td>
+                  <td className="py-2 px-3 text-right tabular-nums text-sap-ink-list">
+                    {row.daysToStockout ?? '—'}
+                  </td>
+                  <td className="py-2 px-3 text-right tabular-nums font-medium text-sap-ink">
+                    {formatNumber(row.sugestaoCompraQtd)}
+                  </td>
+                  <td className="py-2 px-3 text-right tabular-nums text-sap-ink-list">
+                    {formatCurrency(row.investimentoNecessario)}
+                  </td>
+                  <td className="py-2 px-3 text-center">
+                    <span
+                      className={`px-2 py-0.5 rounded-[4px] text-[10px] font-semibold ${
+                        row.prioridade === 'URGENTE'
+                          ? 'bg-rose-100 text-rose-800'
+                          : row.prioridade === 'ALTA'
+                            ? 'bg-amber-100 text-amber-800'
+                            : 'bg-sap-chrome text-sap-ink-body'
+                      }`}
+                    >
+                      {row.prioridade}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+              {!isLoadingStockProjection && stockProjectionRows.length === 0 && (
+                <tr>
+                  <td colSpan={9} className="py-8 text-center text-sap-ink-meta">
+                    Nenhum produto em risco de ruptura nos próximos 60 dias.
+                  </td>
+                </tr>
+              )}
+              {isLoadingStockProjection && (
+                <tr>
+                  <td colSpan={9} className="py-8 text-center text-sap-ink-meta">
+                    Carregando...
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="px-5 py-3 border-t border-sap-hairline text-xs text-sap-ink-meta">
+          Estoque atual é reconstruído a partir da última contagem física menos vendas registradas na SmartPOS (não é
+          uma leitura de estoque em tempo real); velocidade de venda usa os últimos 60 dias reais da SmartPOS.
+        </div>
+      </section>
+
       {/* Comportamento de Compras por Cliente */}
       <section className="rounded-sap-lg bg-sap-canvas border border-sap-hairline overflow-hidden">
         <div className="px-5 py-3.5 bg-sap-chrome border-b border-sap-hairline flex flex-col lg:flex-row lg:items-center gap-2.5">
@@ -533,6 +660,75 @@ export function CommercialMetricsView() {
         <div className="px-5 py-3 border-t border-sap-hairline text-xs text-sap-ink-meta">
           Exibindo {filteredClientRows.length} de {clientBehaviorRows.length} clientes com compras no período · Desde
           e Última Compra são aproximados pela primeira/última venda dentro dos 13 meses exibidos.
+        </div>
+      </section>
+
+      {/* Clientes com Mais de 60 Dias Sem Comprar */}
+      <section className="rounded-sap-lg bg-sap-canvas border border-sap-hairline overflow-hidden">
+        <div className="px-5 py-3.5 bg-sap-chrome border-b border-sap-hairline flex flex-col lg:flex-row lg:items-center gap-2.5">
+          <div className="flex items-center gap-2">
+            <UserX className="h-4 w-4 text-sap-primary" />
+            <h3 className="text-sm font-semibold text-sap-ink uppercase tracking-wide">
+              Clientes com Mais de 60 Dias Sem Comprar
+            </h3>
+            <DocInfoTrigger docId="client_inactivity" />
+          </div>
+          <input
+            type="text"
+            placeholder="Buscar cliente..."
+            value={inactivityFilter}
+            onChange={(e) => setInactivityFilter(e.target.value)}
+            className="lg:ml-auto px-2.5 py-1.5 rounded-sap bg-sap-canvas border border-sap-hairline text-xs w-full lg:w-56"
+          />
+        </div>
+
+        <div className="overflow-x-auto max-h-96">
+          <table className="w-full text-left text-xs border-collapse">
+            <thead className="bg-sap-canvas border-b border-sap-hairline-strong text-sap-ink-meta sticky top-0">
+              <tr>
+                <th className="py-2.5 px-3 font-semibold">CLIENTE</th>
+                <th className="py-2.5 px-3 font-semibold">CONTATO</th>
+                <th className="py-2.5 px-3 text-center font-semibold">ÚLTIMA COMPRA</th>
+                <th className="py-2.5 px-3 text-center font-semibold">DIAS SEM COMPRAR</th>
+                <th className="py-2.5 px-3 text-center font-semibold">ANIV.</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-sap-hairline">
+              {filteredInactivityRows.map((row) => (
+                <tr key={row.customerKey} className="hover:bg-sap-band-blue/50 transition-colors">
+                  <td className="py-2 px-3 font-medium text-sap-ink-body">{row.clienteName}</td>
+                  <td className="py-2 px-3 text-sap-ink-list">{row.contato || '—'}</td>
+                  <td className="py-2 px-3 text-center tabular-nums text-sap-ink-list">
+                    {formatIsoDatePt(row.ultimaCompra)}
+                  </td>
+                  <td className="py-2 px-3 text-center tabular-nums font-medium text-sap-ink">{row.statusLabel}</td>
+                  <td className="py-2 px-3 text-center tabular-nums text-sap-ink-list">{row.aniversario || '—'}</td>
+                </tr>
+              ))}
+              {!isLoadingInactivity && filteredInactivityRows.length === 0 && (
+                <tr>
+                  <td colSpan={5} className="py-8 text-center text-sap-ink-meta">
+                    {inactivityRows.length === 0
+                      ? 'Nenhum cliente com mais de 60 dias sem comprar.'
+                      : 'Nenhum cliente encontrado para esta busca.'}
+                  </td>
+                </tr>
+              )}
+              {isLoadingInactivity && (
+                <tr>
+                  <td colSpan={5} className="py-8 text-center text-sap-ink-meta">
+                    Carregando...
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="px-5 py-3 border-t border-sap-hairline text-xs text-sap-ink-meta">
+          Exibindo {filteredInactivityRows.length} de {inactivityRows.length} clientes com mais de 60 dias sem
+          comprar · "Sem compra há mais de 13 meses" indica que o cliente não teve nenhuma venda dentro da janela de
+          13 meses analisada — um piso, não um número exato de dias.
         </div>
       </section>
 

@@ -24,10 +24,22 @@ interface CachedCustomersEntry {
   customers: SmartPosCustomer[]
 }
 
+interface SoldQuantityRecord {
+  codigo: string
+  quantity: number
+  saleDate: string
+}
+
+interface CachedSoldQuantitiesEntry {
+  expiresAt: number
+  records: SoldQuantityRecord[]
+}
+
 const CACHE_TTL_MS = 5 * 60 * 1000
 const CUSTOMERS_CACHE_TTL_MS = 30 * 60 * 1000
 const periodCache = new Map<string, CachedPeriodEntry>()
 const salesOnlyCache = new Map<string, CachedSalesOnlyEntry>()
+const soldQuantitiesCache = new Map<string, CachedSoldQuantitiesEntry>()
 let customersCache: CachedCustomersEntry | null = null
 
 /**
@@ -93,6 +105,35 @@ export class SalesDataService {
       const sales = await client.getSales(startDate, endDate)
       salesOnlyCache.set(cacheKey, { expiresAt: Date.now() + CACHE_TTL_MS, sales })
       return sales
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'Erro desconhecido na API SmartPOS'
+      throw new SalesDataUnavailableError('api_error', message)
+    }
+  }
+
+  /**
+   * Flattened per-sale-item sold quantities since `startDate`, used to compute sales velocity
+   * for stock projections. Mirrors `getSalesForPeriod`'s caching/error-handling shape.
+   */
+  public static async getSoldQuantitiesSince(startDate: string, endDate?: string): Promise<SoldQuantityRecord[]> {
+    const cacheKey = `${startDate}__${endDate ?? 'today'}`
+    const cached = soldQuantitiesCache.get(cacheKey)
+    if (cached && cached.expiresAt > Date.now()) {
+      return cached.records
+    }
+
+    const client = new SmartPosClient()
+    if (!client.hasCredentials()) {
+      throw new SalesDataUnavailableError(
+        'missing_credentials',
+        'Credenciais SmartPOS não configuradas (SMARTPOS_KEY_ID/SMARTPOS_KEY_SECRET).'
+      )
+    }
+
+    try {
+      const records = await client.getSoldQuantitiesSince(startDate, endDate)
+      soldQuantitiesCache.set(cacheKey, { expiresAt: Date.now() + CACHE_TTL_MS, records })
+      return records
     } catch (error: unknown) {
       const message = error instanceof Error ? error.message : 'Erro desconhecido na API SmartPOS'
       throw new SalesDataUnavailableError('api_error', message)

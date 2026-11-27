@@ -49,7 +49,7 @@ export function buildRollingMonthWindow(anchorYear: number, anchorMonth: number,
   return buckets.reverse()
 }
 
-function bestContact(customer: SmartPosCustomer): string | null {
+export function bestContact(customer: SmartPosCustomer): string | null {
   const candidates = [customer.cellphone, customer.phone, customer.email]
   for (const candidate of candidates) {
     const trimmed = candidate?.trim()
@@ -58,7 +58,7 @@ function bestContact(customer: SmartPosCustomer): string | null {
   return null
 }
 
-function formatBirthday(raw: number | undefined): string | null {
+export function formatBirthday(raw: number | undefined): string | null {
   const decoded = decodeBirthday(raw)
   if (!decoded) return null
   return `${String(decoded.day).padStart(2, '0')}/${String(decoded.month).padStart(2, '0')}`
