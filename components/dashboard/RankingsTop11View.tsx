@@ -139,11 +139,10 @@ export function RankingsTop11View({
           </div>
           <div className="flex items-center gap-3 text-xs">
             <span
-              className={`px-2 py-0.5 rounded-[4px] font-medium border ${
-                salesReport?.origem === 'smartpos_api'
-                  ? 'bg-sap-band-blue text-sap-primary-deep border-sap-primary/25'
-                  : 'bg-sap-canvas text-sap-ink-meta border-sap-hairline'
-              }`}
+              className={`px-2 py-0.5 rounded-[4px] font-medium border ${salesReport?.origem === 'smartpos_api'
+                ? 'bg-sap-band-blue text-sap-primary-deep border-sap-primary/25'
+                : 'bg-sap-canvas text-sap-ink-meta border-sap-hairline'
+                }`}
             >
               {salesReport?.origem === 'smartpos_api'
                 ? `SmartPOS API Ao Vivo (${salesReport.totalSalesCount} vendas)`
